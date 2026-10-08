@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sara Suha — Portfolio
 
-## Getting Started
+Personal design portfolio for Sara Suha, built with Next.js 16 (App Router), React 19 and TypeScript. Styling is plain CSS Modules, and smooth scrolling comes from [Lenis](https://github.com/darkroomengineering/lenis).
 
-First, run the development server:
+## Projects
+
+| # | Project | Description | Case study |
+|---|---------|-------------|------------|
+| 01 | Mello | AI-powered mental health companion | `/work/mello` |
+| 02 | Google Maps Redesign | Safer, more readable navigation for driving at night | Coming soon |
+| 03 | voyAIge | AI that turns scattered travel research into an itinerary you can adapt | Coming soon |
+| 04 | MuseMap | Discovering art, one place at a time | Coming soon |
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Script | What it does |
+|--------|--------------|
+| `npm run dev` | Start the dev server |
+| `npm run build` | Production build |
+| `npm run start` | Serve the production build |
+| `npm run lint` | Run ESLint |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Structure
 
-## Learn More
+```
+src/
+  app/
+    page.tsx              Landing page (hero, work, about, contact)
+    work/[slug]/page.tsx  Case study route
+    not-found.tsx         404 page
+  components/
+    home/                 Landing page sections
+    collage/              Hero collage pieces
+    case/                 Shared case study layout + per-project studies
+  data/
+    projects.ts           Project list, card and preview config
+    site.ts               Name, contact links and nav
+public/
+  images/                 Landing and case study images (webp)
+  icons/                  SVG icons
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Editing content
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Contact links and resume:** update `src/data/site.ts`. The email, LinkedIn and Behance values there are still placeholders. The resume is expected at `public/resume.pdf`.
+- **Project cards:** update `src/data/projects.ts`.
+- **Adding a case study:** create a component under `src/components/case/<slug>/` and register it in the `studies` map in `src/app/work/[slug]/page.tsx`. Only registered slugs get a page.
