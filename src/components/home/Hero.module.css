@@ -1,0 +1,87 @@
+.hero {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 0 clamp(16px, 5vw, 72px) 29px;
+}
+
+.boardWrap {
+  max-width: 1296px;
+  margin-inline: auto;
+}
+
+/* The pinned note: text sits at (104, 95) inside the 740×383 group. */
+.note {
+  position: absolute;
+  left: calc(103.99 * var(--u));
+  top: calc(95.1 * var(--u));
+  width: calc(415 * var(--u));
+  height: calc(262 * var(--u));
+  padding: calc(36 * var(--u)) calc(44 * var(--u));
+  display: flex;
+  flex-direction: column;
+  gap: calc(21 * var(--u));
+  overflow: hidden;
+  color: var(--black);
+}
+
+.noteTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(14 * var(--u));
+  width: calc(308 * var(--u));
+  font-weight: 500;
+  font-size: calc(20 * var(--u));
+  line-height: calc(14.4 * var(--u));
+  letter-spacing: calc(0.81 * var(--u));
+  text-align: center;
+  white-space: nowrap;
+}
+
+.noteLead {
+  width: calc(308 * var(--u));
+  font-size: calc(15 * var(--u));
+  line-height: calc(21 * var(--u));
+  letter-spacing: calc(1 * var(--u));
+}
+
+.noteTags {
+  width: calc(328 * var(--u));
+  font-size: calc(12 * var(--u));
+  line-height: calc(21 * var(--u));
+  letter-spacing: calc(1 * var(--u));
+  white-space: nowrap;
+}
+
+.mobileIntro {
+  display: none;
+}
+
+@media (max-width: 639px) {
+  .mobileIntro {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-top: 28px;
+  }
+
+  .mobileTitle {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.81px;
+  }
+
+  .mobileLead {
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0.5px;
+  }
+
+  .mobileTags {
+    font-size: 11px;
+    line-height: 18px;
+    letter-spacing: 1px;
+    color: var(--muted);
+  }
+}

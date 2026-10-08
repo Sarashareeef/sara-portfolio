@@ -1,0 +1,67 @@
+/*
+ * A collage canvas: set --cw (design width) and --ch (design height) on it.
+ * Every child is positioned in design px multiplied by --u, so the whole
+ * composition scales as one picture at any viewport width.
+ */
+.canvas {
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--cw) / var(--ch);
+}
+
+.stage {
+  --u: calc(100cqw / var(--cw));
+  position: absolute;
+  inset: 0;
+}
+
+.piece {
+  position: absolute;
+  left: calc(var(--x) * var(--u));
+  top: calc(var(--y) * var(--u));
+  width: calc(var(--w) * var(--u));
+  height: calc(var(--h) * var(--u));
+}
+
+.cover {
+  object-fit: cover;
+}
+
+.crop {
+  position: absolute;
+  left: calc(var(--kx) * var(--u));
+  top: calc(var(--ky) * var(--u));
+  width: calc(var(--kw) * var(--u));
+  height: calc(var(--kh) * var(--u));
+}
+
+.clip {
+  overflow: hidden;
+}
+
+/* ---- Draggable stickers ---- */
+.drag {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.drag > * {
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: filter 0.2s ease, scale 0.2s ease;
+}
+
+.drag img {
+  -webkit-user-drag: none;
+}
+
+.dragging > * {
+  cursor: grabbing;
+  scale: 1.03;
+  filter: drop-shadow(0 calc(14 * var(--u)) calc(14 * var(--u)) rgba(45, 31, 20, 0.28));
+}

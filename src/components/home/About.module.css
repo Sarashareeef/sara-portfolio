@@ -1,0 +1,155 @@
+.about {
+  padding-top: 73px;
+}
+
+/*
+ * Desktop: the about block is one 1318 × 1255 composition (scaled by --U).
+ * Below 1024px it becomes a heading, the bio, then a grid of photo groups.
+ */
+.canvas {
+  container-type: inline-size;
+  position: relative;
+  margin-top: 11px;
+  aspect-ratio: 1318 / 1255;
+}
+
+.heading,
+.bio,
+.group {
+  --U: calc(100cqw / 1318);
+  position: absolute;
+}
+
+.heading {
+  left: 0;
+  top: calc(35 * var(--U));
+  font-family: var(--font-serif-stack);
+  font-weight: 400;
+  font-size: calc(115.226 * var(--U));
+  line-height: 0.84;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+}
+
+.bio {
+  left: calc(455 * var(--U));
+  top: calc(187 * var(--U));
+  width: calc(444 * var(--U));
+  display: flex;
+  flex-direction: column;
+  gap: calc(24 * var(--U));
+  font-size: max(14px, calc(17 * var(--U)));
+  line-height: 1.8235;
+}
+
+.bio strong {
+  font-weight: 500;
+}
+
+.group {
+  left: calc(var(--gx) * var(--U));
+  top: calc(var(--gy) * var(--U));
+  width: calc(var(--gw) * var(--U));
+}
+
+.note {
+  position: absolute;
+  left: calc(var(--x) * var(--u));
+  top: calc(var(--y) * var(--u));
+  width: calc(var(--w) * var(--u));
+  font-size: max(11px, calc(15 * var(--u)));
+  line-height: 1.8;
+  white-space: nowrap;
+}
+
+.note strong,
+.caption strong {
+  font-weight: 500;
+}
+
+.craft .note {
+  white-space: normal;
+}
+
+.scribble {
+  display: block;
+  font-size: max(11px, calc(15 * var(--u)));
+  line-height: calc(27 * var(--u));
+  white-space: nowrap;
+}
+
+.caption {
+  position: absolute;
+  left: 58.79%;
+  top: 15.65%;
+  font-size: max(11px, calc(15 * var(--U)));
+  line-height: 1.8;
+  white-space: nowrap;
+}
+
+@media (max-width: 1023px) {
+  .canvas {
+    aspect-ratio: auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 56px 40px;
+    align-items: start;
+    margin-top: 0;
+    padding-top: 40px;
+  }
+
+  .heading,
+  .bio,
+  .group {
+    position: static;
+    width: auto;
+  }
+
+  .heading {
+    grid-column: 1 / -1;
+    font-size: clamp(52px, 11vw, 96px);
+  }
+
+  .bio {
+    grid-column: 1 / -1;
+    max-width: 560px;
+    font-size: 16px;
+    line-height: 1.8;
+    gap: 20px;
+    margin-top: -16px;
+  }
+
+  .group {
+    justify-self: center;
+    width: 100%;
+    max-width: calc(var(--gw) * 1px);
+  }
+
+  /* Café group: drop the empty right half (the caption moves below). */
+  .cafe {
+    grid-column: 1 / -1;
+    max-width: 560px;
+  }
+
+  .cafe > div {
+    --cw: 506 !important;
+  }
+
+  .caption {
+    position: static;
+    margin-top: 16px;
+    font-size: 15px;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 639px) {
+  .canvas {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 48px;
+  }
+
+  .bio {
+    font-size: 15px;
+  }
+}

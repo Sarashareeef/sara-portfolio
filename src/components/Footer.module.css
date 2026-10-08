@@ -1,0 +1,41 @@
+.footer {
+  border-top: 0.928px solid var(--black);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.copy {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 14.4px;
+  letter-spacing: 0.81px;
+}
+
+.talk {
+  font-size: 15px;
+  line-height: 14.4px;
+  letter-spacing: 0.81px;
+  text-decoration: underline;
+  text-decoration-thickness: 15%;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.talk:hover {
+  color: var(--muted);
+}
+
+@media (max-width: 479px) {
+  .copy,
+  .talk {
+    font-size: 12px;
+  }
+}

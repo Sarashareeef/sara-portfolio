@@ -1,0 +1,157 @@
+/* ---- Section header row: "WORK ........ 01 — 04" ---- */
+.sectionHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 0.556px solid var(--black);
+  padding-top: 12px;
+  min-height: 28px;
+  font-size: 14px;
+  line-height: 15px;
+  letter-spacing: 1.5px;
+}
+
+.sectionLabel {
+  font-weight: 600;
+}
+
+.sectionAside {
+  color: var(--grey);
+  text-align: right;
+}
+
+/* ---- Work ---- */
+.work {
+  padding-top: 99px; /* 53 section gap + 46 */
+  padding-bottom: 141px;
+}
+
+.display {
+  padding-top: 45px;
+  font-family: var(--font-serif-stack);
+  font-weight: 400;
+  font-size: clamp(60px, 8.5vw, 122.427px);
+  line-height: 0.84;
+  letter-spacing: -0.035em;
+}
+
+.metaRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 70px;
+  padding-bottom: 18px;
+  font-size: 12px;
+  line-height: 12px;
+  letter-spacing: 1.04px;
+  color: var(--grey);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 104px 48px;
+  padding-block: 49px;
+  border-top: 0.556px solid var(--rule-soft);
+  justify-items: start;
+}
+
+/* ---- Contact ---- */
+.contact {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  padding-top: 180px;
+  padding-bottom: 131px;
+}
+
+.contactTitle {
+  max-width: 747px;
+  font-family: var(--font-serif-stack);
+  font-weight: 400;
+  font-size: clamp(48px, 7vw, 100.822px);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+.contactLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 57.5px;
+  width: 213px;
+  padding-left: 83px;
+  padding-bottom: 87px;
+  font-size: 24px;
+  line-height: 16.5px;
+}
+
+.contactLinks a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.contactLinks a:hover {
+  color: var(--muted);
+}
+
+@media (max-width: 1023px) {
+  .work {
+    padding-bottom: 96px;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 72px;
+  }
+
+  .contactLinks {
+    padding-left: 0;
+    width: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .work {
+    padding-top: 64px;
+    padding-bottom: 72px;
+  }
+
+  .display {
+    padding-top: 32px;
+  }
+
+  .metaRow {
+    padding-top: 40px;
+    font-size: 10px;
+    letter-spacing: 0.8px;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+    padding-block: 32px;
+    justify-items: center;
+  }
+
+  .sectionHead {
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .contact {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 80px;
+    padding-bottom: 72px;
+  }
+
+  .contactLinks {
+    gap: 28px;
+    padding-bottom: 0;
+    font-size: 18px;
+  }
+}

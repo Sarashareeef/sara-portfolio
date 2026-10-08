@@ -1,0 +1,222 @@
+.wrap {
+  padding-top: 85px;
+  padding-bottom: 20px;
+}
+
+.inner {
+  border-top: 0.556px solid var(--black);
+  padding-top: 15px;
+}
+
+.label {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.block {
+  margin-top: 45px;
+}
+
+.h2 {
+  font-family: var(--font-serif-stack);
+  font-weight: 400;
+  font-size: 44px;
+  line-height: normal;
+}
+
+.sub {
+  margin-top: 4px;
+  font-size: 17px;
+  line-height: 23.8px;
+  color: var(--muted);
+}
+
+.cards {
+  margin-top: 45px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px 28.8px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 228px;
+  padding: 30px 36px;
+  border: 0.556px solid;
+  border-radius: 21.6px;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.lilac {
+  background: #f5f3fc;
+  border-color: #e6e1f7;
+  --badge: #e3dff7;
+}
+
+.rose {
+  background: #fcf4f6;
+  border-color: #f7e4e8;
+  --badge: #f6e3e6;
+}
+
+.sky {
+  background: #f1f5fc;
+  border-color: #e1eaf7;
+  --badge: #dce7f7;
+}
+
+.sand {
+  background: #fcf7f1;
+  border-color: #f7efe1;
+  --badge: #f7ecd5;
+}
+
+.badge {
+  align-self: flex-start;
+  padding: 5.4px 14.4px;
+  border-radius: 90px;
+  background: var(--badge);
+  font-family: var(--font-serif-stack);
+  font-size: 14.4px;
+  line-height: normal;
+}
+
+.cardTitle {
+  margin-top: 7px;
+  font-family: var(--font-serif-stack);
+  font-weight: 400;
+  font-size: 37.8px;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.cardBody {
+  margin-top: 14.4px;
+  max-width: 598px;
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--muted);
+}
+
+.experienceHead {
+  margin-top: 32px;
+}
+
+.jobs {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 553fr 433fr 330fr;
+  gap: 24px;
+}
+
+.job {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.company {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.role {
+  font-size: 17px;
+  line-height: 23.8px;
+}
+
+.tags {
+  font-size: 15px;
+  line-height: 21px;
+  color: var(--muted);
+}
+
+.jobLink {
+  display: inline-block;
+  font-size: 16px;
+  line-height: 22.4px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+
+.jobLink:hover {
+  color: var(--muted);
+}
+
+@media (min-width: 1024px) {
+  .company,
+  .role {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 1023px) {
+  .jobs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 36px 24px;
+  }
+
+  .cardTitle {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 767px) {
+  .wrap {
+    padding-top: 64px;
+  }
+
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .card {
+    min-height: 0;
+    padding: 26px 24px;
+  }
+
+  .cardTitle {
+    font-size: 28px;
+  }
+
+  .cardBody {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .h2 {
+    font-size: 38px;
+  }
+
+  .sub {
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .jobs {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .company {
+    font-size: 18px;
+  }
+
+  .role {
+    font-size: 15px;
+  }
+
+  .tags {
+    font-size: 14px;
+  }
+}
