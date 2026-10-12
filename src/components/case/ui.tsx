@@ -82,6 +82,7 @@ export function Figure({
   className,
   sizes = "(max-width: 1100px) 92vw, 1112px",
   priority,
+  unoptimized,
 }: {
   src: string;
   w: number;
@@ -90,6 +91,7 @@ export function Figure({
   className?: string;
   sizes?: string;
   priority?: boolean;
+  unoptimized?: boolean;
 }) {
   return (
     <div className={`${styles.figure} ${className ?? ""}`} style={{ aspectRatio: `${w} / ${h}` }}>
@@ -101,6 +103,7 @@ export function Figure({
         className={styles.cover}
         loading={priority ? "eager" : "lazy"}
         fetchPriority={priority ? "high" : undefined}
+        unoptimized={unoptimized}
       />
     </div>
   );
@@ -114,6 +117,7 @@ export function BrowserFrame({
   w,
   h,
   alt = "",
+  unoptimized,
 }: {
   src: string;
   url: string;
@@ -121,6 +125,8 @@ export function BrowserFrame({
   w: number;
   h: number;
   alt?: string;
+  /** Serve the file as-is (skips Next's re-encode, which softens fine UI detail). */
+  unoptimized?: boolean;
 }) {
   return (
     <div className={styles.browser}>
@@ -131,7 +137,7 @@ export function BrowserFrame({
         <b />
         <span>{url}</span>
       </div>
-      <Figure src={src} w={w} h={h} alt={alt} priority />
+      <Figure src={src} w={w} h={h} alt={alt} priority unoptimized={unoptimized} />
     </div>
   );
 }
@@ -150,6 +156,7 @@ export function CaseHero({
   lead,
   meta,
   children,
+  className,
 }: {
   name: string;
   tag: string;
@@ -157,9 +164,10 @@ export function CaseHero({
   lead: ReactNode;
   meta: { label: string; value: string }[];
   children?: ReactNode;
+  className?: string;
 }) {
   return (
-    <Section id="intro" className={styles.hero}>
+    <Section id="intro" className={`${styles.hero} ${className ?? ""}`}>
       <div className={styles.eyebrow}>
         <span className={styles.eyebrowName}>{name}</span>
         <span className={styles.eyebrowLine} />

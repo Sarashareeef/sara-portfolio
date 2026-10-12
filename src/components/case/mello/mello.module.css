@@ -1,3 +1,27 @@
+/* ---- Section overrides ----
+   The Figma frames for the hero and reflection clip part of their 80px bottom
+   padding, so the visible gap below each is ~41px / ~65px. */
+section.hero {
+  padding-bottom: 41px;
+}
+
+section.reflection {
+  padding-bottom: 65px;
+}
+
+section.overview {
+  padding-top: 33px;
+}
+
+/* Line heights are fixed px in every frame, while the size drops to 28px. */
+h2.titleTight {
+  line-height: 50.6px;
+}
+
+h2.titleChallenge {
+  line-height: 48px;
+}
+
 /* ---- Experience at a glance ---- */
 .glance {
   margin-top: 16px;
@@ -40,32 +64,52 @@
 }
 
 /* ---- Technical pipeline ---- */
+/* Desktop: two rows as drawn in Figma — User → 01–04 (left-aligned), then
+   05–07 (centred), 32px apart. Every card shares one width (flex basis 190px,
+   shrinking together) and one height: the rows are equal grid tracks, and the
+   cards stretch to fill them. Below ~930px of space (the @container rule) the
+   flow becomes one centred column of 200px cards, as in the tablet and phone
+   frames, with a single fixed card height. */
 .pipeline {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  justify-content: center;
-  gap: 16px;
-  padding-block: 16px;
+  container-type: inline-size;
+  padding-top: 16px;
 }
 
-.break {
-  flex-basis: 100%;
-  height: 0;
+.pipeGrid {
+  display: grid;
+  grid-auto-rows: 1fr;
+  row-gap: 32px;
+}
+
+.pipeRow {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+}
+
+.pipeRow + .pipeRow {
+  justify-content: center;
 }
 
 .chev {
+  flex: none;
+  width: 10px; /* the arrow's 10px slot in Figma */
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .userNode {
+  flex: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
   width: 95px;
   text-align: center;
+}
+
+.userNode .centerName {
+  margin-bottom: 0;
 }
 
 .userIcon,
@@ -79,7 +123,7 @@
 .userIcon {
   width: 48px;
   height: 48px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   background: #fdeee7;
 }
 
@@ -87,8 +131,10 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 190px;
-  min-height: 193px;
+  /* One width for all seven cards: 190px, or whatever four cards can share in
+     row 1 after the user node (95), five arrows (5 × 10) and nine 16px gaps. */
+  flex: none;
+  width: min(190px, calc((100cqi - 289px) / 4));
   padding: 12px;
   background: var(--white);
   border: 0.928px solid #ece8e2;
@@ -185,15 +231,43 @@
   margin-bottom: 8px;
 }
 
-.center .centerDesc,
-.userNode .centerDesc {
+.center .centerDesc {
   line-height: 12.7px;
 }
 
+.userNode .centerDesc {
+  line-height: 11.8px;
+}
+
 /* ---- Impact ---- */
-.impactTitle {
+.impactLabel {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 14px;
+  line-height: 20.16px;
+  color: var(--grey);
+  white-space: nowrap;
+}
+
+.impactLabelNum {
+  letter-spacing: 1.61px;
+}
+
+.impactLabelLine {
+  flex: 1;
+  height: 1.392px;
+  background: #ddd8d0;
+}
+
+.impactLabelText {
+  letter-spacing: 1.34px;
+  text-transform: uppercase;
+}
+
+h2.impactTitle {
   padding-top: 56px;
-  line-height: 1.5;
+  line-height: 78.9px;
 }
 
 .stats {
@@ -237,12 +311,12 @@
 
 .statBig {
   font-size: clamp(40px, 4.5vw, 60px);
-  line-height: 1;
+  line-height: 60.1px;
 }
 
 .statMid {
   font-size: 37px;
-  line-height: 1;
+  line-height: 37px;
 }
 
 .statLabel,
@@ -252,6 +326,10 @@
 }
 
 .statLabel {
+  /* 2px lower than the flow puts it, matching the frames without changing the
+     cell height (191.6px). */
+  position: relative;
+  top: 2px;
   padding-top: 12px;
   font-size: 13px;
   line-height: 19.5px;
@@ -277,12 +355,12 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 64px;
-  padding-top: 28px;
+  padding-top: 48px;
   align-items: start;
 }
 
 .split > div:first-child > p:first-child {
-  padding-top: 20px;
+  padding-top: 0;
 }
 
 /* ---- Design question ---- */
@@ -314,19 +392,40 @@
   color: #6b6a78;
 }
 
-.balance {
+/* 4 columns when each cell gets its Figma width (~278px); otherwise the
+   tablet (2×2) and phone (1 column) arrangements from the Figma frames.
+   Dividers follow the Figma build: grid draws top/right, cells draw left/bottom,
+   so no line is ever doubled whatever the column count. */
+.balanceWrap {
+  container-type: inline-size;
   margin-top: 24px;
+}
+
+.balance {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  border: 0.928px solid #e5dfd9;
+  border-top: 0.928px solid #e5dfd9;
+  border-right: 0.928px solid #e5dfd9;
 }
 
 .balance > div {
   display: flex;
+  align-items: flex-start;
   gap: 16px;
   padding: 24px;
   border-left: 0.928px solid #e5dfd9;
   border-bottom: 0.928px solid #e5dfd9;
+}
+
+/* Desktop text column: 160px in Figma. The -4px lets "HUMAN EXPRESSION"
+   (160.2px) stay on one line as drawn, while "CLINICAL STRUCTURE" still wraps. */
+.balanceText {
+  min-width: 0;
+  margin-right: -4px;
+}
+
+.balanceDesc {
+  max-width: 160px;
 }
 
 .balanceIcon {
@@ -349,6 +448,7 @@
 
 .balanceName {
   margin-block: 8px;
+  overflow-wrap: normal;
   font-family: var(--font-inter), sans-serif;
   font-weight: 700;
   font-size: 15.2px;
@@ -400,6 +500,10 @@
   line-height: 25.84px;
 }
 
+.needKey {
+  padding-bottom: 0.93px;
+}
+
 .needVal {
   color: var(--muted);
 }
@@ -410,6 +514,11 @@
   flex-direction: column;
   gap: 80px;
   padding-top: 64px;
+}
+
+.experience h3 {
+  line-height: 66px;
+  padding-block: 0;
 }
 
 .pair {
@@ -429,19 +538,28 @@
   max-width: 896px;
 }
 
-.table {
+.scrollHint {
+  display: none;
+}
+
+.tableWrap {
+  position: relative;
   margin-top: 32px;
+}
+
+.table {
   border-bottom: 0.928px solid #909aa8;
 }
 
 .thead,
 .tr {
   display: grid;
-  grid-template-columns: 324fr 378fr 362fr;
+  grid-template-columns: 324fr 378fr 378fr;
   padding-inline: 16px;
 }
 
 .thead {
+  height: 50.19px;
   padding-block: 12px;
   border-bottom: 0.928px solid #909aa8;
   font-family: var(--font-geist-mono), monospace;
@@ -497,6 +615,11 @@
   color: var(--muted);
 }
 
+/* ---- Case-study strip (tablet + phone frames only) ---- */
+.caseStrip {
+  display: none;
+}
+
 /* ---- Reflection ---- */
 .learnings {
   display: flex;
@@ -517,113 +640,305 @@
 }
 
 /* ---- Responsive ---- */
-@media (max-width: 1023px) {
-  .glance,
+@container (max-width: 1060px) {
+  .pipeRow {
+    gap: 12px;
+  }
+
+  .card {
+    width: min(190px, calc((100cqi - 253px) / 4));
+  }
+}
+
+@container (max-width: 929px) {
+  .pipeGrid {
+    display: block;
+  }
+
+  .pipeRow,
+  .pipeRow + .pipeRow {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* 32px between 04 and 05, where the frame's two stacks meet. */
+  .pipeRow + .pipeRow {
+    margin-top: 32px;
+  }
+
+  /* One size for every card in the column: 200px wide (Figma) and tall enough
+     for the tallest card (Input Data, 210px in the frame). */
+  .card {
+    flex: none;
+    width: 200px;
+    height: 212px;
+  }
+
+  /* The tablet and phone frames stack the stages without arrows. */
+  .chev {
+    display: none;
+  }
+}
+
+@container (max-width: 1099px) {
   .balance {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .statsRow4 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .balanceText {
+    margin-right: 0;
   }
 
-  .statsRow4 > div {
-    border-bottom: 0.928px solid var(--muted);
-    padding: 36px 24px 28px;
+  .balanceName {
+    white-space: nowrap;
   }
 
-  .split {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 32px;
-  }
-}
-
-@media (max-width: 767px) {
-  .chev,
-  .break {
-    display: none;
-  }
-
-  .pipeline {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-  }
-
-  .userNode {
-    grid-column: 1 / -1;
-    justify-self: center;
-    width: 160px;
-  }
-
-  .card {
-    width: auto;
-  }
-
-  .statsRow3 {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .statsRow3 > div {
-    border-bottom: 0.928px solid var(--muted);
-  }
-
-  .statsRow3 > div:last-child {
-    border-bottom: 0;
-  }
-
-  .statMid {
-    font-size: 32px;
-  }
-
-  .impactNote {
-    font-size: 15px;
-    line-height: 28px;
-  }
-
-  .needs > li {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .pair {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .expImg,
-  .pair {
-    margin-top: 24px;
-    padding-top: 0;
-  }
-
-  .thead {
-    display: none;
-  }
-
-  .tr {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 12px;
-    padding: 24px 16px;
-  }
-
-  .what,
-  .resp {
-    padding-left: 0;
+  /* Fills the cell; at tablet width this lands on Figma's 234px column. */
+  .balanceDesc {
     max-width: none;
   }
 }
 
-@media (max-width: 559px) {
-  .glance,
+@container (max-width: 599px) {
   .balance {
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .balanceDesc {
+    max-width: 221px;
+  }
+}
+
+/* Tablet (Figma "mello tablet", 768) — from the sidebar breakpoint down. */
+@media (max-width: 1099px) {
+  section.hero {
+    padding-bottom: 37px;
+  }
+
+  section.overview {
+    padding-top: 80px;
+  }
+
+  section.reflection {
+    padding-bottom: 96px;
+  }
+
+  .glance {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  h2.impactTitle {
+    padding-top: 21px;
+  }
+
+  .stats {
+    margin-top: 7px;
+  }
+
   .statsRow4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .statsRow4 > div:nth-child(-n + 2) {
+    border-bottom: 0.93px solid var(--muted);
+  }
+
+  .statBig {
+    font-size: 36px;
+  }
+
+  .statMid {
+    font-size: 24px;
+  }
+
+  .split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .questionLabel {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .question {
+    font-size: 24px;
+    line-height: 57px;
+  }
+
+  .caseStrip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    /* The frame leaves 17px under the 84px strip before the next rule. */
+    padding: 32px 32px 49px;
+    border-top: 0.928px solid var(--grey);
+  }
+
+  .caseStrip p,
+  .caseStrip a {
+    white-space: nowrap;
+  }
+
+  .caseStrip p {
+    font-size: 9.28px;
+    line-height: 13.92px;
+    letter-spacing: 0.93px;
+    color: var(--muted);
+  }
+
+  .caseStrip a {
+    padding-bottom: 1px;
+    border-bottom: 0.928px solid var(--black);
+    font-size: 11.2px;
+    line-height: 16.8px;
+    letter-spacing: 0.9px;
+    white-space: nowrap;
+  }
+}
+
+/* Phone (Figma "mello phone", 403). */
+@media (max-width: 599px) {
+  /* ~70px from the hero links to the Overview label, as drawn. */
+  section.hero {
+    padding-bottom: 35px;
+  }
+
+  section.overview {
+    padding-top: 35px;
+  }
+
+  /* The phone frame shows the challenge diagram at 339 × 257, trimming the
+     image's side margins (object-fit: cover); the inline ratio is the desktop one. */
+  .challengeImg {
+    aspect-ratio: 339 / 257 !important;
+  }
+
+  section.reflection {
+    padding-bottom: 80px;
+  }
+
+  h2.impactTitle {
+    padding-top: 56px;
+  }
+
+  .stats {
+    margin-top: 80px;
+  }
+
+  section.impact {
+    padding-top: 44px;
+  }
+
+  /* As drawn: numbers 32px in, with PRECISION nudged left to fit its cell. */
+  .statsRow3 > div {
+    padding: 28px 0 28px 32px;
+  }
+
+  .statsRow3 > div:first-child .statLabelSm {
+    margin-left: -15px;
+  }
+
+  /* "AVG API RESPONSE" wraps inside its 105px column, as in the frame. */
+  .statLabel {
+    white-space: normal;
+  }
+
+  .impactNote {
+    font-size: 15px;
+  }
+
+  /* Hanging indent: a wrapped title lines up under the text, not the number. */
+  .experience h3 {
+    font-size: 28px;
+    line-height: 45px;
+    padding-left: 2.3em;
+    text-indent: -2.3em;
+  }
+
+  .pair {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .pipeline {
-    grid-template-columns: minmax(0, 1fr);
+  .narrow {
+    font-size: 14px;
+  }
+
+  /* The phone frame shrinks the whole table to ~5px text. Here the table keeps
+     its tablet columns at full size and scrolls sideways inside its own box;
+     a fade at the right edge (gone once the end is reached, where supported)
+     and the hint above show that there is more. */
+  .scrollHint {
+    display: block;
+    padding-top: 24px;
+    text-align: right;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.93px;
+    color: var(--muted);
+  }
+
+  .tableWrap {
+    margin-top: 8px;
+    timeline-scope: --issues;
+  }
+
+  .tableScroll {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-timeline: --issues x;
+  }
+
+  .tableScroll:focus-visible {
+    outline: 1px solid var(--black);
+    outline-offset: 2px;
+  }
+
+  .table {
+    min-width: 640px;
+  }
+
+  .tableWrap::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 40px;
+    background: linear-gradient(to right, rgb(255 255 255 / 0), var(--white));
+    pointer-events: none;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .tableWrap::after {
+      animation: issuesFade linear both;
+      animation-timeline: --issues;
+    }
+  }
+
+  .caseStrip {
+    padding: 24px 22px 18px 32px;
+  }
+
+  .caseStrip p {
+    font-size: 7px;
+  }
+
+  .caseStrip a {
+    font-size: 8px;
+  }
+}
+
+@keyframes issuesFade {
+  0%,
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
   }
 }

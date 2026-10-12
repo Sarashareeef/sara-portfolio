@@ -182,6 +182,7 @@ export default function Mello() {
   return (
     <CaseLayout toc={toc}>
       <CaseHero
+        className={s.hero}
         name="MELLO"
         tag="AI + MENTAL HEALTH"
         title={
@@ -199,7 +200,7 @@ export default function Mello() {
           { label: "TIMELINE", value: "6 MONTHS" },
         ]}
       >
-        <BrowserFrame src={img("hero")} url="mello.app" bar="#fcf0f7" w={1110.5} h={560.2} alt="Mello web experience" />
+        <BrowserFrame unoptimized src={img("hero")} url="mello.app" bar="#fcf0f7" w={1110.5} h={560.2} alt="Mello web experience" />
         <TextLinks
           links={[
             { label: "VIEW LIVE PRODUCT ↗", href: "#" },
@@ -209,8 +210,8 @@ export default function Mello() {
       </CaseHero>
 
       {/* 01 — Overview */}
-      <Section id="overview" num="01" label="OVERVIEW" style={{ paddingTop: 33 }}>
-        <H2>What is Mello?</H2>
+      <Section id="overview" num="01" label="OVERVIEW" className={s.overview}>
+        <H2 className={s.titleTight}>What is Mello?</H2>
         <P light>
           Mello is an AI-driven mental-health screening and conversational support system designed to combine
           structured psychological assessments with natural-language interaction.
@@ -239,43 +240,50 @@ export default function Mello() {
         </div>
 
         <Kicker>TECHNICAL PIPELINE</Kicker>
+        {/* Two rows as in the desktop design (User → 01–04, then 05–07); below the
+            container breakpoint both rows stack into one centred column. */}
         <div className={s.pipeline}>
-          <div className={s.userNode}>
-            <span className={s.userIcon}>
-              <Icon src={icon("user")} w={13.5} h={16.8} />
-            </span>
-            <p className={s.centerName}>USER</p>
-            <p className={s.centerDesc}>Provides questionnaire responses and conversational input</p>
+          <div className={s.pipeGrid}>
+            <div className={s.pipeRow}>
+              <div className={s.userNode}>
+                <span className={s.userIcon}>
+                  <Icon src={icon("user")} w={13.5} h={16.8} />
+                </span>
+                <p className={s.centerName}>USER</p>
+                <p className={s.centerDesc}>Provides questionnaire responses and conversational input</p>
+              </div>
+              <Chevron />
+              <PipeCard
+                n="01"
+                title="Input Data"
+                subs={[
+                  { icon: "file-text", w: 9.2, h: 11, bg: "#fee9ea", title: "PHQ-8 / PCL-C", desc: "Structured questionnaire responses" },
+                  { icon: "message-small", w: 11, h: 11, bg: "#f2ebfd", title: "Conversational Input", desc: "Free-form natural language responses" },
+                ]}
+              />
+              <Chevron />
+              <PipeCard
+                n="02"
+                title="Preprocessing"
+                subs={[
+                  { icon: "sparkles-small", w: 11, h: 11, bg: "#f2ebfd", title: "Questionnaire Data", desc: "Normalization (StandardScaler)" },
+                  { icon: "align-left", w: 10, h: 8, bg: "#f2ebfd", title: "Text Data", desc: "Cleaning, tokenization, preprocessing" },
+                ]}
+              />
+              <Chevron />
+              <CenterCard n="03" title="Semantic Embeddings" icon="git-branch" w={18.3} h={18.3} bg="#f2ebfd" name="all-MiniLM-L6-v2" desc="384-dimensional sentence embeddings from conversational text" />
+              <Chevron />
+              <CenterCard n="04" title="Feature Fusion" icon="layers" w={20.2} h={20.2} bg="#fdeee7" name="Combine features" desc="Concatenate questionnaire features with semantic embeddings" />
+              <Chevron />
+            </div>
+            <div className={s.pipeRow}>
+              <CenterCard n="05" title="Classification" icon="cpu" w={20.2} h={20.2} bg="#fee9ea" name="XGBoost" desc="Mental-health classification using optimized parameters (GridSearchCV)" />
+              <Chevron />
+              <CenterCard n="06" title="Contextual Response" icon="sparkles-violet" w={20.2} h={20.2} bg="#f2ebfd" name="Google Gemini" desc="Generates empathetic, context-aware conversational response using classification output" />
+              <Chevron />
+              <CenterCard n="07" title="User Interface" icon="smartphone" w={14.2} h={20.2} bg="#fdeee7" name="Mello conversation" desc="Displays classification insights and provides conversational support in a user-friendly interface" />
+            </div>
           </div>
-          <Chevron />
-          <PipeCard
-            n="01"
-            title="Input Data"
-            subs={[
-              { icon: "file-text", w: 9.2, h: 11, bg: "#fee9ea", title: "PHQ-8 / PCL-C", desc: "Structured questionnaire responses" },
-              { icon: "message-small", w: 11, h: 11, bg: "#f2ebfd", title: "Conversational Input", desc: "Free-form natural language responses" },
-            ]}
-          />
-          <Chevron />
-          <PipeCard
-            n="02"
-            title="Preprocessing"
-            subs={[
-              { icon: "sparkles-small", w: 11, h: 11, bg: "#f2ebfd", title: "Questionnaire Data", desc: "Normalization (StandardScaler)" },
-              { icon: "align-left", w: 10, h: 8, bg: "#f2ebfd", title: "Text Data", desc: "Cleaning, tokenization, preprocessing" },
-            ]}
-          />
-          <Chevron />
-          <CenterCard n="03" title="Semantic Embeddings" icon="git-branch" w={18.3} h={18.3} bg="#f2ebfd" name="all-MiniLM-L6-v2" desc="384-dimensional sentence embeddings from conversational text" />
-          <Chevron />
-          <CenterCard n="04" title="Feature Fusion" icon="layers" w={20.2} h={20.2} bg="#fdeee7" name="Combine features" desc="Concatenate questionnaire features with semantic embeddings" />
-          <Chevron />
-          <span className={s.break} />
-          <CenterCard n="05" title="Classification" icon="cpu" w={20.2} h={20.2} bg="#fee9ea" name="XGBoost" desc="Mental-health classification using optimized parameters (GridSearchCV)" />
-          <Chevron />
-          <CenterCard n="06" title="Contextual Response" icon="sparkles-violet" w={20.2} h={20.2} bg="#f2ebfd" name="Google Gemini" desc="Generates empathetic, context-aware conversational response using classification output" />
-          <Chevron />
-          <CenterCard n="07" title="User Interface" icon="smartphone" w={14.2} h={20.2} bg="#fdeee7" name="Mello conversation" desc="Displays classification insights and provides conversational support in a user-friendly interface" />
         </div>
 
         <Quote>
@@ -288,7 +296,13 @@ export default function Mello() {
       <Rule />
 
       {/* 02 — Impact */}
-      <Section id="impact" num="02" label="IMPACT">
+      <Section id="impact" className={s.impact}>
+        {/* Impact uses its own label style in the design (taller, softer rule). */}
+        <div className={s.impactLabel}>
+          <span className={s.impactLabelNum}>02 —</span>
+          <span className={s.impactLabelLine} />
+          <span className={s.impactLabelText}>IMPACT</span>
+        </div>
         <H2 size={52.6} className={s.impactTitle}>
           What we achieved
         </H2>
@@ -329,7 +343,9 @@ export default function Mello() {
 
       {/* 03 — Challenge */}
       <Section id="challenge" num="03" label="THE CHALLENGE">
-        <H2 size={40}>Making a complex AI workflow simple.</H2>
+        <H2 size={40} className={s.titleChallenge}>
+          Making a complex AI workflow simple.
+        </H2>
         <div className={s.split}>
           <div>
             <P>
@@ -348,6 +364,7 @@ export default function Mello() {
             h={349.45}
             alt="Structured assessment and human expression combine into one Mello experience"
             sizes="(max-width: 900px) 92vw, 530px"
+            className={s.challengeImg}
           />
         </div>
       </Section>
@@ -365,19 +382,21 @@ export default function Mello() {
           behind the system.
         </P>
         <p className={s.balanceTitle}>THE EXPERIENCE HAD TO BALANCE</p>
-        <div className={s.balance}>
-          {balance.map((b) => (
-            <div key={b.n}>
-              <span className={s.balanceIcon} style={{ background: b.bg }}>
-                <Icon src={icon(b.icon)} w={b.w} h={b.h} />
-              </span>
-              <div>
-                <p className={s.balanceNum}>{b.n}</p>
-                <p className={s.balanceName}>{b.t}</p>
-                <p className={s.balanceDesc}>{b.d}</p>
+        <div className={s.balanceWrap}>
+          <div className={s.balance}>
+            {balance.map((b) => (
+              <div key={b.n}>
+                <span className={s.balanceIcon} style={{ background: b.bg }}>
+                  <Icon src={icon(b.icon)} w={b.w} h={b.h} />
+                </span>
+                <div className={s.balanceText}>
+                  <p className={s.balanceNum}>{b.n}</p>
+                  <p className={s.balanceName}>{b.t}</p>
+                  <p className={s.balanceDesc}>{b.d}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </Section>
 
@@ -502,37 +521,50 @@ export default function Mello() {
           The final experience was shaped not only by what worked, but also by limitations uncovered through
           implementation, testing, and the constraints of the underlying system.
         </P>
-        <div className={s.table} role="table">
-          <div className={s.thead} role="row">
-            <span role="columnheader">ISSUE</span>
-            <span role="columnheader">WHAT DIDN&apos;T WORK</span>
-            <span role="columnheader">DESIGN RESPONSE</span>
-          </div>
-          {issues.map((row, i) => (
-            <div key={i} className={s.tr} role="row">
-              <div className={s.issue} role="cell">
-                <span className={s.issueNum}>{String(i + 1).padStart(2, "0")}</span>
-                <span>
-                  {row.t[0]}
-                  <br />
-                  {row.t[1]}
-                </span>
+        {/* Phone: the table keeps its columns and scrolls sideways in its own box. */}
+        <p className={s.scrollHint} aria-hidden="true">
+          SCROLL →
+        </p>
+        <div className={s.tableWrap}>
+          <div
+            className={s.tableScroll}
+            role="region"
+            aria-label="What didn’t work out (scrolls sideways on small screens)"
+            tabIndex={0}
+          >
+            <div className={s.table} role="table">
+              <div className={s.thead} role="row">
+                <span role="columnheader">ISSUE</span>
+                <span role="columnheader">WHAT DIDN&apos;T WORK</span>
+                <span role="columnheader">DESIGN RESPONSE</span>
               </div>
-              <p className={s.what} role="cell">
-                {row.w}
-              </p>
-              <p className={s.resp} role="cell">
-                {row.r}
-              </p>
+              {issues.map((row, i) => (
+                <div key={i} className={s.tr} role="row">
+                  <div className={s.issue} role="cell">
+                    <span className={s.issueNum}>{String(i + 1).padStart(2, "0")}</span>
+                    <span>
+                      {row.t[0]}
+                      <br />
+                      {row.t[1]}
+                    </span>
+                  </div>
+                  <p className={s.what} role="cell">
+                    {row.w}
+                  </p>
+                  <p className={s.resp} role="cell">
+                    {row.r}
+                  </p>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </Section>
 
       <Rule />
 
       {/* 07 — Reflection */}
-      <Section id="reflection" num="07" label="Reflection" style={{ paddingBottom: 112 }}>
+      <Section id="reflection" num="07" label="Reflection" className={s.reflection}>
         <H2>What I learned?</H2>
         <ol className={s.learnings}>
           {learnings.map(([t, d], i) => (
@@ -545,6 +577,12 @@ export default function Mello() {
           ))}
         </ol>
       </Section>
+
+      <div className={s.caseStrip}>
+        <p>MELLO — UX CASE STUDY — 2025/2026</p>
+        {/* Lenis turns in-page anchors into a smooth scroll (instant with reduced motion). */}
+        <a href="#intro">BACK TO TOP ↑</a>
+      </div>
 
       <NextProject
         href="/work/google-maps-redesign"

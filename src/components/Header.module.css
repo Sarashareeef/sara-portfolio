@@ -55,26 +55,85 @@
   width: 100%;
 }
 
-@media (max-width: 767px) {
-  .nav {
-    gap: 18px;
+/* Phone menu — hidden until the phone breakpoint. */
+.menu {
+  display: none;
+}
+
+/* Tablet (Figma tablet frames: 76px header, 13px links). */
+@media (max-width: 1099px) {
+  .inner {
+    padding-inline: 36px;
   }
 
   .brand,
   .link {
-    font-size: 12px;
-    letter-spacing: 1px;
+    font-size: 13px;
+    line-height: 19.5px;
+    letter-spacing: 1.4px;
+  }
+
+  .nav {
+    gap: 30.71px;
   }
 }
 
-@media (max-width: 359px) {
-  .nav {
-    gap: 12px;
+/* Phone (Figma phone frames: 64px header, brand + hamburger). */
+@media (max-width: 599px) {
+  .inner {
+    position: relative;
+    padding-inline: 16px 24px;
   }
 
-  .brand,
-  .link {
-    font-size: 11px;
-    letter-spacing: 0.6px;
+  .brand {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .primary {
+    display: none;
+  }
+
+  .menu {
+    display: block;
+  }
+
+  .burger {
+    display: flex;
+    flex-direction: column;
+    gap: 4.5px;
+    width: 22.5px;
+    padding: 7.5px 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .burger span {
+    display: block;
+    height: 0.75px;
+    background: var(--black);
+  }
+
+  .panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 8px 16px 20px;
+    background: var(--white);
+    border-bottom: 0.928px solid var(--grey);
+  }
+
+  .panel ul {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .panel .link {
+    font-size: 13px;
+    line-height: 19.5px;
+    letter-spacing: 1.4px;
   }
 }

@@ -33,9 +33,33 @@
   color: var(--muted);
 }
 
-@media (max-width: 479px) {
+/* Tablet (Figma tablet frames). */
+@media (max-width: 1099px) {
+  .inner {
+    height: 69px;
+    padding-inline: 29px;
+  }
+
   .copy,
   .talk {
+    font-weight: 700;
     font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.96px;
+  }
+}
+
+/* Phone (Figma phone frames). */
+@media (max-width: 599px) {
+  .inner {
+    height: 57px;
+    padding-inline: 13px 30px;
+  }
+
+  .copy,
+  .talk {
+    font-size: 10px;
+    line-height: 15px;
+    letter-spacing: 0.8px;
   }
 }

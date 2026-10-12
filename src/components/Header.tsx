@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { nav, site } from "@/data/site";
+import HeaderMenu from "./HeaderMenu";
 import styles from "./Header.module.css";
 
 export default function Header() {
@@ -9,7 +10,7 @@ export default function Header() {
         <Link href="/" className={styles.brand}>
           {site.name}
         </Link>
-        <nav aria-label="Primary">
+        <nav aria-label="Primary" className={styles.primary}>
           <ul className={styles.nav}>
             {nav.map((item) => (
               <li key={item.label}>
@@ -26,6 +27,7 @@ export default function Header() {
             ))}
           </ul>
         </nav>
+        <HeaderMenu />
       </div>
     </header>
   );

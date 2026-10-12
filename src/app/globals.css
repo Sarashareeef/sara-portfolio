@@ -15,6 +15,19 @@
   --header-h: 71px;
 }
 
+/* Header height per Figma frame: tablet 76px, phone 64px. */
+@media (max-width: 1099px) {
+  :root {
+    --header-h: 76px;
+  }
+}
+
+@media (max-width: 599px) {
+  :root {
+    --header-h: 64px;
+  }
+}
+
 *,
 *::before,
 *::after {

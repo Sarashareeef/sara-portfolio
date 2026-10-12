@@ -152,7 +152,7 @@
   font-family: var(--font-serif-stack);
   font-weight: 400;
   font-size: clamp(30px, 4vw, calc(var(--size) * 1px));
-  line-height: 1.25;
+  line-height: 1.5;
   letter-spacing: -0.01em;
 }
 
@@ -184,9 +184,12 @@
   color: var(--ink-2);
 }
 
-.p + .p,
-.pLight + .pLight {
+.p + .p {
   padding-top: 16px;
+}
+
+.pLight + .pLight {
+  padding-top: 24px;
 }
 
 .kicker {
@@ -419,7 +422,7 @@
 }
 
 .nextBlurb {
-  max-width: 340px;
+  max-width: 350px;
   font-size: 15px;
   line-height: 26px;
   letter-spacing: 1.2px;
@@ -451,8 +454,10 @@
 }
 
 /* ---- Responsive shell ---- */
+/* Tablet (Figma "mello tablet", 768) — applies from the sidebar breakpoint down. */
 @media (max-width: 1099px) {
   .page {
+    --cs-pad: 32px;
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -460,48 +465,87 @@
     display: none;
   }
 
+  /* The tablet and phone frames have no back link; the header nav covers it. */
   .mobileBack {
-    display: inline-block;
-    margin: 28px var(--cs-pad) 0;
-    font-size: 11px;
-    letter-spacing: 0.9px;
-    color: var(--muted);
+    display: none;
   }
 
-  .hero {
-    padding-top: 32px;
+  .heroTitle {
+    font-size: 38.42px;
+    line-height: 41.49px;
+  }
+
+  .h2 {
+    font-size: 28px;
+    line-height: 66px;
+  }
+
+  .h3 {
+    font-size: 32px;
+  }
+
+  .kicker {
+    font-size: 12px;
+  }
+
+  /* Next project keeps its row on tablet, tightened as in the frame. */
+  .next {
+    padding: 49px 34px 67px;
+  }
+
+  .next > div {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+  }
+
+  .nextEyebrow {
+    height: 22px;
+  }
+
+  .nextTitle {
+    font-size: 44px;
+    line-height: 40.4px;
+  }
+
+  .nextBlurb {
+    line-height: 24px;
   }
 }
 
-@media (max-width: 767px) {
-  .section {
-    padding-block: 56px;
-  }
-
-  .hero {
-    padding-top: 28px;
+/* Phone (Figma "mello phone", 403). */
+@media (max-width: 599px) {
+  .heroTitle {
+    font-size: 36px;
+    line-height: 38.88px;
   }
 
   .meta {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin-bottom: 40px;
-  }
-
-  .eyebrowName {
-    font-size: 13px;
-  }
-
-  .eyebrowTag {
-    font-size: 12px;
-  }
-
-  .label {
-    font-size: 12px;
   }
 
   .next {
     flex-direction: column;
     align-items: flex-start;
-    padding: 24px var(--cs-pad) 48px;
+    gap: 23px;
+    padding: 30px 24px 40px;
+  }
+
+  .next > div {
+    gap: 7px;
+  }
+
+  .nextEyebrow {
+    height: 36px;
+  }
+
+  .nextTitle {
+    max-width: 280px;
+    line-height: 57px;
+  }
+
+  /* Breaks as drawn: "Rethinking night / navigation around / personal safety." */
+  .nextBlurb {
+    max-width: 240px;
   }
 }
