@@ -1,0 +1,22 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="47.3608" height="42.24" viewBox="0 0 47.3608 42.24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="decorator">
+<g id="bubble-1" opacity="0.4" filter="url(#filter0_f_0_62)">
+<circle cx="15.36" cy="23.0404" r="12.8" fill="#FBCFE8"/>
+</g>
+<g id="bubble-2" opacity="0.4" filter="url(#filter1_f_0_62)">
+<circle cx="29.4408" cy="17.92" r="14.08" fill="#FDA4AF"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_f_0_62" x="9.53678e-08" y="7.68039" width="30.72" height="30.72" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="1.28" result="effect1_foregroundBlur_0_62"/>
+</filter>
+<filter id="filter1_f_0_62" x="11.5208" y="0" width="35.84" height="35.84" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="1.92" result="effect1_foregroundBlur_0_62"/>
+</filter>
+</defs>
+</svg>

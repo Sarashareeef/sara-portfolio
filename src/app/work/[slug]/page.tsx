@@ -4,10 +4,12 @@ import type { ComponentType } from "react";
 import { getProject, projects } from "@/data/projects";
 import GoogleMaps from "@/components/case/google-maps/GoogleMaps";
 import Mello from "@/components/case/mello/Mello";
+import Voyaige from "@/components/case/voyaige/Voyaige";
 
 const studies: Record<string, ComponentType> = {
   mello: Mello,
   "google-maps-redesign": GoogleMaps,
+  voyaige: Voyaige,
 };
 
 export function generateStaticParams() {

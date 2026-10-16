@@ -1,0 +1,1864 @@
+/* ======================================================================
+   VoyAIge — travel planning case study
+   Desktop: Figma 3:935 (1440). Tablet: 2:9824 (768). Phone: 2:13251 (403).
+
+   Base rules are the desktop frame. The tablet (600–1099) and phone (≤599)
+   blocks at the end follow their own frames; where those frames shrink a
+   desktop block to fit (process cards, the phone user-flow diagram), the
+   block keeps its drawn size and wraps or scrolls instead.
+   ====================================================================== */
+
+.root {
+  --ink: #1c1b18;
+  --soft: #6b6860;
+  --tint: #eef4fb;
+  --accent: #6455d0;
+  --line: #9c9c9c;
+}
+
+.notT,
+.notP {
+  display: inline;
+}
+
+.tOnly,
+.pOnly,
+.tOnlyB {
+  display: none;
+}
+
+.notTB {
+  display: block;
+}
+
+.rule {
+  margin: 0;
+  border: 0;
+  border-top: 0.928px solid var(--grey);
+}
+
+.cover {
+  object-fit: cover;
+}
+
+.contain {
+  object-fit: contain;
+}
+
+/* ---- Shared type ---- */
+.root h2.h2 {
+  padding-top: 40px;
+  padding-bottom: 0.8px;
+  font-size: 44px;
+  line-height: 43.2px;
+  letter-spacing: -0.36px;
+  color: var(--ink);
+}
+
+.root h2.h2Ink {
+  color: #1e2229;
+}
+
+.body {
+  padding-top: 20px;
+  font-size: 15.2px;
+  line-height: 25.84px;
+  color: var(--soft);
+}
+
+.lightText {
+  padding-top: 20px;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 27.2px;
+  color: #515151;
+}
+
+.kicker {
+  padding-top: 72px;
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: 0.93px;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+
+.lightText.afterKicker {
+  padding-top: 20px;
+}
+
+/* ---- Hero (3:1676) ---- */
+section.hero {
+  padding-bottom: 72px;
+}
+
+.hero > div:first-child > span:first-child {
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.hero > div:first-child > span:last-child {
+  line-height: 22.5px;
+}
+
+/* Title: 64 / 67, +5.12 tracking, 988 wide. */
+.hero h1 {
+  max-width: 988px;
+  font-size: 64px;
+  line-height: 67px;
+  letter-spacing: 5.12px;
+  color: #000;
+}
+
+.hero h1 + p {
+  max-width: 917px;
+}
+
+.hero dl {
+  margin: 40px 0 64px;
+  padding: 28px 0 20px;
+}
+
+.hero dt {
+  line-height: 19.5px;
+}
+
+.hero dd {
+  line-height: 21px;
+  color: var(--ink);
+}
+
+.protoLink {
+  display: inline-block;
+  margin-top: 28px;
+  padding-bottom: 1px;
+  border-bottom: 0.928px solid var(--ink);
+  font-size: 11.2px;
+  line-height: 16.8px;
+  letter-spacing: 0.9px;
+  color: var(--ink);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.protoLink:hover {
+  color: var(--muted);
+  border-color: var(--muted);
+}
+
+/* ---- 01 Overview (3:1034) ---- */
+section.overview {
+  padding-top: 0;
+  padding-bottom: 76px;
+}
+
+.overview .h2 + .lightText {
+  padding-top: 56px;
+}
+
+.glance {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 0.928px solid var(--line);
+}
+
+.glance li {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 152.5px;
+  padding: 20px;
+  border: 0.928px solid var(--line);
+  background: var(--white);
+}
+
+.glance li.tint {
+  background: var(--tint);
+}
+
+.glanceNum {
+  font-size: 9.28px;
+  line-height: 13.92px;
+  letter-spacing: 0.93px;
+  color: var(--line);
+}
+
+.tint .glanceNum,
+.principles .glanceNum {
+  color: #1a6dcc;
+}
+
+.glanceTitle {
+  font-weight: 500;
+  font-size: 11.52px;
+  line-height: 17.28px;
+  letter-spacing: 0.92px;
+  color: var(--ink);
+}
+
+.glanceDesc {
+  font-weight: 300;
+  font-size: 12.8px;
+  line-height: 19.84px;
+  color: #515151;
+}
+
+/* ---- 02 Challenge (3:1081) ---- */
+section.challenge {
+  padding-bottom: 96px;
+}
+
+.challenge .body {
+  max-width: 1125px;
+}
+
+.cards {
+  width: min(768px, 100%);
+  margin: 40px auto 0;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 19.2px;
+  font-family: var(--font-jetbrains), var(--font-mono-stack);
+}
+
+.card {
+  --c: #e11d48;
+  --c-bg: #fff1f2;
+  --c-bd: #ffe4e6;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  min-height: 306px;
+  padding: 24px;
+  overflow: hidden;
+  background: var(--white);
+  border: 0.6px solid #e2e8f0;
+  border-radius: 14.4px;
+  box-shadow: 0 4.8px 14.4px rgba(15, 23, 42, 0.03);
+}
+
+.card.amber {
+  --c: #d97706;
+  --c-bg: #fffbeb;
+  --c-bd: #fef3c7;
+}
+
+.card.blue {
+  --c: #2563eb;
+  --c-bg: #eff6ff;
+  --c-bd: #dbeafe;
+}
+
+.glow {
+  position: absolute;
+  right: -36.8px;
+  bottom: -36.8px;
+  width: 132px;
+  height: 144px;
+  pointer-events: none;
+}
+
+.cardHead {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 9.6px;
+  width: 100%;
+  font-weight: 500;
+  font-size: 9px;
+  color: #94a3b8;
+}
+
+.cardHead i {
+  flex: 1;
+  height: 0.6px;
+  background: linear-gradient(90deg, #e2e8f0, rgb(226 232 240 / 0.3));
+}
+
+.cardHead b {
+  width: 4.8px;
+  height: 4.8px;
+  border-radius: 50%;
+  background: var(--c);
+}
+
+.cardBody {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14.4px;
+  padding: 14.4px 0;
+}
+
+.cardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 33.6px;
+  height: 33.6px;
+  background: var(--c-bg);
+  border: 0.6px solid var(--c-bd);
+  border-radius: 9.6px;
+}
+
+.cardTitle {
+  font-weight: 700;
+  font-size: 13.2px;
+  line-height: 16.8px;
+  color: #0f172a;
+}
+
+.cardText {
+  font-size: 8.4px;
+  line-height: 13.2px;
+  color: #475569;
+}
+
+/* The third pill's arrow (3:1137) is an empty layer in the file, so it has none. */
+.cardTag {
+  position: relative;
+  padding: 6px 12px;
+  background: var(--c-bg);
+  border: 0.6px solid var(--c-bd);
+  border-radius: 59.4px;
+  font-weight: 700;
+  font-size: 7.2px;
+  line-height: normal;
+  letter-spacing: 0.3px;
+  color: var(--c);
+}
+
+.question {
+  padding-top: 16px;
+}
+
+.questionLabel {
+  font-size: 10.4px;
+  line-height: 15.6px;
+  letter-spacing: 1.1px;
+  color: var(--line);
+}
+
+.questionText {
+  padding-top: 12px;
+  font-family: var(--font-serif-stack);
+  font-size: 40px;
+  line-height: 46px;
+  color: var(--ink);
+}
+
+.principles {
+  width: min(556px, 100%);
+  margin: 20px auto 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.principles li {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 166.77px;
+  padding: 24px;
+  background: var(--tint);
+  border: 0.928px solid var(--line);
+}
+
+.principleTitle {
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 19.5px;
+  letter-spacing: 0.92px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.principleDesc {
+  max-width: 229px;
+  font-size: 12.8px;
+  line-height: 19.84px;
+  color: var(--soft);
+}
+
+/* ---- 03 What we learned (3:1174) ---- */
+.learnList {
+  padding-top: 12px;
+}
+
+.learnList > li {
+  display: flex;
+  gap: 32px;
+  padding: 32px 0;
+  border-top: 0.928px solid var(--line);
+}
+
+.learnNum {
+  flex: none;
+  padding-top: 2px;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 1.2px;
+  color: var(--line);
+  white-space: nowrap;
+}
+
+.learnList > li > div {
+  max-width: 672px;
+}
+
+.learnTitle {
+  font-weight: 500;
+  font-size: 15.2px;
+  line-height: 22.8px;
+  letter-spacing: 0.62px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.learnDesc {
+  padding-top: 8px;
+  font-size: 15.2px;
+  line-height: 25.84px;
+  color: var(--soft);
+}
+
+.opportunity {
+  margin-top: 48px;
+  padding: 40px;
+  background: var(--tint);
+  border: 0.928px solid var(--line);
+  font-weight: 300;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 35.2px;
+  text-align: center;
+  color: var(--ink);
+}
+
+/* ---- 04 Research (3:1221) ---- */
+.research .h2 {
+  margin-bottom: -9px;
+}
+
+.researchIntro {
+  padding-top: 20px;
+}
+
+.researchKicker {
+  font-size: 17px;
+  line-height: 25.84px;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+
+.researchIntro .body {
+  padding-top: 0;
+}
+
+.subhead {
+  padding-top: 29px;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 25.84px;
+  color: #000;
+}
+
+.research > .subhead:first-of-type {
+  padding-top: 16px;
+}
+
+.methods {
+  position: relative;
+  width: min(1057px, 100%);
+  margin: 29px auto 0;
+  aspect-ratio: 2092 / 752;
+}
+
+.stats {
+  margin-top: 29px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-block: 1.2px solid var(--soft);
+}
+
+.stats li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  min-height: 319px;
+  padding: 72.8px 41.6px 57.2px;
+  border-right: 1.2px solid var(--soft);
+  text-align: center;
+}
+
+.stats li:first-child {
+  border-left: 1.2px solid var(--soft);
+}
+
+.statNum {
+  font-family: var(--font-serif-stack);
+  font-size: 78px;
+  line-height: 78.13px;
+  color: var(--ink);
+}
+
+.statLabel {
+  padding-top: 15.6px;
+  font-size: 16.9px;
+  line-height: 25.35px;
+  letter-spacing: 1.69px;
+  color: #1e1e1e;
+}
+
+.statDesc {
+  font-size: 16.9px;
+  line-height: 25.35px;
+  letter-spacing: 1.69px;
+  color: #515151;
+}
+
+.statQuote {
+  padding-top: 29px;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 16.9px;
+  line-height: 25.35px;
+  letter-spacing: 1.69px;
+  text-align: center;
+  color: #000;
+}
+
+/* Patterns: the file shows the image from 12.37% of its height down (its own
+   section heading is cropped away). Same visible area, natural proportions. */
+.patterns {
+  position: relative;
+  width: min(1126px, 100%);
+  margin: 29px auto 0;
+  aspect-ratio: 2092 / 659;
+  overflow: hidden;
+}
+
+.patternsImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: translateY(-12.37%);
+}
+
+.pillars {
+  position: relative;
+  width: min(1041.6px, 100%);
+  margin: 29px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 0;
+}
+
+.pillar {
+  --c: #6455d0;
+  --c-bg: rgba(100, 85, 208, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.pillar.rose {
+  --c: #ed6579;
+  --c-bg: rgba(237, 101, 121, 0.15);
+}
+
+.pillar.orange {
+  --c: #e28b5d;
+  --c-bg: rgba(226, 139, 93, 0.32);
+}
+
+.pillarNum {
+  font-family: var(--font-geist-mono), var(--font-mono-stack);
+  font-weight: 600;
+  font-size: 10.92px;
+  line-height: 14.28px;
+  color: var(--c);
+}
+
+.stem {
+  width: 0.84px;
+  height: 23.52px;
+  background: var(--c);
+  opacity: 0.5;
+}
+
+.stem.stemLong {
+  height: 33.6px;
+}
+
+.pillarCard {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: min(252px, 100%);
+  height: 80.64px;
+  padding: 0 20.16px;
+  background: var(--c-bg);
+  border: 0.84px solid var(--c);
+  border-radius: 20.16px;
+  opacity: 0.95;
+  text-align: left;
+}
+
+.pillarCard > span {
+  display: flex;
+  flex-direction: column;
+  gap: 3.36px;
+}
+
+.pillarCard img {
+  position: absolute;
+  right: 9.7px;
+  top: 50%;
+  translate: 0 -50%;
+  rotate: 90deg;
+}
+
+.pillarTitle {
+  font-family: var(--font-serif-stack);
+  font-size: 15.12px;
+  color: #1e293b;
+}
+
+.pillarSub {
+  font-family: var(--font-geist-mono), var(--font-mono-stack);
+  font-size: 10.08px;
+  color: #64748b;
+}
+
+.pillarDesc {
+  max-width: 258.7px;
+  padding: 0 13.44px;
+  font-family: var(--font-geist-mono), var(--font-mono-stack);
+  font-size: 10.92px;
+  line-height: 1.6;
+  color: #475569;
+}
+
+/* Wavy connectors: each spans the gap between two cards (the column width
+   minus the 252 card), centred on the card's middle (78 from the column top). */
+.pillar {
+  position: relative;
+}
+
+.link {
+  position: absolute;
+  left: calc(50% + 126px);
+  top: 78.12px;
+  width: calc(100% - 252px);
+  height: 13.44px;
+  translate: 0 -50%;
+  pointer-events: none;
+}
+
+.link img {
+  position: absolute;
+  left: -3.4px;
+  top: 0;
+  width: calc(100% + 5px);
+  height: 13.44px;
+}
+
+.link i {
+  position: absolute;
+  top: 50%;
+  width: 8.4px;
+  height: 8.4px;
+  translate: 0 -50%;
+  background: #faf9f6;
+  border: 1.68px solid var(--c);
+  border-radius: 4.2px;
+}
+
+.link i:first-of-type {
+  left: -1.7px;
+}
+
+.link i:last-of-type {
+  right: 0.8px;
+}
+
+/* The second line ends on the rose dot drawn on the third card's edge (3:1316). */
+.pillar.rose .link i {
+  border-color: #ed6579;
+}
+
+.pill {
+  width: min(820px, 100%);
+  margin: 29px auto 0;
+  padding: 22px 48px;
+  border: 1px solid #cdcdcd;
+  border-radius: 20px;
+  background:
+    linear-gradient(rgba(246, 252, 255, 0.95), rgba(246, 252, 255, 0.95)),
+    linear-gradient(rgba(237, 101, 121, 0.02), rgba(237, 101, 121, 0.02)),
+    linear-gradient(rgba(100, 85, 208, 0.04), rgba(100, 85, 208, 0.04));
+  font-size: 15px;
+  line-height: 1.6;
+  text-align: center;
+  color: #475569;
+}
+
+.pillLead {
+  color: #515151;
+}
+
+.pill strong {
+  font-weight: 500;
+  color: #000;
+}
+
+.pill strong.pillDot {
+  color: var(--accent);
+}
+
+/* ---- 05 Process (3:1317) ---- */
+.root h2.h2Ink {
+  line-height: normal;
+}
+
+.processLead {
+  padding-top: 20px;
+  font-size: 15.2px;
+  line-height: 1.6;
+  color: #6b7280;
+}
+
+.processLead b {
+  font-weight: 700;
+  color: #1e2229;
+}
+
+.processWrap {
+  padding-top: 40px;
+}
+
+/* Six 161.6-wide cards with 23.2 gaps (1089.6). */
+.processGrid {
+  width: min(1089.6px, 100%);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 23.2px;
+}
+
+.processGrid > li {
+  --c: #4a60e3;
+  --c-bg: #f1f4ff;
+  position: relative;
+  display: flex;
+}
+
+.processGrid > li.p_rose {
+  --c: #ed6579;
+  --c-bg: #fff0f5;
+}
+
+.processGrid > li.p_orange {
+  --c: #e28b5d;
+  --c-bg: #fff5ee;
+}
+
+.processGrid > li.p_green {
+  --c: #3e9c8d;
+  --c-bg: #edf7f4;
+}
+
+.processGrid > li.p_indigo {
+  --c: #4a60e3;
+  --c-bg: #f1f5fd;
+}
+
+.processGrid > li.p_violet {
+  --c: #867ed3;
+  --c-bg: #f5f1fd;
+}
+
+.processCard {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10.24px;
+  min-height: 268.8px;
+  padding: 17.92px 12.8px;
+  overflow: hidden;
+  background: var(--c-bg);
+  border-radius: 15.36px;
+}
+
+.deco {
+  position: absolute;
+  top: 3.84px;
+  right: 7.2px;
+  width: 47.36px;
+  height: 42.24px;
+}
+
+.processNum {
+  position: relative;
+  font-weight: 700;
+  font-size: 8.96px;
+  color: var(--c);
+}
+
+.processTitle {
+  position: relative;
+  font-weight: 700;
+  font-size: 10.24px;
+  line-height: 1.2;
+  color: var(--c);
+}
+
+.processDesc {
+  margin-top: -2.56px;
+  font-size: 7.68px;
+  line-height: 1.5;
+  color: #6b7280;
+}
+
+.processLine {
+  width: 10.24px;
+  height: 0.64px;
+  background: var(--c);
+  opacity: 0.4;
+}
+
+.processTags {
+  display: flex;
+  flex-direction: column;
+  gap: 5.12px;
+  width: 100%;
+}
+
+.processTags > span {
+  overflow: hidden;
+  padding: 5.12px 7.68px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 5.12px;
+  font-weight: 700;
+  font-size: 6.4px;
+  line-height: normal;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--c);
+}
+
+/* Arrows sit in the gaps, 2–4px past each card (3:1427–3:1440). */
+.processArrow {
+  position: absolute;
+  left: calc(100% + 2.6px);
+  top: 129px;
+  z-index: 1;
+}
+
+.processArrowTilt {
+  rotate: -8.81deg;
+}
+
+/* ---- 06 UX flow (14:162) ----
+   Steps: five cards with arrows between (12.15 gaps on the 1082 row).
+   Categories: four cards, 57.97 apart. The dashed links run from step 05
+   down to a line over the categories, then drop to a dot above each. */
+.scrollHint {
+  display: none;
+}
+
+.flowScroll {
+  padding-top: 100px;
+}
+
+.flow {
+  --sg: 12.15px;
+  --arrow: 19.44px;
+  --cg: 5.357%;
+  width: min(1082.16px, 100%);
+  margin-inline: auto;
+}
+
+.flowSteps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr) var(--arrow)) minmax(0, 1fr);
+  column-gap: var(--sg);
+  align-items: center;
+}
+
+.flowStepItem {
+  display: contents;
+}
+
+.flowStep {
+  --c: #4f46e5;
+  --c-bg: #f0f3ff;
+  --c-ic: #e0e7ff;
+  display: flex;
+  flex-direction: column;
+  gap: 16.2px;
+  min-height: 210.6px;
+  padding: 16.2px;
+  background: var(--c-bg);
+  border-radius: 12.96px;
+}
+
+.s2 {
+  --c: #ec4899;
+  --c-bg: #fff0f3;
+  --c-ic: #fce7f3;
+}
+
+.s3 {
+  --c: #d97706;
+  --c-bg: #fffbeb;
+  --c-ic: #fef3c7;
+}
+
+.s4 {
+  --c: #7c3aed;
+  --c-bg: #f5f3ff;
+  --c-ic: #ede9fe;
+}
+
+.s5 {
+  --c: #2563eb;
+  --c-bg: #eff6ff;
+  --c-ic: #dbeafe;
+}
+
+.flowHead,
+.groupHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flowNum {
+  display: block;
+  font-weight: 700;
+  font-size: 11.34px;
+  color: var(--c);
+}
+
+.flowIcon {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25.92px;
+  height: 25.92px;
+  background: var(--c-ic);
+  border-radius: 6.48px;
+}
+
+.flowTitle {
+  font-weight: 500;
+  font-size: 14.58px;
+  line-height: 19.44px;
+  color: #0a1c44;
+}
+
+.flowList {
+  display: flex;
+  flex-direction: column;
+  gap: 6.48px;
+  font-size: 9.72px;
+  line-height: 12.96px;
+  color: #5c6b89;
+}
+
+.flowArrow {
+  display: flex;
+}
+
+/* Link band between the rows (126.36 tall in the file). */
+.flowLinks {
+  position: relative;
+  height: 126.36px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--cg);
+}
+
+.flowLinks i {
+  display: block;
+}
+
+/* Rise from step 05's centre to the line (32.4 tall, starting 14.6 down). */
+.flowRise,
+.flowSpan {
+  position: absolute;
+}
+
+.flowRise {
+  right: calc((100% - 4 * var(--arrow) - 8 * var(--sg)) / 10);
+  top: 14.6px;
+  width: 1.2px;
+  height: 32.4px;
+  background: repeating-linear-gradient(to bottom, var(--accent) 0 3.5px, transparent 3.5px 6.5px);
+}
+
+/* Line from the first category's centre to step 05's centre. */
+.flowSpan {
+  left: calc((100% - 3 * var(--cg)) / 8);
+  right: calc((100% - 4 * var(--arrow) - 8 * var(--sg)) / 10);
+  top: 46.4px;
+  height: 1.2px;
+  background: repeating-linear-gradient(to right, var(--accent) 0 3.5px, transparent 3.5px 6.5px);
+  opacity: 0.5;
+}
+
+.flowDrop {
+  position: relative;
+  justify-self: center;
+  width: 1.2px;
+  height: 32.4px;
+  margin-top: 47px;
+  background: repeating-linear-gradient(to bottom, var(--accent) 0 3.5px, transparent 3.5px 6.5px);
+}
+
+.flowDrop::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 6.48px;
+  height: 6.48px;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.flowGroups {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--cg);
+}
+
+.flowGroup {
+  --c: #3b82f6;
+  --c-bg: #f4f6ff;
+  --c-ic: #dbeafe;
+  display: flex;
+  flex-direction: column;
+  gap: 12.96px;
+  min-height: 259.2px;
+  padding: 16.2px;
+  background: var(--c-bg);
+  border-radius: 12.96px;
+}
+
+.c2 {
+  --c: #f43f5e;
+  --c-bg: #fff1f2;
+  --c-ic: #ffe4e6;
+}
+
+.c3 {
+  --c: #d97706;
+  --c-bg: #fffbf0;
+  --c-ic: #fef3c7;
+}
+
+.c4 {
+  --c: #10b981;
+  --c-bg: #f0fdf4;
+  --c-ic: #dcfce7;
+}
+
+.groupHead .flowNum {
+  padding-bottom: 3.24px;
+  font-size: 9.72px;
+}
+
+.groupTitle {
+  font-weight: 500;
+  font-size: 12.96px;
+  color: #0a1c44;
+}
+
+.groupIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 29.16px;
+  height: 29.16px;
+  background: var(--c-ic);
+  border-radius: 8.1px;
+}
+
+.groupItems {
+  display: flex;
+  flex-direction: column;
+  gap: 8.1px;
+}
+
+.groupItems li {
+  display: flex;
+  align-items: center;
+  gap: 9.72px;
+  padding: 9.72px;
+  background: var(--white);
+  border-radius: 9.72px;
+}
+
+.groupItems li > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 1.62px;
+  min-width: 0;
+}
+
+.groupLabel {
+  font-size: 9.72px;
+  color: #0a1c44;
+}
+
+.groupSub {
+  font-size: 8.1px;
+  color: #5c6b89;
+}
+
+/* ---- 07 Final experience (3:1634) ---- */
+.boardWrap {
+  container-type: inline-size;
+  width: min(1036px, 100%);
+  margin: 84px auto 0;
+}
+
+.board {
+  --b: calc(100cqw / 1036);
+  position: relative;
+  aspect-ratio: 1036 / 4185;
+  overflow: hidden;
+  border-radius: calc(50 * var(--b));
+  background: linear-gradient(to bottom, rgba(57, 121, 167, 0.55) 32.212%, rgba(57, 121, 167, 0.95) 97.596%);
+}
+
+.boardItem {
+  position: absolute;
+}
+
+.caption {
+  position: absolute;
+  translate: -50% 0;
+  font-family: var(--font-serif-stack);
+  font-size: max(calc(24 * var(--b)), 10px);
+  line-height: 1.5;
+  text-align: center;
+  white-space: nowrap;
+  color: #000;
+}
+
+.caption.capBig {
+  font-size: max(calc(32 * var(--b)), 12px);
+}
+
+.caption.capSoft {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.capList {
+  display: block;
+  text-align: left;
+}
+
+.capList span {
+  display: list-item;
+  margin-left: 1.5em;
+  list-style: disc;
+}
+
+/* ---- 08 What didn't work (3:1788) ---- */
+.didntList {
+  display: flex;
+  flex-direction: column;
+  gap: 25.84px;
+  padding-top: 25.84px;
+}
+
+.didntTitle {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 25.84px;
+  color: #000;
+}
+
+.didntList dt {
+  font-size: 15.2px;
+  line-height: 25.84px;
+  color: #000;
+}
+
+.didntList dd {
+  margin: 0;
+  font-size: 15.2px;
+  line-height: 25.84px;
+  color: var(--soft);
+}
+
+/* ---- 09 Reflection (14:163) ---- */
+.reflectList {
+  padding-top: 15px;
+}
+
+.reflectList > li {
+  display: flex;
+  gap: 32px;
+  padding: 28px 0;
+}
+
+.reflectNum {
+  flex: none;
+  font-weight: 500;
+  font-size: 15.2px;
+  line-height: 22.8px;
+  letter-spacing: 0.62px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.reflectList > li > div {
+  max-width: 980px;
+}
+
+/* ---- Strip (tablet + phone frames only) ---- */
+.caseStrip {
+  display: none;
+}
+
+/* ---- Next project: blurb runs 683 wide (3:1741) ---- */
+.root > div:last-child > div > p:nth-child(3) {
+  max-width: 683px;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 26.4px;
+  letter-spacing: 0;
+  color: #515151;
+}
+
+/* ======================================================================
+   Tablet (Figma 2:9824, 768)
+   ====================================================================== */
+@media (max-width: 1099px) {
+  .notT {
+    display: none;
+  }
+
+  .tOnly {
+    display: inline;
+  }
+
+  .notTB {
+    display: none;
+  }
+
+  .tOnlyB {
+    display: block;
+  }
+
+  .root h2.h2 {
+    font-size: 28px;
+    line-height: 43.2px;
+  }
+
+  .root h2.h2Learned {
+    font-size: 36px;
+  }
+
+  /* Hero (2:9840): title 38 / 41.26, +3.15 tracking, 608 wide; lead 15 / 25. */
+  section.hero {
+    padding-bottom: 80px;
+  }
+
+  .hero h1 {
+    max-width: 608px;
+    font-size: 38px;
+    line-height: 41.26px;
+    letter-spacing: 3.153px;
+  }
+
+  .hero h1 + p {
+    padding-top: 17px;
+    font-size: 15px;
+    line-height: 25px;
+  }
+
+  .hero dl {
+    margin: 24px 0 40px;
+    padding: 18px 0;
+  }
+
+  .protoLink {
+    margin-top: 12px;
+  }
+
+  /* Overview (2:9894): the tablet frame has its own first paragraph. */
+  section.overview {
+    padding-top: 22px;
+    padding-bottom: 64px;
+  }
+
+  .overview .h2 + .lightText {
+    padding-top: 20px;
+  }
+
+  .lightText {
+    font-size: 15px;
+  }
+
+  .kicker {
+    padding-top: 48px;
+  }
+
+  .glance {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .glance li {
+    min-height: 132.7px;
+  }
+
+  /* Challenge (2:9942): same cards, three across; question 28 / 46. */
+  section.challenge {
+    padding-bottom: 80px;
+  }
+
+  .cards {
+    width: 100%;
+  }
+
+  .question {
+    padding-top: 32px;
+  }
+
+  .questionText {
+    font-size: 28px;
+    line-height: 46px;
+  }
+
+  .principles {
+    margin-top: 40px;
+  }
+
+  /* What we learned (2:10048): list from 48; plain, left-aligned quote. */
+  .learnList {
+    padding-top: 48px;
+  }
+
+  .opportunity {
+    font-style: normal;
+    font-size: 16px;
+    line-height: 25.6px;
+    text-align: left;
+  }
+
+  /* Research (2:10096). */
+  .research .h2 {
+    margin-bottom: 0;
+  }
+
+  .subhead,
+  .research > .subhead:first-of-type {
+    padding-top: 16px;
+  }
+
+  .methods {
+    width: min(669.2px, 100%);
+    margin-top: 0;
+  }
+
+  .stats {
+    margin-top: 48px;
+    border-width: 0.928px;
+  }
+
+  .stats li {
+    min-height: 320px;
+    padding: 72.8px 24px;
+    border-right-width: 0.928px;
+  }
+
+  .stats li:first-child {
+    border-left-width: 0.928px;
+  }
+
+  .statNum {
+    font-size: 58px;
+  }
+
+  .statLabel,
+  .statDesc {
+    font-size: 12px;
+    letter-spacing: 1.2px;
+  }
+
+  .statQuote {
+    padding-top: 28px;
+    font-size: 13px;
+    letter-spacing: 1.3px;
+  }
+
+  .subhead.patternsHead {
+    padding-top: 96px;
+  }
+
+  .patterns {
+    margin-top: 58px;
+  }
+
+  .pillars {
+    margin-top: 31px;
+    column-gap: 32px;
+  }
+
+  .link {
+    display: none;
+  }
+
+  .pillarDesc {
+    max-width: 213.5px;
+    line-height: 17.472px;
+  }
+
+  .pill {
+    margin-top: 32px;
+    border-width: 0.928px;
+    line-height: 24px;
+  }
+
+  /* Process (2:10207): the frame shrinks the six cards to 99.8 wide (4.7px
+     text); here they keep their drawn size, three to a row. */
+  .processLead {
+    font-size: 15px;
+    line-height: 24px;
+  }
+
+  .processWrap {
+    padding-top: 24px;
+  }
+
+  .processGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .processArrow {
+    display: none;
+  }
+
+  /* UX flow (2:10391): both rows stay across the 704 column. */
+  .flowScroll {
+    padding-top: 16px;
+  }
+
+  /* Final (2:10584): the tablet frame names the section "The final experience". */
+  .boardWrap {
+    width: min(638px, 100%);
+    margin-top: 24px;
+  }
+
+  /* What didn't work (2:10654). */
+  .didntList {
+    gap: 48px;
+    padding-top: 56px;
+  }
+
+  .didntTitle {
+    padding-bottom: 10px;
+    font-size: 17px;
+  }
+
+  .didntList dl {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .didntList dt {
+    line-height: 24px;
+  }
+
+  /* Reflection (2:10691). */
+  .reflectList {
+    padding-top: 40px;
+  }
+
+  .reflectList > li {
+    gap: 24px;
+    padding: 30px 0;
+  }
+
+  /* Strip (2:10733). */
+  .caseStrip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 32px;
+    border-top: 0.928px solid var(--grey);
+  }
+
+  .caseStrip p {
+    font-size: 9.28px;
+    line-height: 13.92px;
+    letter-spacing: 0.93px;
+    white-space: nowrap;
+    color: var(--soft);
+  }
+
+  .caseStrip a {
+    padding-bottom: 1px;
+    border-bottom: 0.928px solid var(--ink);
+    font-size: 11.2px;
+    line-height: 16.8px;
+    letter-spacing: 0.9px;
+    white-space: nowrap;
+    color: var(--ink);
+  }
+
+  .root > div:last-child > div > p:nth-child(3) {
+    max-width: 500px;
+    font-size: 15px;
+    line-height: 30px;
+  }
+}
+
+/* ======================================================================
+   Phone (Figma 2:13251, 403)
+   ====================================================================== */
+@media (max-width: 599px) {
+  .notT {
+    display: inline;
+  }
+
+  .tOnly,
+  .notP,
+  .tOnlyB {
+    display: none;
+  }
+
+  .notTB {
+    display: block;
+  }
+
+  .pOnly {
+    display: inline;
+  }
+
+  .root h2.h2,
+  .root h2.h2Learned {
+    padding-top: 36px;
+    font-size: 28px;
+    line-height: 32.4px;
+    letter-spacing: -0.44px;
+  }
+
+  /* Hero (2:13260): eyebrow 15 / 16 regular; title 36 / 38.88; meta 2 × 2
+     (ROLE, TEAM / PLATFORM, TIMELINE). The section ends on a rule. */
+  section.hero {
+    padding-bottom: 80px;
+    border-bottom: 0.556px solid var(--grey);
+  }
+
+  .hero > div:first-child {
+    gap: 14px;
+  }
+
+  .hero > div:first-child > span {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 16px;
+    letter-spacing: 0.8px;
+  }
+
+  .hero h1 {
+    max-width: 330px;
+    font-size: 36px;
+    line-height: 38.88px;
+    letter-spacing: -0.64px;
+    color: var(--ink);
+  }
+
+  .hero h1 + p {
+    padding-top: 20px;
+    font-size: 16px;
+    line-height: 26.4px;
+  }
+
+  .hero dl {
+    margin: 46px 0 56px;
+    padding: 20px 0 18px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+    grid-auto-flow: column;
+  }
+
+  .hero dt {
+    line-height: 13.92px;
+  }
+
+  .hero dd {
+    line-height: 17.68px;
+  }
+
+  .protoLink {
+    margin-top: 19px;
+  }
+
+  /* Overview (2:13310): one column, every number blue, 13px text. */
+  section.overview {
+    padding-top: 64px;
+    padding-bottom: 80px;
+  }
+
+  .lightText {
+    font-size: 16px;
+  }
+
+  .kicker {
+    padding-top: 44px;
+    line-height: 23px;
+  }
+
+  .lightText.afterKicker {
+    padding-top: 0;
+  }
+
+  .glance {
+    margin-top: 24px;
+    grid-template-columns: minmax(0, 1fr);
+    border-width: 0.556px;
+  }
+
+  .glance li {
+    gap: 10px;
+    min-height: 0;
+    padding: 24px 20px;
+    border-width: 0.556px;
+  }
+
+  .glance .glanceNum {
+    font-size: 10px;
+    line-height: 15px;
+    letter-spacing: 1px;
+    color: #1a6dcc;
+  }
+
+  .glanceTitle {
+    font-size: 13px;
+    line-height: 19.5px;
+    letter-spacing: 0.9px;
+  }
+
+  .glanceDesc {
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  /* Challenge (2:13354): cards stacked 231.2 wide; principles one column. */
+  section.challenge {
+    padding-block: 64px;
+  }
+
+  .cards {
+    width: 231.2px;
+    margin-top: 22px;
+    padding: 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .card {
+    min-height: 273.2px;
+  }
+
+  .question {
+    padding-top: 38px;
+  }
+
+  .questionLabel {
+    font-size: 10px;
+    line-height: 7.8px;
+    letter-spacing: 0.55px;
+  }
+
+  .questionText {
+    padding-top: 6px;
+    font-size: 24px;
+    line-height: 33px;
+  }
+
+  .principles {
+    width: 100%;
+    margin-top: 22px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .principles li {
+    border-width: 0.819px;
+  }
+
+  .principleDesc {
+    max-width: 290px;
+  }
+
+  /* What we learned (2:13443). */
+  .learnList > li {
+    gap: 24px;
+  }
+
+  .learnList > li:last-child {
+    border-bottom: 0.928px solid var(--line);
+  }
+
+  .learnDesc {
+    font-size: 13px;
+    line-height: 22px;
+  }
+
+  .opportunity {
+    margin-top: 72px;
+    padding: 40px 30px;
+    font-size: 15px;
+    line-height: 25px;
+  }
+
+  /* Research (2:13491): stats and pillars stacked; the patterns image runs
+     24px past the column on both sides. */
+  .methods {
+    width: min(321.9px, 100%);
+  }
+
+  .stats {
+    margin-top: 11px;
+    grid-template-columns: minmax(0, 1fr);
+    border-width: 0.819px;
+  }
+
+  .stats li,
+  .stats li:first-child {
+    min-height: 0;
+    border-left: 0.819px solid var(--soft);
+    border-right: 0.819px solid var(--soft);
+  }
+
+  .stats li + li {
+    border-top: 0.819px solid var(--soft);
+  }
+
+  .subhead.patternsHead {
+    padding-top: 29px;
+  }
+
+  .patterns {
+    width: calc(100% + 48px);
+    margin: 11px -24px 0;
+  }
+
+  .pillars {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    row-gap: 24px;
+  }
+
+  .pillar {
+    width: 285.6px;
+    max-width: 100%;
+  }
+
+  .pillarDesc {
+    max-width: none;
+    line-height: 1.6;
+  }
+
+  .pill {
+    padding: 22px 24px;
+    border-width: 0.819px;
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  .pill strong {
+    font-weight: 300;
+  }
+
+  /* Process (2:13587): two columns of full-size cards. */
+  .processLead {
+    font-size: 15.2px;
+    line-height: 25px;
+  }
+
+  .processGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 26px;
+  }
+
+  .processCard {
+    min-height: 265px;
+  }
+
+  /* UX flow (2:13696): the frame shrinks the diagram to 333 wide (~3px text);
+     it keeps its tablet size here and scrolls sideways in its own box. */
+  .scrollHint {
+    display: block;
+    padding-top: 20px;
+    text-align: right;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.93px;
+    color: var(--muted);
+  }
+
+  .flowScroll {
+    margin-inline: -32px;
+    padding: 8px 32px 18px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  .flowScroll:focus-visible {
+    outline: 1px solid var(--black);
+    outline-offset: -2px;
+  }
+
+  .flow {
+    width: 704px;
+  }
+
+  /* Final (2:13888). */
+  .boardWrap {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  /* What didn't work (2:13930). */
+  .didntList {
+    gap: 40px;
+    padding-top: 40px;
+  }
+
+  /* Reflection (2:13966). */
+  .reflectList > li {
+    gap: 16px;
+    padding: 24px 0;
+  }
+
+  .caseStrip {
+    padding: 20px 16px;
+  }
+
+  .root > div:last-child > div > p:nth-child(3) {
+    max-width: 325px;
+  }
+}
