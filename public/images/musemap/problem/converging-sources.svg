@@ -1,0 +1,15 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="847.081" height="55.6725" viewBox="0 0 847.081 55.6725" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Converging sources">
+<g id="chevron-down">
+<path id="Vector" d="M420.97 50.854L423.111 52.7812L425.252 50.854" stroke-width="1.28475" stroke-linecap="round" stroke="#6A351B"/>
+</g>
+<circle id="Source point" cx="744.299" cy="3.42601" r="3.42601" fill="#6A351B"/>
+<circle id="Source point_2" cx="543.023" cy="3.42601" r="3.42601" fill="#6A351B"/>
+<circle id="Source point_3" cx="328.04" cy="3.42601" r="3.42601" fill="#6A351B"/>
+<circle id="Source point_4" cx="113.915" cy="3.42601" r="3.42601" fill="#6A351B"/>
+<path id="Connector" d="M744.3 3.42601C744.3 21.4126 731.452 32.5471 711.753 32.5471H445.381C432.533 32.5471 423.111 41.9686 423.111 51.3901" stroke-width="1.1991" stroke="#6A351B"/>
+<path id="Connector_2" d="M543.022 3.42601C543.022 21.4126 532.744 32.5471 515.614 32.5471H443.668C433.389 32.5471 423.111 41.1121 423.111 51.3901" stroke-width="1.1991" stroke="#6A351B"/>
+<path id="Connector_3" d="M328.04 3.42601C328.04 17.9865 335.749 24.8386 347.74 24.8386H402.556C414.547 24.8386 423.112 38.5426 423.112 51.3901" stroke-width="1.1991" stroke="#6A351B"/>
+<path id="Connector_4" d="M113.914 3.42601C113.914 23.1256 129.331 32.5471 153.313 32.5471H399.986C412.833 32.5471 423.111 41.1121 423.111 51.3901" stroke-width="1.1991" stroke="#6A351B"/>
+</g>
+</svg>
