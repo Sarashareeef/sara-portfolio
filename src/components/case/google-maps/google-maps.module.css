@@ -1,0 +1,3241 @@
+/* ======================================================================
+   Google Maps — Night-time navigation case study
+   Desktop: Figma 3:1808 (1440). Tablet: 2:8391 (768). Phone: 2:11850 (403).
+
+   Several blocks in the file are drawn at a fixed size and scaled down as a
+   whole in the tablet frame (user needs, insights, competitive table, concept
+   cards, indicators, sticky notes). Those blocks sit in an inline-size
+   container and size everything in a unit of min(1px, width / design width),
+   so they render 1:1 on desktop and shrink proportionally below it.
+   ====================================================================== */
+
+.root {
+  --blue-tint: #d5e6fa;
+  --soft-line: #ddd8d0;
+}
+
+.dOnly {
+  display: inline;
+}
+
+.dBreak {
+  display: none;
+}
+
+.mOnly,
+.tOnly,
+.pOnly,
+.contextPhone {
+  display: none;
+}
+
+.rule {
+  margin: 0;
+  border: 0;
+  border-top: 0.928px solid var(--grey);
+}
+
+.fit {
+  object-fit: contain;
+}
+
+/* ---- Shared text patterns ---- */
+.points {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-top: 20px;
+}
+
+.pointTitle {
+  font-size: 17px;
+  line-height: 25.84px;
+}
+
+.pointDesc {
+  font-size: 15.2px;
+  line-height: 25.84px;
+  color: var(--muted);
+}
+
+/* ---- Hero ---- */
+section.hero {
+  padding-block: 37px;
+}
+
+/* Lead, rule, meta and rule are each 28px apart in the file. */
+.hero dl {
+  margin: 28px 0 0;
+}
+
+.hero h1 + p {
+  max-width: none;
+}
+
+/* Figma 3:1895: tracking +1px in #1c1b18 (the shared hero title is Mello's -0.01em, black). */
+.hero h1 {
+  letter-spacing: 1px;
+  color: #1c1b18;
+}
+
+/* Figma 3:1906 / 3:1945: meta values and section headings are #1c1b18, not black. */
+.hero dd,
+.root h2 {
+  color: #1c1b18;
+}
+
+.browser {
+  margin: 56.5px 0 45.5px;
+  border: 0.928px solid var(--grey);
+}
+
+.browserBar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34.93px;
+  padding: 0 24px;
+  background: rgba(138, 139, 190, 0.46);
+  border-bottom: 0.928px solid var(--grey);
+}
+
+.browserBar i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--grey);
+}
+
+.browserBar b {
+  flex: 1;
+  height: 0.986px;
+  margin-inline: 16px;
+  background: var(--grey);
+}
+
+.browserBar span {
+  font-size: 8.8px;
+  line-height: 13.2px;
+  letter-spacing: 0.53px;
+  color: #515151;
+}
+
+/* Desktop crops the 3:2 image to a 1110 × 716 window, trimming the top. */
+.browserView {
+  position: relative;
+  aspect-ratio: 1110 / 716;
+  overflow: hidden;
+}
+
+.heroImg {
+  object-fit: cover;
+  object-position: 50% 100%;
+}
+
+/* ---- 01 Overview ---- */
+h2.h2Tight {
+  line-height: 50.6px;
+}
+
+.overviewText {
+  max-width: 1079px;
+  padding-top: 20px;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 27.2px;
+  color: #515151;
+}
+
+.blank {
+  height: 27.2px;
+}
+
+.steps {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 0.928px solid var(--grey);
+}
+
+.steps > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border: 0.928px solid var(--grey);
+  background: var(--white);
+}
+
+.steps > .tint {
+  background: var(--blue-tint);
+}
+
+.stepNum {
+  font-size: 9.28px;
+  line-height: 13.92px;
+  letter-spacing: 0.93px;
+  color: var(--grey);
+}
+
+.stepTitle {
+  font-weight: 500;
+  font-size: 11.52px;
+  line-height: 17.28px;
+  letter-spacing: 0.92px;
+}
+
+.stepDesc {
+  font-weight: 300;
+  font-size: 12.8px;
+  line-height: 19.84px;
+}
+
+/* ---- 02 Context ---- */
+.softLabel {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 14px;
+  line-height: 20.16px;
+  color: var(--grey);
+  white-space: nowrap;
+}
+
+.softNum {
+  letter-spacing: 1.61px;
+}
+
+.softLine {
+  flex: 1;
+  height: 1.392px;
+  background: var(--soft-line);
+}
+
+.softText {
+  letter-spacing: 1.34px;
+}
+
+h2.h2Big {
+  padding-top: 56px;
+  line-height: 78.9px;
+}
+
+.contextText {
+  padding-block: 44px;
+  font-size: 17px;
+  line-height: 34.27px;
+  color: var(--muted);
+}
+
+.contextText ul {
+  padding-left: 25.5px;
+  list-style: disc;
+}
+
+.contextText p {
+  padding-left: 25.5px;
+}
+
+.decision {
+  position: relative;
+  width: min(668px, 100%);
+  aspect-ratio: 668 / 302;
+  margin-inline: auto;
+}
+
+.decisionImg {
+  object-fit: cover;
+}
+
+/* ---- 03 Challenge + design question ---- */
+h2.h2Challenge {
+  line-height: 48px;
+}
+
+.challengeText {
+  padding-top: 48px;
+}
+
+.questionLabel {
+  padding: 0 var(--cs-pad) 16px;
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: 0.93px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+section.question {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding-top: 32px;
+}
+
+.questionText {
+  font-family: var(--font-serif-stack);
+  max-width: 1065px;
+  font-size: 40px;
+  line-height: 57px;
+  letter-spacing: -0.4px;
+}
+
+.questionNote {
+  padding-top: 0;
+}
+
+.principlesWrap {
+  container-type: inline-size;
+}
+
+/* Card internals are placed as drawn (frame px × --k). */
+.principles {
+  --gap: 97px;
+  --k: min(1px, (100cqw - 2 * var(--gap)) / 882);
+  display: flex;
+  justify-content: center;
+  gap: var(--gap);
+}
+
+.principle {
+  position: relative;
+  flex: none;
+  width: calc(298 * var(--k));
+  height: calc(156 * var(--k));
+  border: 0.84px solid var(--blue-tint);
+  border-radius: calc(10.08 * var(--k));
+  background: var(--blue-tint);
+  box-shadow: 0 1.68px 7.56px rgba(28, 100, 179, 0.03);
+}
+
+.principleNarrow {
+  width: calc(286 * var(--k));
+}
+
+.principleIndex {
+  position: absolute;
+  left: calc(13.86 * var(--k));
+  top: calc(14.28 * var(--k));
+  display: grid;
+  place-items: center;
+  width: calc(35.28 * var(--k));
+  height: calc(24.36 * var(--k));
+  border-radius: calc(10.08 * var(--k));
+  background: linear-gradient(145deg, #edf6ff, #dcebff);
+  font-family: var(--font-cutive), var(--font-mono-stack);
+  font-size: calc(12.6 * var(--k));
+  color: #0054f5;
+}
+
+/* The icon files include the tile's glow, so they overhang the 56.7 × 54.18 tile. */
+.principleIcon {
+  position: absolute;
+  left: calc(13.86 * var(--k));
+  top: calc(55.86 * var(--k));
+  width: calc(56.7 * var(--k));
+  height: calc(54.18 * var(--k));
+}
+
+.principle:first-child .principleIcon {
+  top: calc(53.34 * var(--k));
+}
+
+.principleIcon img {
+  position: absolute;
+  left: calc(-12.6 * var(--k));
+  top: calc(-9.24 * var(--k));
+  width: calc(81.9 * var(--k));
+  height: calc(79.38 * var(--k));
+  max-width: none;
+}
+
+.principleTitle {
+  position: absolute;
+  left: calc(85.68 * var(--k));
+  top: calc(55.86 * var(--k));
+  font-size: calc(13.44 * var(--k));
+  line-height: 1.25;
+  letter-spacing: calc(2.94 * var(--k));
+  color: #0054f5;
+}
+
+.principleDesc {
+  position: absolute;
+  left: calc(85.68 * var(--k));
+  top: calc(81.06 * var(--k));
+  display: flex;
+  flex-direction: column;
+  font-size: calc(11.76 * var(--k));
+  line-height: calc(16.38 * var(--k));
+  color: #131b29;
+  white-space: nowrap;
+}
+
+/* ---- 04 User needs ---- */
+.needsIntro {
+  padding-top: 20px;
+  line-height: 26px;
+}
+
+.needsWrap {
+  container-type: inline-size;
+}
+
+section.needsSection {
+  padding-bottom: 112px;
+}
+
+.needs {
+  --u: min(1px, 100cqw / 1112);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(40.84 * var(--u)) calc(52.36 * var(--u));
+  padding-top: calc(14.8 * var(--u));
+}
+
+.needsRow {
+  display: contents;
+}
+
+.needsHead + .needsHead {
+  position: relative;
+  top: calc(4.2 * var(--u));
+  padding-left: calc(2.9 * var(--u));
+}
+
+.needsHead {
+  margin-bottom: calc(-15.3 * var(--u));
+  padding-left: calc(7.6 * var(--u));
+  font-family: var(--font-inter), sans-serif;
+  font-size: calc(20.944 * var(--u));
+  line-height: calc(25.13 * var(--u));
+  color: #0f172b;
+}
+
+.needCard {
+  display: flex;
+  flex-direction: column;
+  gap: calc(14 * var(--u));
+  min-height: calc(167.5 * var(--u));
+  padding: calc(36.3 * var(--u)) calc(4 * var(--u)) calc(30 * var(--u)) calc(43.2 * var(--u));
+  border: calc(1.047 * var(--u)) solid #e2e8f0;
+  border-radius: calc(41.89 * var(--u));
+  background: #f8fafc;
+  font-size: calc(16.756 * var(--u));
+  line-height: calc(25.13 * var(--u));
+}
+
+.needTitle {
+  color: #0f172b;
+}
+
+.needDesc {
+  max-width: calc(var(--dw) * var(--u));
+  color: #45556c;
+}
+
+.needBlue {
+  gap: calc(11.86 * var(--u));
+  padding: calc(33.83 * var(--u)) calc(4 * var(--u)) calc(30 * var(--u)) calc(35.27 * var(--u));
+  border-color: #bedbff;
+  background: #eff6ff;
+}
+
+.needBlue .needTitle {
+  color: #1c398e;
+}
+
+.needBlue .needDesc {
+  color: #1447e6;
+}
+
+.insightQuote {
+  margin-top: 48px;
+  padding: 40px;
+  border: 0.928px solid var(--grey);
+  background: #f8fbff;
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 35.2px;
+  color: #1c1b18;
+}
+
+/* ---- 05 The system ---- */
+section.systemSection {
+  padding-bottom: 0;
+}
+
+.systemSection .points {
+  padding-bottom: 50px;
+}
+
+/* ---- 06 Design process ---- */
+section.process {
+  padding-inline: 30px;
+}
+
+.process > h2 {
+  margin-top: 18px;
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 19.2px;
+  padding: 18px 0 10.25px;
+}
+
+.timeline li {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.tlTrack {
+  display: flex;
+  flex-direction: column;
+  gap: 9.6px;
+}
+
+.tlNum {
+  font-family: var(--font-space), var(--font-mono-stack);
+  font-weight: 700;
+  font-size: 9.6px;
+  line-height: 14px;
+  color: #bac7f9;
+}
+
+.tlCurrent {
+  color: #5d76f6;
+}
+
+.tlRail {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 8.4px;
+}
+
+.tlDot {
+  flex: none;
+  width: 8.4px;
+  height: 8.4px;
+  border-radius: 50%;
+  background: #bac7f9;
+}
+
+/* The connector runs to the next step's node and ends in a small chevron. */
+.tlLine {
+  position: absolute;
+  left: 8.4px;
+  right: 0;
+  top: 50%;
+  height: 0.6px;
+  background: #bac7f9;
+}
+
+.tlLine::after {
+  content: "";
+  position: absolute;
+  right: 0.6px;
+  top: -2.1px;
+  width: 4.8px;
+  height: 4.8px;
+  border-top: 0.6px solid #bac7f9;
+  border-right: 0.6px solid #bac7f9;
+  rotate: 45deg;
+}
+
+.tlBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-radius: 4px;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tlTitle,
+.tlSub {
+  transition: color 0.2s ease;
+}
+
+.tlBody:hover .tlTitle,
+.tlBody:hover .tlSub {
+  color: #5d76f6;
+}
+
+.tlBody:focus-visible {
+  outline: 1px solid #5d76f6;
+  outline-offset: 6px;
+}
+
+/* Smooth-scroll targets for the steps (Lenis adds its 72px header offset). */
+.block {
+  scroll-margin-top: 24px;
+}
+
+.tlTitle {
+  font-family: var(--font-serif-stack);
+  font-size: 22.8px;
+  line-height: 30px;
+  color: #0f172a;
+}
+
+.tlSub {
+  margin-top: -4.8px;
+  font-size: 15px;
+  line-height: 21px;
+  color: #64748b;
+}
+
+.tlDivider {
+  width: 24px;
+  height: 0.6px;
+  background: #cfd9ee;
+}
+
+.tlDesc {
+  font-size: 15px;
+  line-height: 24px;
+  color: #64748b;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-top: 18px;
+}
+
+.block.ideation {
+  padding-top: 65.4px;
+}
+
+.block.wireBlock {
+  padding-top: 33.5px;
+}
+
+section.process {
+  padding-bottom: 44px;
+}
+
+.centered {
+  align-items: center;
+}
+
+.centered > .blockTitle,
+.centered > .wireLabel {
+  align-self: stretch;
+}
+
+.blockTitle {
+  font-family: var(--font-serif-stack);
+  font-weight: 400;
+  font-size: 44px;
+  line-height: 66px;
+  letter-spacing: -0.44px;
+}
+
+.blockLead {
+  max-width: 1141px;
+  font-size: 15px;
+  line-height: 21.125px;
+  color: var(--muted);
+}
+
+.subhead {
+  padding-block: 7px;
+}
+
+.subhead p:first-child,
+.reviewLabel,
+.blockLabel {
+  font-size: 17px;
+  line-height: 28px;
+}
+
+.subhead p:last-child {
+  font-size: 15px;
+  line-height: 28px;
+  color: var(--muted);
+}
+
+.reviewLabel {
+  padding-top: 19.875px;
+  line-height: 21.125px;
+}
+
+.blockLabel {
+  line-height: 22px;
+}
+
+/* User insights — 3 × 3 cards at 1141 frame px. */
+.insightsWrap {
+  container-type: inline-size;
+}
+
+.insights {
+  --v: min(1px, 100cqw / 1141);
+  width: calc(1141 * var(--v));
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: calc(12 * var(--v)) calc(16 * var(--v));
+}
+
+.insights li {
+  position: relative;
+  min-height: calc(100.7 * var(--v));
+  padding: calc(20 * var(--v)) calc(6 * var(--v)) calc(30 * var(--v)) calc(20 * var(--v));
+  border: calc(1 * var(--v)) solid var(--accent);
+  border-left-width: calc(4 * var(--v));
+  border-radius: calc(14 * var(--v));
+  background: var(--white);
+  box-shadow:
+    0 calc(10 * var(--v)) calc(7.5 * var(--v)) rgba(0, 0, 0, 0.1),
+    0 calc(4 * var(--v)) calc(3 * var(--v)) rgba(0, 0, 0, 0.1);
+  font-size: calc(13 * var(--v));
+  line-height: calc(21.125 * var(--v));
+}
+
+.insights li p {
+  max-width: calc(var(--tw) * var(--v));
+}
+
+.insights li span {
+  position: absolute;
+  left: calc(20 * var(--v));
+  top: calc(74.25 * var(--v));
+  width: calc(48 * var(--v));
+  height: calc(2 * var(--v));
+  background: var(--accent);
+}
+
+/* Competitive review — table at 1149.6 frame px. */
+.reviewWrap {
+  position: relative;
+  container-type: inline-size;
+}
+
+.scrollHint {
+  display: none;
+}
+
+.reviewSizer {
+  --w: min(1px, 100cqw / 1149.6);
+  width: calc(1149.6 * var(--w));
+}
+
+/* 3:2259: white, 1.2 border and 1.2 inner padding, radius 16.8, two-layer shadow. */
+.review {
+  overflow: hidden;
+  padding: calc(1.2 * var(--w));
+  border: calc(1.2 * var(--w)) solid #3c4043;
+  border-radius: calc(16.8 * var(--w));
+  background: var(--white);
+  box-shadow:
+    0 calc(12 * var(--w)) calc(18 * var(--w)) calc(-3.6 * var(--w)) rgba(0, 0, 0, 0.1),
+    0 calc(4.8 * var(--w)) calc(7.2 * var(--w)) calc(-4.8 * var(--w)) rgba(0, 0, 0, 0.1);
+  font-size: calc(15 * var(--w));
+  line-height: calc(25.35 * var(--w));
+  /* One grid for every row (rows are display: contents), so all cells share
+     the same column lines; minmax(0, …) keeps the drawn 165 / 363 / 314.6 /
+     304.4 proportions whatever the cell content. Header 87, rows 125. */
+  display: grid;
+  grid-template-columns: minmax(0, 165fr) minmax(0, 363fr) minmax(0, 314.6fr) minmax(0, 304.4fr);
+  grid-template-rows: minmax(calc(87 * var(--w)), auto);
+  grid-auto-rows: minmax(calc(125 * var(--w)), auto);
+}
+
+.reviewHead,
+.reviewRow {
+  display: contents;
+}
+
+.reviewHead {
+  font-size: calc(17 * var(--w));
+  line-height: calc(23.4 * var(--w));
+}
+
+.reviewHead > span {
+  background: #e4ebff;
+}
+
+.reviewHead > span,
+.reviewRow > * {
+  display: flex;
+  align-items: center;
+  gap: calc(12 * var(--w));
+  padding: calc(20 * var(--w)) calc(24 * var(--w));
+  border-left: calc(1.2 * var(--w)) solid #3c4043;
+}
+
+/* Header cells: badge + name centred, 9.6 apart, 23.4 in from the cell edges. */
+.reviewHead > span {
+  justify-content: center;
+  gap: calc(9.6 * var(--w));
+  padding: calc(24 * var(--w)) calc(23.4 * var(--w));
+}
+
+.reviewHead > :first-child,
+.reviewRow > :first-child {
+  justify-content: center;
+  border-left: 0;
+}
+
+.reviewRow > p {
+  display: block;
+  padding: calc(24.3 * var(--w)) calc(16 * var(--w)) calc(20 * var(--w)) calc(23.4 * var(--w));
+}
+
+.reviewRow > p > span {
+  display: block;
+  max-width: calc(var(--tw) * var(--w));
+}
+
+/* Each body cell draws the rule above it, so row dividers line up exactly. */
+.reviewRow > * {
+  border-top: calc(1.2 * var(--w)) solid #3c4043;
+}
+
+.reviewHead i {
+  display: grid;
+  place-items: center;
+  width: calc(38.4 * var(--w));
+  height: calc(38.4 * var(--w));
+  border-radius: calc(12 * var(--w));
+  font-family: var(--font-cutive), var(--font-mono-stack);
+  font-style: normal;
+  font-size: calc(16.8 * var(--w));
+  line-height: calc(25.2 * var(--w));
+  color: #000;
+  filter: drop-shadow(0 calc(4.8 * var(--w)) calc(3.6 * var(--w)) rgba(0, 0, 0, 0.1))
+    drop-shadow(0 calc(2.4 * var(--w)) calc(2.4 * var(--w)) rgba(0, 0, 0, 0.1));
+}
+
+.pillGood,
+.pillGap {
+  display: grid;
+  place-items: center;
+  min-width: calc(116.4 * var(--w));
+  height: calc(38.4 * var(--w));
+  padding-inline: calc(8.4 * var(--w));
+  border-radius: calc(12 * var(--w));
+  font-family: var(--font-cutive), var(--font-mono-stack);
+  font-weight: 400;
+  font-size: calc(14.4 * var(--w));
+  line-height: calc(21.6 * var(--w));
+}
+
+.pillGood {
+  border: calc(1.2 * var(--w)) solid rgba(52, 168, 83, 0.2);
+  background: rgba(52, 168, 83, 0.15);
+  color: #34a853;
+}
+
+.pillGap {
+  border: calc(1.2 * var(--w)) solid rgba(234, 67, 53, 0.2);
+  background: rgba(234, 67, 53, 0.15);
+  color: #ea4335;
+}
+
+p.reviewBig {
+  font-size: calc(16 * var(--w));
+}
+
+.reviewNote {
+  font-style: italic;
+  font-size: 17px;
+  line-height: 23.4px;
+  color: var(--muted);
+}
+
+/* Ideation */
+.ideationLead {
+  max-width: 1141px;
+  color: var(--muted);
+}
+
+.ideationLead p:first-child {
+  font-size: 17px;
+  line-height: 28px;
+}
+
+.ideationLead p:last-child {
+  padding-top: 16px;
+  font-size: 15px;
+  line-height: 21.125px;
+  color: var(--muted);
+}
+
+.conceptsWrap,
+.indicatorsWrap,
+.boardNotesWrap {
+  container-type: inline-size;
+}
+
+.concepts {
+  --c: min(1px, 100cqw / 1119);
+  display: flex;
+  gap: calc(30 * var(--c));
+  margin-left: calc(-5 * var(--c));
+}
+
+.conceptsWrap + .blockLabel {
+  padding-top: 40px;
+}
+
+.indicatorsWrap {
+  margin-top: 16px;
+}
+
+.boardNotesWrap {
+  margin-top: 56px;
+}
+
+.boardNotesWrap + .blockLabel {
+  padding-top: 70px;
+}
+
+.concept {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: calc(353 * var(--c));
+  min-height: calc(148.75 * var(--c));
+  padding: calc(14 * var(--c)) calc(13 * var(--c));
+  border: calc(1 * var(--c)) solid #7f7f7f;
+  border-radius: calc(14 * var(--c));
+  background: #e4ebff;
+  box-shadow:
+    0 calc(10 * var(--c)) calc(7.5 * var(--c)) rgba(0, 0, 0, 0.1),
+    0 calc(4 * var(--c)) calc(3 * var(--c)) rgba(0, 0, 0, 0.1);
+}
+
+.conceptTag {
+  display: grid;
+  place-items: center;
+  width: calc(85.9 * var(--c));
+  height: calc(30.5 * var(--c));
+  margin-bottom: calc(11 * var(--c));
+  border: calc(1 * var(--c)) solid rgba(0, 96, 255, 0.19);
+  border-radius: calc(10 * var(--c));
+  background: rgba(0, 55, 146, 0.08);
+  font-size: calc(11 * var(--c));
+  color: #004bc8;
+}
+
+.conceptTitle {
+  font-size: calc(15 * var(--c));
+  line-height: calc(22.5 * var(--c));
+}
+
+.conceptDesc {
+  max-width: calc(310 * var(--c));
+  padding-top: calc(11 * var(--c));
+  font-size: calc(13 * var(--c));
+  line-height: calc(21.125 * var(--c));
+}
+
+.indicators {
+  --i: min(1px, 100cqw / 1180);
+  position: relative;
+  height: calc(148 * var(--i));
+}
+
+.indicators li {
+  position: absolute;
+  left: calc((30 + var(--ix)) * var(--i));
+  top: calc((16 + var(--iy)) * var(--i));
+  width: calc(205 * var(--i));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.indicatorIcon {
+  position: relative;
+  translate: 0 calc(var(--cy) * var(--i));
+  display: grid;
+  place-items: center;
+  width: calc(64 * var(--i));
+  height: calc(64 * var(--i));
+  border-radius: 50%;
+  background: rgba(var(--rgb), 0.13);
+  box-shadow: 0 0 calc(12 * var(--i)) rgba(var(--rgb), 0.19);
+}
+
+.indicatorIcon img {
+  width: calc(var(--iw) * var(--i));
+  height: calc(var(--ih) * var(--i));
+}
+
+/* The CCTV file is the whole badge, drawn larger than the circle. */
+.indicatorBare {
+  background: none;
+  box-shadow: none;
+}
+
+.indicatorBare img {
+  position: absolute;
+  left: calc(-20 * var(--i));
+  top: calc(-20 * var(--i));
+  width: calc(104 * var(--i));
+  height: calc(104 * var(--i));
+  max-width: none;
+}
+
+.indicatorLabel {
+  padding-top: calc(12 * var(--i));
+  font-size: calc(15 * var(--i));
+  line-height: calc(16.5 * var(--i));
+  text-align: center;
+}
+
+/* Sticky notes — a 971 frame-px board, two rows of two. */
+.notes {
+  --n: min(1px, 100cqw / 1180);
+  position: relative;
+  height: calc(889 * var(--n));
+}
+
+.noteSlot {
+  position: absolute;
+  left: calc((75 + var(--nx)) * var(--n));
+  top: calc(var(--ny) * var(--n));
+  width: calc(460 * var(--n));
+  height: calc(420 * var(--n));
+}
+
+.note {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: calc(20 * var(--n));
+  height: 100%;
+  padding: calc(40 * var(--n)) calc(36 * var(--n));
+  border-radius: calc(4 * var(--n));
+  rotate: var(--rot);
+  box-shadow:
+    calc(1 * var(--n)) calc(3 * var(--n)) calc(6 * var(--n)) rgba(0, 0, 0, 0.13),
+    calc(4 * var(--n)) calc(12 * var(--n)) calc(24 * var(--n)) calc(-4 * var(--n)) rgba(0, 0, 0, 0.25);
+}
+
+.note_yellow {
+  background: rgba(251, 228, 91, 0.38);
+  color: #1c1b08;
+}
+
+.note_blue {
+  background: rgba(142, 195, 252, 0.49);
+  color: #081628;
+}
+
+.note_purple {
+  background: rgba(211, 172, 252, 0.35);
+  color: #1f082d;
+}
+
+.note_pink {
+  background: rgba(252, 159, 182, 0.36);
+  color: #2d0a12;
+}
+
+.noteCorner {
+  position: absolute;
+  top: calc(-1 * var(--n));
+  right: calc(-1 * var(--n));
+  width: calc(56 * var(--n));
+  height: calc(56 * var(--n));
+}
+
+.noteTitle {
+  font-family: var(--font-cormorant), var(--font-serif-stack);
+  font-weight: 600;
+  font-size: calc(36 * var(--n));
+  line-height: 1.2;
+}
+
+.noteBody {
+  font-family: var(--font-space), var(--font-mono-stack);
+  font-size: calc(15 * var(--n));
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.whyPoints {
+  gap: 24.92px;
+  padding: 26px 0 100.6px;
+}
+
+/* Wireframes */
+.wireLabel {
+  padding-top: 26px;
+  font-size: 15.2px;
+  line-height: 25.84px;
+  color: var(--muted);
+}
+
+.wireframe {
+  position: relative;
+  width: min(798px, 100%);
+  aspect-ratio: 798 / 957;
+  margin: 26px 0 72px;
+  overflow: hidden;
+}
+
+/* The frame's crop (image 100.12% × 113.23%, offset -0.06% / -0.7%) is a box
+   the fill image covers; the frame's overflow trims it. The box has the image's
+   own 1176 × 1595 ratio, so nothing is stretched. */
+.wireCrop {
+  position: absolute;
+  left: -0.06%;
+  top: -0.7%;
+  width: 100.12%;
+  height: 113.23%;
+}
+
+.wireImg {
+  object-fit: cover;
+}
+
+/* ---- UI design board ---- */
+.uiBlock {
+  gap: 68px;
+  padding-bottom: 25px;
+}
+
+.boardWrap {
+  width: min(967px, 100%);
+  container-type: inline-size;
+}
+
+.board {
+  --x: var(--dx);
+  --y: var(--dy);
+  --w: var(--dw);
+  position: relative;
+  aspect-ratio: 967 / 2636.628;
+}
+
+.board > * {
+  --x: var(--dx);
+  --y: var(--dy);
+  --w: var(--dw);
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+}
+
+.screen {
+  width: var(--w);
+}
+
+.arrow {
+  width: var(--w);
+  aspect-ratio: 850 / 530;
+  translate: -50% -50%;
+  rotate: var(--rot);
+}
+
+.caption {
+  font-family: var(--font-serif-stack);
+  font-size: 3.4286cqw;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.capIndent {
+  padding-left: 0.25em;
+}
+
+.cap_map {
+  width: var(--w);
+  max-width: calc(100% - var(--x));
+  font-size: 3.0476cqw;
+  white-space: normal;
+}
+
+/* ---- 07 What didn't work ---- */
+.looseLead {
+  font-size: 15px;
+  line-height: 35px;
+  color: var(--muted);
+}
+
+.ideas {
+  display: flex;
+  flex-direction: column;
+  gap: 25.84px;
+  padding-top: 25.84px;
+}
+
+.ideaRow {
+  padding-top: 25.84px;
+}
+
+.pointTitle + .ideaRow {
+  padding-top: 0;
+}
+
+.ideaKey {
+  font-size: 15.2px;
+  line-height: 25.84px;
+}
+
+/* ---- 08 Trust & feasibility ---- */
+.trustLead {
+  padding-top: 20px;
+  line-height: 35px;
+  color: var(--muted);
+}
+
+.trustLead p:first-child {
+  font-size: 17px;
+}
+
+.trustLead p:last-child {
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.trustItems {
+  display: flex;
+  flex-direction: column;
+  gap: 25.84px;
+}
+
+.trustStrong {
+  font-size: 15.2px;
+  line-height: 25.84px;
+}
+
+/* ---- Case-study strip (tablet + phone frames only) ---- */
+.caseStrip {
+  display: none;
+}
+
+@keyframes reviewFade {
+  0%,
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Desktop frame values for the closing sections (3:2431, 3:2450, 3:2469).
+   These sections are drawn on a 44px gutter (Reflection on 64) with fixed-height
+   boxes, so the spacing below is taken from the frame's text positions. */
+@media (min-width: 1100px) {
+  /* Updated desktop frame: item titles are 16px in The System (3:2128), What didn't
+     work (3:2445), Trust (3:2464) and Reflection (3:2481); "Why this direction" keeps 17. */
+  .systemSection .pointTitle,
+  .ideas .pointTitle,
+  .trustItems .pointTitle,
+  .learnings .pointTitle {
+    font-size: 16px;
+  }
+
+  /* Context (3:1994): 15.2px on 34.27 lines across 1112, bullets 22.8 in, the
+     follow-up lines two spaces in, with the drawn break after "without". */
+  .contextText {
+    font-size: 15.2px;
+  }
+
+  .contextText ul {
+    padding-left: 22.8px;
+  }
+
+  .contextText p {
+    padding-left: 18.24px;
+  }
+
+  .dBreak {
+    display: inline;
+  }
+
+  /* User needs quote (3:2114): 17px, centred. */
+  .insightQuote {
+    font-size: 17px;
+    text-align: center;
+  }
+
+  /* Competitive note (3:2308): 16px. */
+  .reviewNote {
+    font-size: 16px;
+  }
+
+  /* Ideation intro (3:2333): both paragraphs 15.2 / 21.125, a blank line apart. */
+  .ideationLead p:first-child {
+    font-size: 15.2px;
+    line-height: 21.125px;
+  }
+
+  .ideationLead p:last-child {
+    padding-top: 21.125px;
+    font-size: 15.2px;
+  }
+
+  /* Content-heavy blocks keep the desktop frame's 1:1 sizes at every desktop
+     width (they no longer scale down with the column); only widths reflow. */
+  .needs {
+    --u: 1px;
+  }
+
+  .insights {
+    --v: 1px;
+    width: min(1141px, 100%);
+  }
+
+  .reviewSizer {
+    --w: 1px;
+    width: min(1149.6px, 100%);
+  }
+
+  .concepts {
+    --c: 1px;
+  }
+
+  .notes {
+    --n: 1px;
+  }
+
+  /* The sticky-note board keeps its drawn placement where it fits (1046px);
+     in a narrower column the four notes keep their size in a 2 x 2 grid. */
+  @container (max-width: 1045px) {
+    .notes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 460px));
+      justify-content: center;
+      gap: 28px 29px;
+      height: auto;
+      padding: 20px 0;
+    }
+
+    .noteSlot {
+      position: relative;
+      left: auto;
+      top: auto;
+      width: auto;
+      height: auto;
+    }
+
+    .note {
+      min-height: 420px;
+    }
+  }
+
+  section.didnt,
+  section.trust {
+    padding-inline: 44px;
+  }
+
+  .didnt > div:first-child,
+  .trust > div:first-child {
+    max-width: 1112.34px;
+  }
+
+  /* What didn't work: lead at 201 (x -2, 1121 wide, in a 115 box), list text at 334
+     (1101 wide, 27 lines), section 1105 tall. */
+  section.didnt {
+    padding-bottom: 73.3px;
+  }
+
+  .looseLead {
+    max-width: 1121px;
+    margin: 0 0 10px -2px;
+    padding-top: 0;
+  }
+
+  .ideas {
+    max-width: 1101px;
+    padding-top: 18px;
+  }
+
+  /* Trust: 2px between label, heading and lead (flex gap); lead at x +5; list at
+     x 64 / y 330.6, 1101 wide, 11 lines; section 707 tall. */
+  .trust h2 {
+    margin-top: 2px;
+  }
+
+  .trustLead {
+    max-width: 1121px;
+    padding: 2px 0 0;
+  }
+
+  .trustItems {
+    max-width: 1101px;
+    padding-top: 19.6px;
+  }
+
+  section.trust {
+    padding-bottom: 92.2px;
+  }
+
+  /* Reflection: item text tops at 218.5 / 344.9 / 478.9 / 623.3, section 791 tall. */
+  .learnings {
+    gap: 0;
+    padding-top: 17.5px;
+  }
+
+  .learnings li {
+    width: calc(var(--tw) * 1px);
+  }
+
+  .learnings li:nth-child(2) {
+    margin-top: 48.9px;
+  }
+
+  .learnings li:nth-child(3) {
+    margin-top: 56.5px;
+  }
+
+  .learnings li:nth-child(4) {
+    margin-top: 41px;
+  }
+
+  section.reflection {
+    padding-bottom: 90.2px;
+  }
+}
+
+/* ======================================================================
+   Tablet (Figma 2:8391, 768), 600-1099
+   ====================================================================== */
+@media (min-width: 600px) and (max-width: 1099px) {
+  .root {
+    --cs-pad: 48px;
+  }
+
+  .dOnly {
+    display: none;
+  }
+
+  .mOnly,
+  .tOnly {
+    display: inline;
+  }
+
+  .browserBar {
+    min-height: 35px;
+  }
+
+  .browserView {
+    aspect-ratio: 3 / 2;
+  }
+
+  section.overview {
+    padding-block: 64px;
+  }
+
+  h2.h2Tight {
+    line-height: 50.6px;
+  }
+
+  .overviewText {
+    font-size: 15px;
+  }
+
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contextText {
+    font-size: 15px;
+  }
+
+  .decision {
+    width: 100%;
+    aspect-ratio: 1944 / 809;
+  }
+
+  .questionLabel {
+    font-size: 12px;
+  }
+
+  .questionText {
+    font-size: 28px;
+    line-height: 44px;
+  }
+
+  .principles {
+    --gap: 25px;
+  }
+
+  .insightQuote {
+    padding: 9px 40px;
+    font-size: 15px;
+    line-height: 35.2px;
+  }
+
+  section.process {
+    padding-inline: var(--cs-pad);
+  }
+
+  .process > h2,
+  .timeline,
+  .block {
+    padding-inline: 0;
+  }
+
+  .process > div:first-child {
+    margin-inline: 0;
+  }
+
+  .tlCurrent,
+  .tlNum {
+    color: #5d76f6;
+  }
+
+  .tlSub {
+    line-height: 21px;
+  }
+
+  .tlDesc {
+    font-size: 13px;
+    line-height: 24px;
+  }
+
+  .blockTitle {
+    font-size: 28px;
+  }
+
+  .insightsWrap,
+  .reviewWrap {
+    margin-inline: 0;
+  }
+
+  /* Tablet board: Figma 671.8 × 1646.1. */
+  .boardWrap {
+    width: min(671.771px, 100%);
+  }
+
+  .board {
+    aspect-ratio: 671.771 / 1646.12;
+  }
+
+  .board > * {
+    --x: var(--tx);
+    --y: var(--ty);
+    --w: var(--tw);
+  }
+
+  .caption {
+    font-size: 3.7215cqw;
+  }
+
+  .cap_mode {
+    letter-spacing: 0.12em;
+  }
+
+  .cap_icons {
+    letter-spacing: 0.2em;
+  }
+
+  .cap_map {
+    font-size: 3.7215cqw;
+    line-height: 1.18;
+  }
+
+  .caseStrip {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    border-top: 0.928px solid var(--grey);
+  }
+
+  .caseStrip p,
+  .caseStrip a {
+    white-space: nowrap;
+  }
+
+  .caseStrip p {
+    line-height: 13.92px;
+    letter-spacing: 0.93px;
+    color: var(--muted);
+  }
+
+  .caseStrip a {
+    padding-bottom: 1px;
+    border-bottom: 0.928px solid var(--black);
+    font-size: 11.2px;
+    line-height: 16.8px;
+    letter-spacing: 0.9px;
+  }
+
+  /* Tablet frame values (Figma 2:8391, 768). Scoped to 600–1099 so the phone
+     frame's own values below are unaffected. Sections there start their label
+     64px down and end 64px under their content. */
+
+  /* Hero (2:8416): eyebrow at 40; title 38px / 69.12 with -14 between lines
+     (= 55.12 spacing); lead at 206; rules at 306 / 403; browser at 450, with
+     105.5 under it. */
+  section.hero {
+    padding-top: 40px;
+  }
+
+  .hero h1 {
+    padding-top: 31.4px;
+    font-size: 38px;
+    line-height: 55.12px;
+  }
+
+  .hero h1 + p {
+    padding-top: 8.8px;
+  }
+
+  .hero dl {
+    margin-top: 20.8px;
+    grid-template-columns: repeat(4, 140.1px);
+    justify-content: start;
+    column-gap: min(48px, (100vw - 624.4px) / 3);
+  }
+
+  /* Each value sits in a fixed 26px row; "INDEPENDANT CONCEPT" runs onto a
+     second line over the row, as drawn. */
+  .hero dd {
+    height: 26px;
+  }
+
+  .browser {
+    margin: 46px 0 68.5px;
+  }
+
+  /* Overview (2:8469): paragraphs straight under the heading; THE CONTEXT 40px
+     on (text 3.5 into a 24 box); grid 16 below. */
+  .overviewText {
+    padding-top: 0;
+  }
+
+  p.contextKicker {
+    padding: 43.5px 0 2.5px;
+    line-height: 18px;
+  }
+
+  .stepDesc {
+    max-width: 236px;
+  }
+
+  /* Context (2:8529). */
+  section.context {
+    padding-block: 64px 63.9px;
+  }
+
+  h2.h2Big {
+    padding-top: 56px;
+    letter-spacing: -0.53px;
+  }
+
+  /* The text sits in a fixed 447 frame; the diagram starts 10.8 under the
+     last (three-line) paragraph. */
+  .contextText {
+    padding-block: 24.8px 10.8px;
+  }
+
+  .contextText ul {
+    max-width: 668px;
+    padding-left: 21px;
+  }
+
+  .contextText p {
+    margin-right: -19px;
+    padding-left: 19px;
+  }
+
+  /* Challenge (2:8558) and the design question (2:8571 / 2:8573). */
+  section.challenge {
+    padding-block: 64px;
+  }
+
+  .challengeText {
+    padding: 26px 0 16px;
+  }
+
+  .questionLabel {
+    line-height: 18px;
+  }
+
+  section.question {
+    padding-block: 64px;
+  }
+
+  .questionText {
+    letter-spacing: 0;
+  }
+
+  /* Cards 215.5 / 215.5 / 206.8 x 112.8, 25 apart from the left edge
+     (they run 15.9px past the column, as drawn). */
+  .principles {
+    --k: calc((100cqw + 15.9px - 50px) / 882);
+    justify-content: flex-start;
+  }
+
+  .questionNote {
+    line-height: 26px;
+  }
+
+  /* User needs (2:8610): heading 14 under the label, intro straight after it,
+     grid 20 below; 64 under the quote. */
+  .needsSection h2 {
+    padding-top: 14px;
+  }
+
+  .needsIntro {
+    padding-top: 0;
+    padding-bottom: 20px;
+  }
+
+  section.needsSection {
+    padding-block: 64px;
+  }
+
+  /* The system (2:8673): heading directly under the label, items every 125.9
+     (text + 24 + 24), 24 + 64 under the last. */
+  .systemSection h2 {
+    padding-top: 0;
+  }
+
+  section.systemSection {
+    padding-block: 64px;
+  }
+
+  .systemSection .points {
+    gap: 48px;
+    padding-bottom: 24px;
+  }
+
+  /* Tablet Design Process (2:8725). */
+
+  .notTablet {
+    display: none;
+  }
+
+  section.process {
+    padding-block: 64px 65px;
+  }
+
+  .process > h2 {
+    margin-top: 0;
+    padding-top: 14px;
+  }
+
+  /* 2:8734: number row cells 154.75 wide, 28 apart; text columns 161.35 wide,
+     19.2 apart; both rows 703 wide (31px past the column, as drawn). The short
+     column dividers have no stroke in this frame. */
+  .timeline {
+    width: calc(100% + 31.2px);
+    column-gap: 19.2px;
+    padding: 26.3px 0 17.8px;
+  }
+
+  .tlTrack {
+    width: 154.75px;
+  }
+
+  .timeline li:nth-child(2) .tlTrack {
+    translate: 2.2px 0;
+  }
+
+  .timeline li:nth-child(3) .tlTrack {
+    translate: 4.4px 0;
+  }
+
+  .timeline li:nth-child(4) .tlTrack {
+    translate: 6.6px 0;
+  }
+
+  .tlDivider {
+    visibility: hidden;
+  }
+
+  /* The connector has no stroke here; only its end chevron shows. */
+  .tlLine {
+    background: none;
+  }
+
+  .tlSub,
+  .tlDesc {
+    max-width: 154px;
+  }
+
+  /* Research (2:8814): blocks 2px apart; two blank 21.1 lines above USER INSIGHTS
+     and one below it; label, table and note at 945.2 / 978.9 / 1200.2. */
+  .block {
+    gap: 2px;
+    padding-top: 0;
+  }
+
+  .blockLead {
+    max-width: none;
+    line-height: 26px;
+  }
+
+  /* The description stays on one line, running past the column (2:8821). */
+  .subhead {
+    padding: 42.26px 0 0;
+    white-space: nowrap;
+  }
+
+  .insightsWrap {
+    margin-top: 23.13px;
+  }
+
+  /* 2:8824: the 672-wide grid of cards at 0.599 of the desktop size (7.79px
+     text), rows 55.5 tall. The scale is fixed, so narrower tablets reflow the
+     columns instead of shrinking the text; rows grow rather than clip. */
+  .insights {
+    --v: 0.599px;
+    width: 100%;
+    grid-auto-rows: minmax(55.5px, auto);
+  }
+
+  .insights li {
+    min-height: 0;
+  }
+
+  /* User needs (2:8621) at the frame's 0.6036 scale; table (2:9030) at 0.5846. */
+  .needs {
+    --u: 0.6036px;
+  }
+
+  .reviewSizer {
+    --w: 0.5846px;
+    width: 100%;
+  }
+
+  .reviewLabel {
+    margin-top: 29.3px;
+    padding-top: 0;
+    line-height: 22px;
+  }
+
+  .reviewWrap {
+    margin-top: 9.7px;
+  }
+
+  .reviewNote {
+    width: 674px;
+    max-width: calc(100% + 2px);
+    margin: 20.3px 0 0 -1px;
+    font-size: 15px;
+  }
+
+  /* Ideation (2:8863): 21 under the note; everything 24 apart, the lead 18. */
+  .block.ideation {
+    gap: 24px;
+    padding-top: 21px;
+  }
+
+  .ideation .ideationLead {
+    margin-top: -6px;
+  }
+
+  .ideationLead p:first-child {
+    line-height: 22px;
+  }
+
+  .ideationLead p:last-child {
+    padding-top: 21.1px;
+    line-height: 26px;
+  }
+
+  .conceptsWrap + .blockLabel,
+  .boardNotesWrap + .blockLabel {
+    padding-top: 0;
+  }
+
+  .indicatorsWrap,
+  .boardNotesWrap {
+    margin-top: 0;
+  }
+
+  /* Concept cards at 0.579 (204.4 x 86.1), the row centred in the column and
+     each card's badge, title and description centred as one group. */
+  .concepts {
+    --c: 0.579px;
+    justify-content: center;
+    margin-left: 0;
+  }
+
+  .concept {
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Indicators at 0.61, the row starting 2px left of the column. */
+  .indicators {
+    --i: 0.61px;
+  }
+
+  .indicators li {
+    left: calc(-2px + var(--ix) * var(--i));
+  }
+
+  /* Sticky notes: the 971 board at 0.6735 (654 x 598.9), 2px left of the column. */
+  .notes {
+    --n: 0.6735px;
+  }
+
+  .noteSlot {
+    left: calc(-2px + var(--nx) * var(--n));
+  }
+
+  /* Below the frame's 672 column (tablets narrower than 768), the indicator row
+     and the note board keep their sizes and reflow instead of shrinking. */
+  @container (max-width: 652px) {
+    .indicators {
+      display: flex;
+      justify-content: space-between;
+      height: auto;
+      padding-top: calc(16 * var(--i));
+    }
+
+    .indicators li {
+      position: static;
+      flex: 1 1 0;
+      min-width: 0;
+    }
+  }
+
+  @container (max-width: 653px) {
+    .notes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 310px));
+      justify-content: center;
+      gap: 19px 20px;
+      height: auto;
+      padding: 13px 0;
+    }
+
+    .noteSlot {
+      position: relative;
+      left: auto;
+      top: auto;
+      width: auto;
+      height: auto;
+    }
+
+    .note {
+      min-height: calc(420 * var(--n));
+    }
+  }
+
+  /* Four 76.6 rows (2:8954): the last keeps its 24 spacer. */
+  .whyPoints {
+    padding: 0 0 24.92px;
+  }
+
+  /* Wireframes (2:8984) at x 51: title, label and image 9 apart; UI title 175
+     under the image at x 57; board 29.7 under it. */
+  .block.wireBlock {
+    gap: 9px;
+    padding: 40.6px 0 0 3px;
+  }
+
+  .wireLabel {
+    padding-top: 0;
+    line-height: 26px;
+  }
+
+  .wireframe {
+    width: calc(100% + 3px);
+    margin: 0 0 175px;
+  }
+
+  .uiBlock {
+    gap: 29.7px;
+    padding-bottom: 0;
+  }
+
+  .uiBlock > .blockTitle {
+    padding-left: 9px;
+  }
+
+  /* Tablet closing sections (2:9078 / 2:9125 / 2:9159), case strip (2:9197)
+     and next project (2:9204). The three sections have fixed heights in the
+     frame (1324 / 754 / 961), so the space under each is taken from there. */
+
+  section.didnt,
+  section.trust,
+  section.reflection {
+    padding-top: 64px;
+  }
+
+  /* What didn't work: lead straight under the heading; list 31 + 10 below it,
+     indented 10, 652 wide; the second idea title is 15.2px in this frame. */
+  .looseLead {
+    padding-top: 0;
+  }
+
+  .ideas {
+    max-width: 662px;
+    padding: 41px 0 0 10px;
+  }
+
+  .ideas > div:nth-child(2) > .pointTitle {
+    font-size: 15.2px;
+  }
+
+  section.didnt {
+    padding-bottom: 53px;
+  }
+
+  /* Trust: list 22.7 under the lead, 652 wide; "No data ≠ safe." and its line
+     are 15px here. */
+  .trustLead {
+    padding-top: 0;
+  }
+
+  .trustItems {
+    max-width: 652px;
+    padding-top: 22.7px;
+  }
+
+  .trustItems > div:nth-child(2) > p:not(:first-child) {
+    font-size: 15px;
+  }
+
+  section.trust {
+    padding-bottom: 43.9px;
+  }
+
+  /* Reflection: the heading keeps its 44px size here (2:9167, 505 wide);
+     items at 205.6 / 397.5 / 597.5 / 789.5. */
+  .reflection h2 {
+    font-size: 44px;
+  }
+
+  .learnings {
+    gap: 0;
+  }
+
+  .learnings li:nth-child(2) {
+    margin-top: 62.7px;
+  }
+
+  .learnings li:nth-child(3) {
+    margin-top: 70.8px;
+  }
+
+  .learnings li:nth-child(4) {
+    margin-top: 62.8px;
+  }
+
+  section.reflection {
+    padding-bottom: 68.1px;
+  }
+
+  /* Case strip: rule 20 below the section; text 14px at x 16; link at x 639. */
+  .caseStrip {
+    align-items: flex-start;
+    height: 84px;
+    margin-top: 20.15px;
+    padding: 34.07px 30px 0 16px;
+  }
+
+  .caseStrip p {
+    font-size: 14px;
+  }
+
+  .caseStrip a {
+    margin-top: -2px;
+  }
+
+  /* Next project: text block at 56 / 58; eyebrow row 36, title and blurb on
+     66 / 26 lines. The frame puts VIEW CASE STUDY off-canvas (x 1310); it stays
+     visible here, at its drawn height on the right. */
+  .root > div:last-child {
+    position: relative;
+    padding: 58px 30px 58px 56px;
+  }
+
+  .root > div:last-child > div {
+    gap: 0;
+  }
+
+  .root > div:last-child > div > p:nth-child(1) {
+    height: 36px;
+  }
+
+  .root > div:last-child > div > p:nth-child(2) {
+    line-height: 66px;
+  }
+
+  .root > div:last-child > div > p:nth-child(3) {
+    max-width: none;
+    line-height: 26px;
+    white-space: nowrap;
+  }
+
+  .root > div:last-child > a {
+    position: absolute;
+    top: 109px;
+    right: 30px;
+  }
+
+  /* ---- Content-heavy blocks at their designed size (tablet) ----
+     The tablet frame draws user needs, insights, the competitive table and the
+     sticky notes as the desktop blocks shrunk to 0.585–0.67 (8–10px text). They
+     keep the desktop design's own sizes here; only the column count changes,
+     and the table scrolls sideways inside its own box. */
+  .needs {
+    --u: 1px;
+  }
+
+  .insights {
+    --v: 1px;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: auto;
+  }
+
+  .insights li {
+    min-height: calc(100.7 * var(--v));
+  }
+
+  .insights li:last-child {
+    grid-column: 1 / span 2;
+    justify-self: center;
+    width: calc(50% - 8px);
+  }
+
+  .reviewSizer {
+    --w: 1px;
+    width: 1149.6px;
+    padding-bottom: 18px;
+  }
+
+  .reviewScroll {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  .reviewScroll:focus-visible {
+    outline: 1px solid var(--black);
+    outline-offset: 2px;
+  }
+
+  .scrollHint {
+    display: block;
+    padding-bottom: 8px;
+    text-align: right;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.93px;
+    color: var(--muted);
+  }
+
+  .reviewWrap::after {
+    content: "";
+    position: absolute;
+    top: 26px;
+    right: 0;
+    bottom: 0;
+    width: 40px;
+    background: linear-gradient(to right, rgb(255 255 255 / 0), var(--white));
+    pointer-events: none;
+  }
+
+  /* Sticky notes: the 2 x 2 board (reference image), each note keeping the
+     desktop 460:420 proportion. Sizes follow the board width (desktop 971),
+     with readable floors for the text and padding. */
+  .notes,
+  .boardNotesWrap .notes {
+    --n: min(1px, 100cqw / 971);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: max(14px, calc(28 * var(--n))) max(12px, calc(29 * var(--n)));
+    height: auto;
+    padding: max(12px, calc(20 * var(--n))) 4px;
+  }
+
+  /* Each slot is at least 420/460 of its column width tall; a pair stretches
+     to the taller note, so both notes in a row match. */
+  .noteSlot,
+  .boardNotesWrap .noteSlot {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: auto;
+    height: auto;
+    min-height: calc((100cqw - 8px - max(12px, calc(29 * var(--n)))) * 0.4565);
+  }
+
+  .note,
+  .boardNotesWrap .note {
+    gap: max(8px, calc(20 * var(--n)));
+    height: 100%;
+    min-height: 0;
+    padding: max(14px, calc(40 * var(--n))) max(12px, calc(36 * var(--n)));
+    aspect-ratio: auto;
+  }
+
+  .noteTitle {
+    font-size: max(18px, calc(36 * var(--n)));
+  }
+
+  .noteBody {
+    font-size: max(10.5px, calc(15 * var(--n)));
+    line-height: 1.55;
+  }
+
+  .noteCorner {
+    width: max(22px, calc(56 * var(--n)));
+    height: max(22px, calc(56 * var(--n)));
+  }
+}
+
+/* ======================================================================
+   Phone (Figma 2:11850, 403), up to 599. Where the frame shrinks a desktop
+   block to 4-6px text (user needs grid, insights, competitive table, sticky
+   notes), the arrangement is kept and the text is set at a readable size.
+   ====================================================================== */
+@media (max-width: 599px) {
+  .dOnly {
+    display: none;
+  }
+
+  .mOnly,
+  .tOnly {
+    display: inline;
+  }
+
+  .hero dl {
+    justify-content: space-between;
+  }
+
+  .browserBar {
+    min-height: 35px;
+  }
+
+  .browserView {
+    aspect-ratio: 3 / 2;
+  }
+
+  h2.h2Tight {
+    line-height: 50.6px;
+  }
+
+  .contextText {
+    font-size: 15px;
+  }
+
+  .questionLabel {
+    font-size: 12px;
+  }
+
+  .principles {
+    --gap: 25px;
+  }
+
+  section.process {
+    padding-inline: var(--cs-pad);
+  }
+
+  .process > h2,
+  .timeline,
+  .block {
+    padding-inline: 0;
+  }
+
+  .process > div:first-child {
+    margin-inline: 0;
+  }
+
+  .tlCurrent,
+  .tlNum {
+    color: #5d76f6;
+  }
+
+  .tlSub {
+    line-height: 21px;
+  }
+
+  .tlDesc {
+    font-size: 13px;
+    line-height: 24px;
+  }
+
+  .blockTitle {
+    font-size: 28px;
+  }
+
+  .insightsWrap,
+  .reviewWrap {
+    margin-inline: 0;
+  }
+
+  .cap_mode {
+    letter-spacing: 0.12em;
+  }
+
+  .cap_icons {
+    letter-spacing: 0.2em;
+  }
+
+  section.reflection {
+    padding-bottom: 80px;
+  }
+
+  .caseStrip {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    border-top: 0.928px solid var(--grey);
+  }
+
+  .caseStrip p,
+  .caseStrip a {
+    white-space: nowrap;
+  }
+
+  .caseStrip p {
+    line-height: 13.92px;
+    letter-spacing: 0.93px;
+    color: var(--muted);
+  }
+
+  .caseStrip a {
+    padding-bottom: 1px;
+    border-bottom: 0.928px solid var(--black);
+    line-height: 16.8px;
+    letter-spacing: 0.9px;
+  }
+
+  .root {
+    --cs-pad: 24px;
+  }
+
+  .tOnly {
+    display: none;
+  }
+
+  .pOnly {
+    display: inline;
+  }
+
+  /* Figma 2:11872: one 346-wide text box, wrapping to
+     "Rethinking night / navigation around / personal safety." */
+  .hero h1 {
+    max-width: 346px;
+    font-size: 36px;
+    line-height: 44px;
+  }
+
+  .hero h1 br {
+    display: none;
+  }
+
+  section.overview {
+    padding-top: 48px;
+  }
+
+  .steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contextText ul,
+  .contextText p {
+    padding-left: 20px;
+  }
+
+  /* Stacked at full size, as in the phone frame. */
+  .principles {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .principleNarrow {
+    width: calc(298 * var(--k));
+  }
+
+  .needsHead {
+    margin-bottom: -4px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .needCard,
+  .needBlue {
+    min-height: 0;
+    border-width: 1px;
+  }
+
+  .needDesc {
+    max-width: none;
+  }
+
+  /* Timeline turns vertical: a 40px rail beside each step. */
+  .timeline {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .timeline li {
+    display: grid;
+  }
+
+  .tlTrack {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tlNum {
+    font-size: 12px;
+  }
+
+  .tlLine {
+    display: none;
+  }
+
+  .insights,
+  .insights li p {
+    width: auto;
+    max-width: none;
+  }
+
+  /* Table: scrolls sideways at 0.75 scale, with a hint and an edge fade. */
+  .scrollHint {
+    padding-bottom: 8px;
+    text-align: right;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.93px;
+    color: var(--muted);
+  }
+
+  .reviewScroll {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-timeline: --review x;
+  }
+
+  .reviewScroll:focus-visible {
+    outline: 1px solid var(--black);
+    outline-offset: 2px;
+  }
+
+  .reviewWrap {
+    timeline-scope: --review;
+  }
+
+  .reviewWrap::after {
+    content: "";
+    position: absolute;
+    top: 26px;
+    right: 0;
+    bottom: 0;
+    width: 40px;
+    background: linear-gradient(to right, rgb(255 255 255 / 0), var(--white));
+    pointer-events: none;
+  }
+
+  /* Concept cards stack at 288px, as drawn. */
+  .concepts {
+    flex-direction: column;
+  }
+
+  /* Indicators: one column at full size, as drawn. */
+  .indicators {
+    --i: 1px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .indicators li {
+    position: static;
+  }
+
+  /* Notes: one readable column instead of the frame's 5px text. */
+  .notes {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .wireframe {
+    width: min(338px, 100%);
+  }
+
+  /* Phone board: Figma 345.3 × 846.2. */
+  .boardWrap {
+    width: min(345.33px, 100%);
+  }
+
+  .board {
+    aspect-ratio: 345.33 / 846.198;
+  }
+
+  .board > * {
+    --x: var(--px);
+    --y: var(--py);
+    --w: var(--pw);
+  }
+
+  .caption {
+    font-size: 4.923cqw;
+  }
+
+  .cap_mode,
+  .cap_icons {
+    letter-spacing: 0.06em;
+  }
+
+  .cap_icons {
+    width: var(--w);
+    white-space: normal;
+  }
+
+  .capBreak {
+    display: none;
+  }
+
+  .cap_map {
+    font-size: 4.923cqw;
+    line-height: 1.65;
+  }
+
+  .caseStrip p {
+    font-size: 7px;
+  }
+
+  .caseStrip a {
+    font-size: 8px;
+  }
+
+  /* Like the frame edge, clip what is drawn past it (the hand photo on the UI
+     board runs 4px over), without making the page a scroll container. */
+  .root {
+    overflow-x: clip;
+  }
+
+  .notPhone {
+    display: none;
+  }
+
+  .contextPhone {
+    display: block;
+  }
+
+  .root > section:not(.hero, .context) > div:first-child {
+    gap: 8px;
+  }
+
+  /* Text boxes in this frame are 346 wide (the column is 355 at 403). Low
+     specificity, so the wider notes drawn past the column keep their widths. */
+  :where(.root > section) p,
+  .challengeText,
+  .needsIntro {
+    max-width: 345.5px;
+  }
+
+  /* Hero (2:11865): eyebrow 64, title box 99.4, lead 249.4, rules 407.4 / 543.6
+     (rows 39.59, 33 apart, in two 145.4 columns 49 apart), browser 584.4,
+     section 977. */
+  section.hero {
+    padding-top: 64px;
+  }
+
+  .hero h1 {
+    padding-top: 19.84px;
+  }
+
+  .hero h1 + p {
+    padding-top: 18px;
+  }
+
+  .hero dl {
+    margin-top: 26px;
+    padding: 11px 0 12.1px;
+    grid-template-columns: repeat(2, minmax(0, 145.41px));
+    gap: 33px 49px;
+  }
+
+  .hero dd {
+    height: 26px;
+  }
+
+  /* 345.3 wide (bar 35 + image 230.6), not the full column. */
+  .browser {
+    width: 345.35px;
+    max-width: 100%;
+    margin: 39px 0 90px;
+  }
+
+  /* Overview (2:11915). */
+  section.overview {
+    padding-block: 64px;
+  }
+
+  .overviewText {
+    padding-top: 0;
+    font-size: 16px;
+  }
+
+  .overviewText p:nth-child(3) {
+    font-weight: 400;
+  }
+
+  p.contextKicker {
+    padding: 43.5px 0 2.5px;
+    line-height: 18px;
+  }
+
+  .stepDesc {
+    max-width: 236px;
+  }
+
+  /* Context (2:11975): heading 14 under the label on 52 lines; the list in a 758
+     frame (text 30.8 in, 320 wide); diagram box 346 x 207, the image drawn
+     124.76% wide and centred. Figma also squeezes it vertically by about 8%;
+     the aspect ratio is kept here. */
+  section.context {
+    padding: 64px 24px 18.4px;
+  }
+
+  h2.h2Big {
+    padding-top: 14px;
+    line-height: 52px;
+    letter-spacing: -0.53px;
+  }
+
+  .contextPhone {
+    padding: 22.89px 0 15.1px;
+  }
+
+  .contextPhone ul {
+    padding-left: 30.8px;
+  }
+
+  /* The 320 text box includes the 22.5 bullet indent. */
+  .contextPhone li {
+    max-width: 297.5px;
+  }
+
+  .decision {
+    width: 346px;
+    max-width: 100%;
+    aspect-ratio: 346 / 207;
+    margin-left: -0.5px;
+    overflow: hidden;
+  }
+
+  .decisionImg {
+    object-fit: contain;
+    transform: translateY(5.8px) scale(1.2476);
+  }
+
+  /* Challenge (2:12002). */
+  section.challenge {
+    padding-block: 64px;
+  }
+
+  .challengeText {
+    padding: 24px 0 16px;
+  }
+
+  .questionLabel {
+    line-height: 18px;
+  }
+
+  /* Design question (2:12017): 30 padding, 26 gaps, question 28 / 42; cards at
+     full size, centred in a 334 column, 21 apart; note 369 wide. */
+  section.question {
+    padding-block: 30px;
+  }
+
+  .questionText {
+    max-width: 346px;
+    font-size: 28px;
+    line-height: 42px;
+    letter-spacing: 0;
+  }
+
+  .principles {
+    --k: 1px;
+    width: 100%;
+    gap: 21px;
+  }
+
+  /* User needs (2:12054): heading 5px lower, intro 6 under it, the grid 5 below.
+     The frame's grid is 360 wide at 0.32 scale; here the two columns keep that
+     width with readable 11px text. */
+  section.needsSection {
+    padding: 64px 24px 36.6px;
+  }
+
+  .needsSection h2 {
+    margin-top: 5px;
+  }
+
+  .needsIntro {
+    padding: 6px 0 5px;
+  }
+
+  .needs {
+    width: 100%;
+    padding-top: 0;
+    gap: 12px 10px;
+  }
+
+  .needsHead,
+  .needsHead + .needsHead {
+    top: 0;
+    margin-bottom: -5px;
+    padding-left: 2px;
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .needCard,
+  .needBlue {
+    gap: 4px;
+    padding: 12px 10px;
+    border-radius: 14px;
+    font-size: 11px;
+    line-height: 15px;
+  }
+
+  .insightQuote {
+    margin: 24px 0 0;
+    padding: 14px 16px;
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  /* The system (2:12117): heading 17 under the label; items text + 24 + 10. */
+  .systemSection h2 {
+    padding-top: 17px;
+  }
+
+  section.systemSection {
+    padding: 64px 24px 21.5px;
+  }
+
+  .systemSection .points {
+    gap: 34px;
+    padding-bottom: 24px;
+  }
+
+  /* Design process (2:12169). */
+  section.process {
+    padding: 64px 24px 80.5px;
+  }
+
+  .process > h2 {
+    margin-top: 0;
+    font-size: 44px;
+    line-height: 66px;
+  }
+
+  /* Vertical timeline: number + node in a 40 column, text at 56; rows 36 apart. */
+  .timeline {
+    width: auto;
+    gap: 36px;
+    padding: 23px 0 52px;
+  }
+
+  .timeline li {
+    grid-template-columns: 40px minmax(0, 1fr);
+    column-gap: 16px;
+  }
+
+  .tlTrack {
+    width: auto;
+    translate: none;
+    gap: 9.6px;
+  }
+
+  .tlNum {
+    line-height: 18px;
+  }
+
+  .tlBody {
+    gap: 6px;
+  }
+
+  .tlSub {
+    margin-top: 1.2px;
+  }
+
+  .tlDivider {
+    visibility: hidden;
+  }
+
+  .tlDot {
+    background: #5d76f6;
+  }
+
+  .block {
+    gap: 18px;
+    padding-top: 0;
+  }
+
+  .blockLead {
+    line-height: 25px;
+  }
+
+  .subhead {
+    padding: 0;
+  }
+
+  .subhead p:last-child {
+    max-width: none;
+    line-height: 28px;
+  }
+
+  /* Insights: two 181-wide columns (7.8 / 5.9 apart), the ninth card 84 in,
+     with readable 11px text. */
+  .insights {
+    --v: 1px;
+    width: 100%;
+    height: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+    gap: 5.9px 7.8px;
+    overflow: visible;
+  }
+
+  .insights li {
+    padding: 10px 8px 20px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    line-height: 15px;
+  }
+
+  /* The ninth card sits alone on its row, centred under the two columns. */
+  .insights li:last-child {
+    grid-column: 1 / span 2;
+    justify-self: center;
+    width: calc(50% - 3.9px);
+  }
+
+  .insights li span {
+    left: 10px;
+    top: auto;
+    bottom: 9px;
+    width: 28px;
+    height: 1.5px;
+  }
+
+  .reviewLabel {
+    padding-top: 21.1px;
+    line-height: 22px;
+  }
+
+  /* Competitive table: the phone frame (2:12296) shrinks the desktop table to
+     ~6px text. Here it keeps the desktop proportions at 0.733 (11px body text)
+     and scrolls sideways inside its own box, with a hint and an edge fade; the
+     page itself never scrolls sideways. */
+  .scrollHint {
+    display: block;
+  }
+
+  .reviewSizer {
+    --w: 0.7333px;
+    width: calc(1149.6 * var(--w));
+    padding: 0 0 calc(12 * var(--w));
+  }
+
+  .reviewNote {
+    margin: -3.2px 0 0;
+    font-size: 15px;
+    line-height: 28px;
+  }
+
+  /* Ideation (2:12344). */
+  .block.ideation {
+    padding-top: 10px;
+  }
+
+  .ideationLead p:first-child {
+    font-size: 15px;
+    line-height: 25px;
+  }
+
+  .ideationLead p:last-child {
+    padding-top: 21.1px;
+    line-height: 23px;
+  }
+
+  .ideationLead + .blockLabel {
+    margin-top: -3.9px;
+  }
+
+  /* Concept cards: 288 wide (0.816) at x 55, 15.7 then 28 apart. */
+  .conceptsWrap {
+    margin-top: 5.8px;
+  }
+
+  .concepts {
+    --c: 0.816px;
+    align-items: center;
+    gap: 0;
+    margin: 0;
+  }
+
+  .concept:nth-child(2) {
+    margin-top: 15.7px;
+  }
+
+  .concept:nth-child(3) {
+    margin-top: 28px;
+  }
+
+  .conceptsWrap + .blockLabel {
+    padding-top: 54.3px;
+  }
+
+  /* Indicators: one 205 column at x 89, 124.5 per item, in the phone order
+     Street Lighting, High foot presence, Police Presence, CCTV, Avoid areas. */
+  .indicatorsWrap {
+    margin-top: 18px;
+  }
+
+  .indicators {
+    align-items: center;
+    gap: 0;
+    padding-bottom: 22.5px;
+  }
+
+  .indicators li {
+    width: 205px;
+    height: 124.5px;
+    padding-top: 16px;
+  }
+
+  .indicators li:nth-child(1) {
+    order: 1;
+  }
+
+  .indicators li:nth-child(3) {
+    order: 2;
+  }
+
+  .indicators li:nth-child(2) {
+    order: 3;
+  }
+
+  .indicators li:nth-child(4) {
+    order: 4;
+  }
+
+  .indicators li:nth-child(5) {
+    order: 5;
+  }
+
+  .indicatorLabel {
+    padding-top: 12px;
+  }
+
+  /* Sticky notes: a compact 2 x 2 board at x 33 (the frame's 339-wide board at
+     0.35 scale), readable 10px text, rotations kept. */
+  .boardNotesWrap {
+    margin: 11px 0 0;
+  }
+
+  .notes {
+    --n: 0.4px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 10px;
+    padding: 6px 4px;
+  }
+
+  .noteSlot {
+    position: static;
+    width: auto;
+    height: auto;
+  }
+
+  .note {
+    gap: 8px;
+    padding: 16px 12px 18px;
+  }
+
+  .noteTitle {
+    font-size: 17px;
+  }
+
+  .noteBody {
+    font-size: 10px;
+    line-height: 15px;
+  }
+
+  .boardNotesWrap + .blockLabel {
+    padding: 47.6px 0 0;
+  }
+
+  /* Why this direction: x 36; items every 68 / 91.6 / 91.6 (16, then 14.1
+     between them, the last three on three lines). */
+  .whyPoints {
+    gap: 14.1px;
+    padding: 18px 0 15.2px;
+  }
+
+  .whyPoints li:nth-child(2) {
+    margin-top: 1.9px;
+  }
+
+  /* Wireframes (x 28, image x 32, 338 x 405) and UI design (x 46.8). */
+  .block.wireBlock {
+    gap: 10px;
+    padding: 0;
+  }
+
+  .wireLabel {
+    padding-top: 0;
+    line-height: 26px;
+  }
+
+  .wireframe {
+    margin: 22px 0 0;
+  }
+
+  .uiBlock {
+    gap: 68px;
+    padding: 33px 0 0;
+  }
+
+  .uiBlock > .blockTitle {
+    padding-left: 0;
+  }
+
+  .boardWrap {
+    align-self: center;
+  }
+
+  /* What didn't work (2:12511): lead 20 under the heading on 25 lines; list
+     text 28.8 below it, 326 wide; section 1878 tall. */
+  /* The frame's section is 1878 tall; the text lines up with it, so only the
+     space under the last line differs from the shared 80. */
+  section.didnt {
+    padding-block: 64px 75px;
+  }
+
+  .looseLead {
+    padding-top: 20px;
+    line-height: 25px;
+  }
+
+  .ideas {
+    max-width: 326px;
+    padding: 28.8px 0 0;
+  }
+
+  .ideas > div:nth-child(2) > .pointTitle {
+    font-size: 15.2px;
+  }
+
+  /* Trust (2:12558): lead on 25 lines with a blank line after the first; list
+     at 433.8; the "No data" line and the one after it are 15px; a blank line
+     between the two privacy sentences. */
+  /* 1082 tall in the frame; text lines up, so only the space under it changes. */
+  section.trust {
+    padding-block: 64px 55px;
+  }
+
+  .trustLead {
+    padding-top: 0;
+    line-height: 25px;
+  }
+
+  .trustLead p:last-child {
+    margin-top: 25px;
+  }
+
+  .trustItems {
+    max-width: 326px;
+    padding-top: 22.8px;
+  }
+
+  .trustItems > div:nth-child(2) > p:not(:first-child) {
+    font-size: 15px;
+  }
+
+  .trustItems > div:nth-child(3) > p:last-child {
+    margin-top: 25.84px;
+  }
+
+  /* Reflection (2:12584): label at 60.6; items text + 24 + 24; 60 under. */
+  section.reflection {
+    padding: 60.6px 24px 84px;
+  }
+
+  .learnings {
+    gap: 48px;
+  }
+
+  /* The second item's frame (2:12601) is 8px taller than its text + spacer. */
+  .learnings li:nth-child(3) {
+    margin-top: 8px;
+  }
+
+  /* Case strip (2:12622): 66 tall, text at x 10 / y 23, link at x 307. */
+  .caseStrip {
+    align-items: flex-start;
+    height: 66px;
+    padding: 23px var(--cs-pad) 0;
+  }
+
+  /* Next project (2:12628): block at 24 / 64; title 44 / 66; blurb 327 wide;
+     link 58 under it. */
+  .root > div:last-child {
+    gap: 58px;
+    padding: 64px 24px 34px;
+  }
+
+  .root > div:last-child > div {
+    gap: 0;
+  }
+
+  .root > div:last-child > div > p:nth-child(2) {
+    line-height: 66px;
+  }
+
+  .root > div:last-child > div > p:nth-child(3) {
+    max-width: 327px;
+    line-height: 26px;
+  }
+
+  /* ---- Content-heavy blocks on phone (reference images) ----
+     User needs and insights keep their two-column arrangement and the desktop
+     card styling with readable 11px text; the sticky notes form the 2 x 2
+     board; the table keeps its desktop size and scrolls inside its own box. */
+
+  /* User needs (reference image): the two columns with their Context / User
+     Needs headings and the desktop card styling (light / blue cards, large
+     radius, generous padding); 11px text keeps it readable at phone width. */
+  .needs {
+    --u: 1px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 10px;
+    padding-top: 0;
+  }
+
+  .needsHead,
+  .needsHead + .needsHead {
+    display: block;
+    top: 0;
+    margin-bottom: -2px;
+    padding-left: 4px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .needCard,
+  .needBlue {
+    gap: 6px;
+    min-height: 0;
+    padding: 16px 12px 16px 14px;
+    border-width: 1px;
+    border-radius: 22px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .needDesc {
+    max-width: none;
+  }
+
+  /* Insights (reference image): two columns of the desktop cards (white, 4px
+     accent edge, 14 radius, accent bar, soft shadow), the ninth card centred
+     alone on the last row; 11px text. */
+  .insights {
+    --v: 1px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 8px;
+  }
+
+  .insights li {
+    min-height: 0;
+    padding: 12px 8px 28px 12px;
+    border-width: 1px;
+    border-left-width: 3px;
+    border-radius: 12px;
+    box-shadow:
+      0 6px 5px rgba(0, 0, 0, 0.1),
+      0 2px 2px rgba(0, 0, 0, 0.1);
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .insights li:last-child {
+    grid-column: 1 / span 2;
+    justify-self: center;
+    width: calc(50% - 4px);
+  }
+
+  .insights li span {
+    left: 12px;
+    top: auto;
+    bottom: 12px;
+    width: 30px;
+    height: 1.5px;
+  }
+
+  /* Competitive table at its desktop size, scrolling inside its box. */
+  .reviewSizer {
+    --w: 1px;
+    width: 1149.6px;
+    padding-bottom: 18px;
+  }
+
+  /* Sticky notes: the 2 x 2 board (reference image), each note keeping the
+     desktop 460:420 proportion. Sizes follow the board width (desktop 971),
+     with readable floors for the text and padding. */
+  .notes,
+  .boardNotesWrap .notes {
+    --n: min(1px, 100cqw / 971);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: max(14px, calc(28 * var(--n))) max(12px, calc(29 * var(--n)));
+    height: auto;
+    padding: max(12px, calc(20 * var(--n))) 4px;
+  }
+
+  /* Each slot is at least 420/460 of its column width tall; a pair stretches
+     to the taller note, so both notes in a row match. */
+  .noteSlot,
+  .boardNotesWrap .noteSlot {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: auto;
+    height: auto;
+    min-height: calc((100cqw - 8px - max(12px, calc(29 * var(--n)))) * 0.4565);
+  }
+
+  .note,
+  .boardNotesWrap .note {
+    gap: max(8px, calc(20 * var(--n)));
+    height: 100%;
+    min-height: 0;
+    padding: max(14px, calc(40 * var(--n))) max(12px, calc(36 * var(--n)));
+    aspect-ratio: auto;
+  }
+
+  .noteTitle {
+    font-size: max(18px, calc(36 * var(--n)));
+  }
+
+  .noteBody {
+    font-size: max(10.5px, calc(15 * var(--n)));
+    line-height: 1.55;
+  }
+
+  .noteCorner {
+    width: max(22px, calc(56 * var(--n)));
+    height: max(22px, calc(56 * var(--n)));
+  }
+
+  @supports (animation-timeline: scroll()) {
+      .reviewWrap::after {
+        animation: reviewFade linear both;
+        animation-timeline: --review;
+      }
+    }
+}

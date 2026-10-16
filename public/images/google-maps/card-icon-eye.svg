@@ -1,0 +1,36 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="81.9" height="79.38" viewBox="0 0 81.9 79.38" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icon tile" filter="url(#filter0_d_0_12)">
+<rect x="12.6" y="9.24" width="56.7" height="54.18" rx="10.5" fill="url(#paint0_radial_0_12)"/>
+<line id="Ray" x1="54.9478" y1="45.78" x2="56.7297" y2="47.5619" stroke="#0057FF" stroke-width="1.68" stroke-linecap="round"/>
+<line id="Ray_2" x1="24.7799" y1="44.5921" x2="26.5618" y2="42.8102" stroke="#0057FF" stroke-width="1.68" stroke-linecap="round"/>
+<line id="Ray_3" x1="54.5998" y1="26.112" x2="56.3817" y2="24.3301" stroke="#0057FF" stroke-width="1.68" stroke-linecap="round"/>
+<line id="Ray_4" x1="25.1276" y1="27.3" x2="26.9095" y2="29.0819" stroke="#0057FF" stroke-width="1.68" stroke-linecap="round"/>
+<line id="Ray_5" x1="41.9998" y1="49.5599" x2="41.9998" y2="52.4999" stroke="#0057FF" stroke-width="1.68" stroke-linecap="round"/>
+<line id="Ray_6" x1="41.9998" y1="20.9999" x2="41.9998" y2="23.9399" stroke="#0057FF" stroke-width="1.68" stroke-linecap="round"/>
+<g id="eye">
+<path id="Vector" d="M30.3408 36.0082C30.2519 36.2164 30.2519 36.4455 30.3408 36.6537C31.2073 38.4792 32.6782 40.04 34.5668 41.1383C36.4555 42.2365 38.677 42.8229 40.9497 42.8229C43.2223 42.8229 45.4438 42.2365 47.3325 41.1383C49.2212 40.04 50.692 38.4792 51.5585 36.6537C51.6474 36.4455 51.6474 36.2164 51.5585 36.0082C50.692 34.1827 49.2212 32.6219 47.3325 31.5236C45.4438 30.4253 43.2223 29.839 40.9497 29.839C38.677 29.839 36.4555 30.4253 34.5668 31.5236C32.6782 32.6219 31.2073 34.1827 30.3408 36.0082Z" stroke="#0057FF" stroke-width="1.68" stroke-linecap="round"/>
+</g>
+<circle id="Icon glow" cx="41.1597" cy="35.7" r="17.22" fill="url(#paint1_radial_0_12)" fill-opacity="0.3"/>
+</g>
+<defs>
+<filter id="filter0_d_0_12" x="0" y="-4.76837e-07" width="81.9" height="79.38" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="3.36"/>
+<feGaussianBlur stdDeviation="6.3"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.466667 0 0 0 0 0.686275 0 0 0 0 1 0 0 0 0.0941176 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_12"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_12" result="shape"/>
+</filter>
+<radialGradient id="paint0_radial_0_12" cx="0" cy="0" r="1" gradientTransform="matrix(48.195 44.4276 -46.494 48.762 18.27 14.658)" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F3F8FF"/>
+<stop offset="0.72" stop-color="#E6F1FF"/>
+<stop offset="1" stop-color="#DCEAFF"/>
+</radialGradient>
+<radialGradient id="paint1_radial_0_12" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(41.1597 35.7) scale(17.22)">
+<stop stop-color="white" stop-opacity="0.721569"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+</defs>
+</svg>

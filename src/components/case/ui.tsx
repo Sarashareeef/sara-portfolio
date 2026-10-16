@@ -162,7 +162,7 @@ export function CaseHero({
   tag: string;
   title: ReactNode;
   lead: ReactNode;
-  meta: { label: string; value: string }[];
+  meta: { label: string; value: ReactNode }[];
   children?: ReactNode;
   className?: string;
 }) {

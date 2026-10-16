@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import type { ComponentType } from "react";
 import { getProject, projects } from "@/data/projects";
+import GoogleMaps from "@/components/case/google-maps/GoogleMaps";
 import Mello from "@/components/case/mello/Mello";
 
 const studies: Record<string, ComponentType> = {
   mello: Mello,
+  "google-maps-redesign": GoogleMaps,
 };
 
 export function generateStaticParams() {
