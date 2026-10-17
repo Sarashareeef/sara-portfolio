@@ -34,7 +34,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${plexMono.variable} ${instrumentSerif.variable} ${spaceMono.variable} ${inter.variable} ${geistMono.variable}`}>
+    // The landing page's reveal script adds a class to <html> before hydration.
+    <html lang="en" suppressHydrationWarning className={`${plexMono.variable} ${instrumentSerif.variable} ${spaceMono.variable} ${inter.variable} ${geistMono.variable}`}>
       <body>
         <SmoothScroll />
         <Header />

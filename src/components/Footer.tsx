@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { site } from "@/data/site";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -6,9 +6,9 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.inner}>
         <p className={styles.copy}>SARA SUHA © 2026</p>
-        <Link href="/#contact" className={styles.talk}>
+        <a href={site.email} className={styles.talk}>
           LET&apos;S TALK
-        </Link>
+        </a>
       </div>
     </footer>
   );

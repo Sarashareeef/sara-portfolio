@@ -1,11 +1,12 @@
-// Contact links — replace the placeholders with Sara's real URLs.
+// Contact and profile links, used across the header, footer and landing page.
 export const site = {
   name: "SARA SUHA",
-  email: "mailto:hello@sarasuha.com",
-  linkedin: "https://www.linkedin.com/",
-  behance: "https://www.behance.net/",
+  email: "mailto:sarasuhawork@gmail.com",
+  linkedin: "https://www.linkedin.com/in/sara-suha-b6451725a",
+  behance: "https://www.behance.net/sarasuha",
   resume: "/resume.pdf",
-  aarambhaWork: "#",
+  aarambhaWork:
+    "https://fluttering-helmet-05e.notion.site/1f6c5de3e0344696a40ad1f075bf22b2?v=8f2b2f4538d343899674b6cb864cd47d",
 };
 
 export const nav = [

@@ -2,6 +2,7 @@ import type { CSSProperties, ReactNode } from "react";
 import Piece from "@/components/collage/Piece";
 import c from "@/components/collage/collage.module.css";
 import SectionHead from "./SectionHead";
+import Words, { wordCount } from "./Words";
 import styles from "./About.module.css";
 
 const img = (name: string) => `/images/landing/${name}.webp`;
@@ -35,6 +36,7 @@ function Group({
   return (
     <figure
       className={`${styles.group} ${styles[id] ?? ""}`}
+      data-reveal=""
       style={{ "--gx": x, "--gy": y, "--gw": w } as CSSProperties}
     >
       <div className={c.canvas} style={{ "--cw": w, "--ch": h } as CSSProperties}>
@@ -101,7 +103,7 @@ const bioMore =
 /* Tablet frame (2:7455): one 695.77-wide composition below the section head. */
 function TabletCollage() {
   return (
-    <div className={`${c.canvas} ${styles.tablet}`} style={{ "--cw": 695.77, "--ch": 1433 } as CSSProperties}>
+    <div data-reveal="" className={`${c.canvas} ${styles.tablet}`} style={{ "--cw": 695.77, "--ch": 1433 } as CSSProperties}>
       <div className={c.stage}>
         <T x={0} y={42} fs={76.778} lh={69.1} ls={-2.6872} className={styles.tHeading}>
           a little about me.
@@ -111,7 +113,7 @@ function TabletCollage() {
         <Piece cx={232.95} cy={279.96} w={163.9} h={255.2} rot={3} className={styles.photo} src={img("about-me2")} alt="Sara" sizes="25vw" />
         <T x={225.26} y={419.59} fs={13.2} lh={19.8}>me!</T>
         <T x={343.89} y={166.11} w={352} fs={17} lh={30} className={styles.justify}>
-          {bioIntro}
+          <Words>{bioIntro}</Words>
         </T>
 
         <Piece cx={462.61} cy={544.67} w={140.978} h={215.423} rot={-5} fit="contain" className={styles.photo} src={img("about-craft3")} sizes="22vw" />
@@ -149,7 +151,7 @@ function TabletCollage() {
         </T>
 
         <T x={-0.11} y={514.11} w={390} fs={17} lh={30}>
-          {bioMore}
+          <Words>{bioMore}</Words>
         </T>
       </div>
     </div>
@@ -159,7 +161,7 @@ function TabletCollage() {
 /* Phone frame (30:573): the same arrangement on a 371-wide composition. */
 function PhoneCollage() {
   return (
-    <div className={`${c.canvas} ${styles.phone}`} style={{ "--cw": 371, "--ch": 796 } as CSSProperties}>
+    <div data-reveal="" className={`${c.canvas} ${styles.phone}`} style={{ "--cw": 371, "--ch": 796 } as CSSProperties}>
       <div className={c.stage}>
         <T x={0} y={7} fs={50} lh={60.18} ls={-2.3403} className={styles.tHeading}>
           a little about me.
@@ -169,10 +171,10 @@ function PhoneCollage() {
         <Piece cx={117.9} cy={160.34} w={80.727} h={125.142} rot={3} className={styles.photo} src={img("about-me2")} alt="Sara" sizes="30vw" />
         <T x={101} y={230.74} fs={8} lh={7.2}>me!</T>
         <T x={173} y={95.87} w={200} fs={9} lh={19} className={styles.justify}>
-          {bioIntro}
+          <Words>{bioIntro}</Words>
         </T>
         <T x={6} y={289.87} w={205} fs={9} lh={19}>
-          {bioMore}
+          <Words>{bioMore}</Words>
         </T>
 
         <Piece cx={257.95} cy={326.39} w={80.028} h={124.749} rot={-5} fit="contain" className={styles.photo} src={img("about-craft3")} sizes="25vw" />
@@ -219,14 +221,19 @@ export default function About() {
       <SectionHead label="ABOUT" aside="THE PERSON BEHIND THE PIXELS" />
 
       <div className={styles.canvas}>
-        <h2 className={styles.heading}>a little about me.</h2>
+        <h2 className={styles.heading} data-reveal="">a little about me.</h2>
 
         <div className={styles.bio}>
-          <p>{bioIntro}</p>
           <p>
-            When I’m not designing, you’ll probably find me exploring a new café or restaurant (yes, I
-            have a list), wandering through museums, collecting little bits of inspiration, or hunting
-            down really good ice cream.
+            <Words>{bioIntro}</Words>
+          </p>
+          <p>
+            {/* Continues the word sequence from the first paragraph. */}
+            <Words from={wordCount(bioIntro)}>
+              When I’m not designing, you’ll probably find me exploring a new café or restaurant (yes, I
+              have a list), wandering through museums, collecting little bits of inspiration, or hunting
+              down really good ice cream.
+            </Words>
           </p>
         </div>
 

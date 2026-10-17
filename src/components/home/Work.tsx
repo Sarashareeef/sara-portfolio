@@ -7,8 +7,8 @@ export default function Work() {
   return (
     <section id="work" className={`container ${styles.work}`}>
       <SectionHead label="WORK" aside="01 — 04" />
-      <h2 className={styles.display}>case studies</h2>
-      <div className={styles.metaRow}>
+      <h2 className={styles.display} data-reveal="">case studies</h2>
+      <div className={styles.metaRow} data-reveal="">
         <p>SARA&apos;S PROJECT FILES</p>
         <p>SELECTED WORK / 2025—2026</p>
       </div>

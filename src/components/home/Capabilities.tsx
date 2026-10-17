@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import Experience from "./Experience";
-import RevealList from "./RevealList";
 import styles from "./Capabilities.module.css";
 
 /** Copy that the desktop frame words differently from the tablet and phone frames. */
@@ -57,9 +56,11 @@ export default function Capabilities() {
   return (
     <section className={`container ${styles.wrap}`}>
       <div className={styles.inner}>
-        <p className={styles.label}>CAPABILITIES</p>
+        <p className={styles.label} data-reveal="">
+          CAPABILITIES
+        </p>
 
-        <div className={styles.block}>
+        <div className={styles.block} data-reveal="">
           <h2 className={styles.h2}>What I Do</h2>
           <p className={styles.sub}>
             <Swap
@@ -69,15 +70,15 @@ export default function Capabilities() {
           </p>
         </div>
 
-        <RevealList className={styles.cards}>
+        <ul className={styles.cards}>
           {capabilities.map((cap) => (
-            <li key={cap.n} className={`${styles.card} ${styles[cap.tone]}`}>
+            <li key={cap.n} className={`${styles.card} ${styles[cap.tone]}`} data-reveal="">
               <span className={styles.badge}>{cap.n}</span>
               <h3 className={styles.cardTitle}>{cap.title}</h3>
               <p className={styles.cardBody}>{cap.body}</p>
             </li>
           ))}
-        </RevealList>
+        </ul>
 
         <Experience />
       </div>

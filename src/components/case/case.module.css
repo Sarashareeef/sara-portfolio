@@ -97,12 +97,31 @@
   margin-top: 0;
 }
 
+/* Arrow and label sit on one centre line and change colour together. */
+.back .tocNum {
+  align-items: center;
+}
+
+.backIcon {
+  display: block;
+  flex: none;
+  color: #998f84;
+  transition: color 0.2s ease;
+}
+
+.back:hover .backIcon,
+.back:focus-visible .backIcon,
+.back:focus-visible .tocLabel {
+  color: var(--black);
+}
+
+/* Lines up with the contents list (no offset) and stays on one line. */
 .sidebarFoot {
+  white-space: nowrap;
   font-size: 8.8px;
   line-height: 14.08px;
-  letter-spacing: 0.7px;
+  letter-spacing: 0.3px; /* keeps "MELLO UX CASE STUDY 2025–26" clear of the divider */
   color: var(--muted);
-  margin-left: -10px;
 }
 
 .mobileBack {

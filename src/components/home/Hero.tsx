@@ -25,7 +25,7 @@ export default function Hero() {
               <Draggable designWidth={1296}>
                 <Piece cx={642} cy={284.5} w={740} h={383} className={c.clip}>
                   <Piece cx={290.5} cy={201.5} w={581} h={387} src={img("hero-paper")} sizes="45vw" eager />
-                  <div className={styles.note}>
+                  <div className={styles.note} data-reveal="" data-reveal-delay="250">
                     <h1 id="intro" className={styles.noteTitle}>
                       <span>HI, I&apos;M SARA SUHA</span>
                       <span>UI/UX &amp; PRODUCT DESIGNER</span>

@@ -13,6 +13,7 @@ export default function FolderCard({ project }: { project: Project }) {
     <Link
       href={`/work/${project.slug}`}
       className={styles.card}
+      data-reveal=""
       style={{ "--ch": card.height } as CSSProperties}
       aria-label={`${project.title} — view case study`}
     >

@@ -5,6 +5,13 @@ section.hero {
   padding-bottom: 41px;
 }
 
+/* Hero entrance: hidden from first paint (html.js-reveal comes from RevealScript,
+   never with reduced motion) until MelloMotion + ScrollReveal reveal it in order. */
+:global(.js-reveal) section.hero > :not([data-reveal="shown"]) {
+  opacity: 0;
+  translate: 0 14px;
+}
+
 section.reflection {
   padding-bottom: 65px;
 }
@@ -521,6 +528,11 @@ h2.impactTitle {
   padding-block: 0;
 }
 
+/* "01 —" stays together; below desktop it becomes the heading's first column. */
+.h3Num {
+  white-space: nowrap;
+}
+
 .pair {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -728,6 +740,20 @@ h2.impactTitle {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  /* Experience sub-headings wrap below desktop: proportional leading (the
+     desktop 66px only suits one line), the number in its own column so wrapped
+     lines start exactly under the title whatever the digits' width, and
+     balanced line lengths. */
+  .experience h3 {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 0.28em;
+    font-size: clamp(26px, 3.4vw, 32px);
+    line-height: 1.35;
+    padding-block: 8px;
+    text-wrap: balance;
+  }
+
   h2.impactTitle {
     padding-top: 21px;
   }
@@ -853,10 +879,10 @@ h2.impactTitle {
 
   /* Hanging indent: a wrapped title lines up under the text, not the number. */
   .experience h3 {
-    font-size: 28px;
-    line-height: 45px;
-    padding-left: 2.3em;
-    text-indent: -2.3em;
+    /* 28px at the 403px reference frame, easing down to ~21px at 320px. */
+    font-size: clamp(21px, 6.95vw, 28px);
+    line-height: 1.4;
+    padding-block: 4px;
   }
 
   .pair {
@@ -941,4 +967,159 @@ h2.impactTitle {
   100% {
     opacity: 0;
   }
+}
+
+/*
+ * ---- Motion: What we achieved, balance, user needs (MelloMotion) ----
+ * In these grids the borders belong to the cells, so the cells themselves stay
+ * still and drawn; only their contents arrive. Hidden states apply only while
+ * html.js-reveal is set (never without JS or with reduced motion), and every
+ * animation fills backwards only, so the end state is the original design.
+ */
+@keyframes melloRise {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+}
+
+@keyframes melloPop {
+  from {
+    opacity: 0;
+    scale: 0.82;
+  }
+}
+
+@keyframes melloDraw {
+  from {
+    scale: 0 1;
+  }
+}
+
+@keyframes melloHideRule {
+  from,
+  to {
+    border-top-color: transparent;
+  }
+}
+
+:global(.js-reveal) .statsRow4 > [data-reveal]:not([data-reveal="shown"]),
+:global(.js-reveal) .statsRow3 > [data-reveal]:not([data-reveal="shown"]),
+:global(.js-reveal) .balance > [data-reveal]:not([data-reveal="shown"]),
+:global(.js-reveal) .needs > li[data-reveal]:not([data-reveal="shown"]) {
+  opacity: 1;
+  translate: none;
+}
+
+.statsRow4 > [data-reveal="shown"],
+.statsRow3 > [data-reveal="shown"],
+.balance > [data-reveal="shown"] {
+  animation: none;
+}
+
+:global(.js-reveal) .statsRow4 > [data-reveal]:not([data-reveal="shown"]) > *,
+:global(.js-reveal) .statsRow3 > [data-reveal]:not([data-reveal="shown"]) > *,
+:global(.js-reveal) .balance > [data-reveal]:not([data-reveal="shown"]) > *,
+:global(.js-reveal) .needs > li[data-reveal]:not([data-reveal="shown"]) > * {
+  opacity: 0;
+}
+
+/* Metrics: the label settles first, the number follows. */
+.statsRow4 > [data-reveal="shown"] > *,
+.statsRow3 > [data-reveal="shown"] > * {
+  animation: melloRise 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms) backwards;
+}
+
+.statsRow4 > [data-reveal="shown"] > .statBig,
+.statsRow3 > [data-reveal="shown"] > .statMid {
+  animation-delay: calc(var(--reveal-delay, 0ms) + 160ms);
+}
+
+/* Balance: circle, then icon, then number, title and description. */
+.balance > [data-reveal="shown"] .balanceIcon {
+  animation: melloPop 0.5s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms) backwards;
+}
+
+.balance > [data-reveal="shown"] .balanceIcon > img {
+  animation: melloPop 0.45s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--reveal-delay, 0ms) + 120ms) backwards;
+}
+
+.balance > [data-reveal="shown"] .balanceText > * {
+  animation: melloRise 0.55s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--reveal-delay, 0ms) + 200ms) backwards;
+}
+
+.balance > [data-reveal="shown"] .balanceName {
+  animation-delay: calc(var(--reveal-delay, 0ms) + 260ms);
+}
+
+.balance > [data-reveal="shown"] .balanceDesc {
+  animation-delay: calc(var(--reveal-delay, 0ms) + 320ms);
+}
+
+.balanceIcon > img {
+  transition: rotate 0.25s ease, translate 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .balance > div:hover .balanceIcon > img {
+    rotate: -8deg;
+    translate: 0 -1px;
+  }
+}
+
+/*
+ * User needs: the existing divider above each need is drawn left to right as it
+ * scrolls in (a matching line over the border, which stays transparent until the
+ * line is complete), then the number and the observation / insight /
+ * implication blocks follow in order.
+ */
+:global(.js-reveal) .needs > li {
+  position: relative;
+}
+
+:global(.js-reveal) .needs > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -0.928px;
+  height: 0.928px;
+  background: var(--grey);
+  transform-origin: 0 50%;
+}
+
+:global(.js-reveal) .needs > li[data-reveal]:not([data-reveal="shown"]) {
+  border-top-color: transparent;
+}
+
+:global(.js-reveal) .needs > li[data-reveal]:not([data-reveal="shown"])::before {
+  scale: 0 1;
+}
+
+.needs > li[data-reveal="shown"] {
+  animation: melloHideRule 0.7s linear var(--reveal-delay, 0ms) backwards;
+}
+
+.needs > li[data-reveal="shown"]::before {
+  animation: melloDraw 0.7s cubic-bezier(0.65, 0, 0.35, 1) var(--reveal-delay, 0ms) backwards;
+}
+
+.needs > li[data-reveal="shown"] > .needNum {
+  animation: melloRise 0.5s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--reveal-delay, 0ms) + 250ms) backwards;
+}
+
+.needs > li[data-reveal="shown"] .needBody > * {
+  animation: melloRise 0.55s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--reveal-delay, 0ms) + 350ms) backwards;
+}
+
+.needs > li[data-reveal="shown"] .needBody > :nth-child(2) {
+  animation-delay: calc(var(--reveal-delay, 0ms) + 450ms);
+}
+
+.needs > li[data-reveal="shown"] .needBody > :nth-child(3) {
+  animation-delay: calc(var(--reveal-delay, 0ms) + 550ms);
+}
+
+.needs > li[data-reveal="shown"] .needBody > :nth-child(4) {
+  animation-delay: calc(var(--reveal-delay, 0ms) + 650ms);
 }

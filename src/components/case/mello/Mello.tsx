@@ -1,3 +1,4 @@
+import ScrollReveal, { RevealScript } from "@/components/ScrollReveal";
 import CaseLayout from "../CaseLayout";
 import {
   BrowserFrame,
@@ -15,7 +16,12 @@ import {
   Section,
   TextLinks,
 } from "../ui";
+import Words from "@/components/home/Words";
+import MelloMotion from "./MelloMotion";
 import s from "./mello.module.css";
+
+/** Headings reveal word by word, slower than body copy (ms per word). */
+const HEADING_STEP = 85;
 
 const img = (n: string) => `/images/mello/${n}.webp`;
 const icon = (n: string) => `/icons/${n}.svg`;
@@ -180,7 +186,9 @@ const learnings = [
 
 export default function Mello() {
   return (
-    <CaseLayout toc={toc}>
+    <CaseLayout toc={toc} footer="MELLO UX CASE STUDY 2025–26">
+      {/* Before the hero parses, so its entrance starts hidden without a flash. */}
+      <RevealScript />
       <CaseHero
         className={s.hero}
         name="MELLO"
@@ -203,15 +211,15 @@ export default function Mello() {
         <BrowserFrame unoptimized src={img("hero")} url="mello.app" bar="#fcf0f7" w={1110.5} h={560.2} alt="Mello web experience" />
         <TextLinks
           links={[
-            { label: "VIEW LIVE PRODUCT ↗", href: "#" },
-            { label: "READ IEEE PAPER ↗", href: "#" },
+            { label: "EXPLORE LIVE PRODUCT ↗", href: "https://mello-bot.vercel.app/" },
+            { label: "READ RESEARCH PAPER ↗", href: "https://ieeexplore.ieee.org/document/11342112" },
           ]}
         />
       </CaseHero>
 
       {/* 01 — Overview */}
       <Section id="overview" num="01" label="OVERVIEW" className={s.overview}>
-        <H2 className={s.titleTight}>What is Mello?</H2>
+        <H2 className={s.titleTight}><Words step={HEADING_STEP}>What is Mello?</Words></H2>
         <P light>
           Mello is an AI-driven mental-health screening and conversational support system designed to combine
           structured psychological assessments with natural-language interaction.
@@ -304,7 +312,7 @@ export default function Mello() {
           <span className={s.impactLabelText}>IMPACT</span>
         </div>
         <H2 size={52.6} className={s.impactTitle}>
-          What we achieved
+          <Words step={HEADING_STEP}>What we achieved</Words>
         </H2>
         <div className={s.stats}>
           <div className={s.statsRow4}>
@@ -334,8 +342,10 @@ export default function Mello() {
           </div>
         </div>
         <p className={s.impactNote}>
-          The final multimodal system achieved an F1 score of 0.90 and ROC-AUC of 0.9752. System testing reported an
-          average API response time of approximately 1.2 seconds and strong interface usability findings.
+          <Words>
+            The final multimodal system achieved an F1 score of 0.90 and ROC-AUC of 0.9752. System testing reported an
+            average API response time of approximately 1.2 seconds and strong interface usability findings.
+          </Words>
         </p>
       </Section>
 
@@ -344,7 +354,7 @@ export default function Mello() {
       {/* 03 — Challenge */}
       <Section id="challenge" num="03" label="THE CHALLENGE">
         <H2 size={40} className={s.titleChallenge}>
-          Making a complex AI workflow simple.
+          <Words step={HEADING_STEP}>Making a complex AI workflow simple.</Words>
         </H2>
         <div className={s.split}>
           <div>
@@ -404,7 +414,7 @@ export default function Mello() {
 
       {/* 04 — User needs */}
       <Section id="needs" num="04" label="USER NEEDS">
-        <H2>What did the user need?</H2>
+        <H2><Words step={HEADING_STEP}>What did the user need?</Words></H2>
         <P>
           Mello brings together structured assessments, conversational input, and AI-generated results. But users
           shouldn&apos;t have to understand the complexity behind the system to use it.
@@ -439,7 +449,7 @@ export default function Mello() {
 
       {/* 05 — Experience */}
       <Section id="experience" num="05" label="THE EXPERIENCE">
-        <H2>Designing the experience</H2>
+        <H2><Words step={HEADING_STEP}>Designing the experience</Words></H2>
         <P>
           Mello is structured as an end-to-end support experience, taking users from a private, anonymous entry point
           through assessment and into different forms of ongoing support.
@@ -447,7 +457,9 @@ export default function Mello() {
 
         <div className={s.experience}>
           <div>
-            <H3>01 — A private, low-friction entry</H3>
+            <H3>
+              <span className={s.h3Num}>01 —</span> <Words step={HEADING_STEP}>A private, low-friction entry</Words>
+            </H3>
             <Bullets
               items={[
                 "A welcoming landing page introduces Mello as a compassionate support companion.",
@@ -462,7 +474,9 @@ export default function Mello() {
           </div>
 
           <div>
-            <H3>02 — Making assessment feel approachable</H3>
+            <H3>
+              <span className={s.h3Num}>02 —</span> <Words step={HEADING_STEP}>Making assessment feel approachable</Words>
+            </H3>
             <Bullets
               items={[
                 "Designed the mental health questionnaire and its interaction patterns.",
@@ -475,7 +489,9 @@ export default function Mello() {
           </div>
 
           <div>
-            <H3>03 — The chatbot as the central support space</H3>
+            <H3>
+              <span className={s.h3Num}>03 —</span> <Words step={HEADING_STEP}>The chatbot as the central support space</Words>
+            </H3>
             <Bullets
               items={[
                 "The chatbot acts as the primary space for users to talk about what they're experiencing.",
@@ -487,7 +503,9 @@ export default function Mello() {
           </div>
 
           <div>
-            <H3>04 — A simple way to check in with yourself</H3>
+            <H3>
+              <span className={s.h3Num}>04 —</span> <Words step={HEADING_STEP}>A simple way to check in with yourself</Words>
+            </H3>
             <Bullets
               items={[
                 "Mood logging provides a lightweight way to record how the user is feeling.",
@@ -499,7 +517,9 @@ export default function Mello() {
           </div>
 
           <div>
-            <H3>05 — Turning thoughts into a moment to breathe</H3>
+            <H3>
+              <span className={s.h3Num}>05 —</span> <Words step={HEADING_STEP}>Turning thoughts into a moment to breathe</Words>
+            </H3>
             <Bullets
               items={[
                 "The Breathe experience begins by giving users space to put their thoughts into words.",
@@ -565,7 +585,7 @@ export default function Mello() {
 
       {/* 07 — Reflection */}
       <Section id="reflection" num="07" label="Reflection" className={s.reflection}>
-        <H2>What I learned?</H2>
+        <H2><Words step={HEADING_STEP}>What I learned?</Words></H2>
         <ol className={s.learnings}>
           {learnings.map(([t, d], i) => (
             <li key={t}>
@@ -589,6 +609,10 @@ export default function Mello() {
         title="Google Maps Redesign"
         blurb="Rethinking night navigation around personal safety."
       />
+
+      {/* Order matters: MelloMotion marks elements, then ScrollReveal observes them. */}
+      <MelloMotion />
+      <ScrollReveal step={90} />
     </CaseLayout>
   );
 }

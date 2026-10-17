@@ -4,11 +4,11 @@ import styles from "./home.module.css";
 export default function Contact() {
   return (
     <section id="contact" className={`container ${styles.contact}`}>
-      <h2 className={styles.contactTitle}>
+      <h2 className={styles.contactTitle} data-reveal="">
         Have a product problem worth solving? <br />
         Let’s talk.
       </h2>
-      <ul className={styles.contactLinks}>
+      <ul className={styles.contactLinks} data-reveal="">
         <li>
           <a href={site.email}>EMAIL ME</a>
         </li>

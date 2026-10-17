@@ -1,4 +1,6 @@
+import type { CSSProperties } from "react";
 import { site } from "@/data/site";
+import StackList from "./StackList";
 import styles from "./Experience.module.css";
 
 const roles = [
@@ -30,14 +32,14 @@ const roles = [
 export default function Experience() {
   return (
     <div className={styles.experience}>
-      <div className={styles.head}>
+      <div className={styles.head} data-reveal="">
         <h2 className={styles.h2}>Experience</h2>
         <p className={styles.sub}>Designing across fintech, digital products, and visual communication.</p>
       </div>
 
-      <ol className={styles.list}>
-        {roles.map((r) => (
-          <li key={r.n} className={styles.row}>
+      <StackList className={styles.list}>
+        {roles.map((r, i) => (
+          <li key={r.n} className={styles.row} data-reveal="" style={{ "--k": i } as CSSProperties}>
             <span className={styles.num} aria-hidden="true">
               {r.n}
             </span>
@@ -54,7 +56,7 @@ export default function Experience() {
               <div className={styles.aside}>
                 <p className={styles.dates}>{r.dates}</p>
                 {r.link && (
-                  <a href={r.link} className={styles.link}>
+                  <a href={r.link} className={styles.link} target="_blank" rel="noreferrer">
                     <span className={styles.linkText}>View my work</span>
                     <span className={styles.arrow} aria-hidden="true">
                       ↗
@@ -65,7 +67,7 @@ export default function Experience() {
             </div>
           </li>
         ))}
-      </ol>
+      </StackList>
     </div>
   );
 }
