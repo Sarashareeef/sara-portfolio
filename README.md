@@ -9,7 +9,7 @@ Personal design portfolio for Sara Suha, built with Next.js 16 (App Router), Rea
 | 01 | Mello | AI-powered mental health companion | `/work/mello` |
 | 02 | Google Maps Redesign | Exploring safety context for night-time route decisions | `/work/google-maps-redesign` |
 | 03 | VoyAIge | All-in-one travel planner for realistic, time-aware itineraries | `/work/voyaige` |
-| 04 | MuseMap | Discovering art, one place at a time | Coming soon |
+| 04 | MuseMap | Visual, map-based discovery of galleries and exhibitions, from exploring nearby to planning a visit | `/work/musemap` |
 
 ## Getting started
 
