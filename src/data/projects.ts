@@ -1,4 +1,5 @@
 type Pt = { x: number; y: number };
+type Box = Pt & { w: number; h: number };
 
 export type Project = {
   slug: string;
@@ -15,7 +16,11 @@ export type Project = {
     image: string;
     url: string;
     bar: string;
-    frame: { x: number; y: number; w: number; h: number };
+    /** Browser-bar scale relative to Mello's (each frame draws its bar at a different size). */
+    barScale: number;
+    frame: Box;
+    /** Screenshot placement inside the frame, below the bar; omitted = cover, centred. */
+    img?: Box;
   };
   card: {
     folder: string;
@@ -27,6 +32,10 @@ export type Project = {
     paper: Pt;
     titleLeading: number;
     ruleGap: number;
+    /** Primary description line: size / leading / tracking in design px. */
+    desc: { size: number; leading: number; tracking: number; medium?: boolean };
+    /** Gap above the tags (defaults to the 31px column gap). */
+    tagsGap?: number;
   };
 };
 
@@ -46,6 +55,7 @@ export const projects: Project[] = [
       image: "/images/landing/preview-mello.webp",
       url: "mello.app",
       bar: "#fcf0f7",
+      barScale: 1,
       frame: { x: 14.24, y: 82.71, w: 194.745, h: 107.436 },
     },
     card: {
@@ -58,6 +68,7 @@ export const projects: Project[] = [
       paper: { x: 393.9, y: 48.4 },
       titleLeading: 72,
       ruleGap: 7,
+      desc: { size: 13, leading: 13, tracking: 1, medium: true },
     },
   },
   {
@@ -73,18 +84,22 @@ export const projects: Project[] = [
       image: "/images/landing/preview-gm.webp",
       url: "googlemaps.app",
       bar: "rgba(138, 139, 190, 0.46)",
+      barScale: 0.635,
       frame: { x: 17.27, y: 90.91, w: 184.544, h: 124.803 },
+      img: { x: -0.11, y: -5.86, w: 186.457, h: 124.305 },
     },
     card: {
       folder: "/images/landing/folder-gm.webp",
       height: 423.036,
       tagline: { x: 94, y: 45, size: 14 },
       labels: { x: 105, y: 110 },
-      column: { x: 93, y: 132 },
+      column: { x: 99, y: 132 },
       open: { x: 478, y: 366 },
       paper: { x: 404.9, y: 59.4 },
       titleLeading: 65,
       ruleGap: 15,
+      desc: { size: 12, leading: 13, tracking: 0.96 },
+      tagsGap: 15,
     },
   },
   {
@@ -101,6 +116,7 @@ export const projects: Project[] = [
       image: "/images/landing/preview-voyaige.webp",
       url: "voyaige.app",
       bar: "#eef4fb",
+      barScale: 0.793,
       frame: { x: 12.69, y: 86.74, w: 194, h: 124 },
     },
     card: {
@@ -108,11 +124,12 @@ export const projects: Project[] = [
       height: 396,
       tagline: { x: 106, y: 25.79, size: 16 },
       labels: { x: 92, y: 96 },
-      column: { x: 90, y: 126 },
+      column: { x: 94, y: 126 },
       open: { x: 474, y: 354 },
       paper: { x: 402.9, y: 28.4 },
       titleLeading: 72,
       ruleGap: 7,
+      desc: { size: 14, leading: 17, tracking: 1 },
     },
   },
   {
@@ -129,7 +146,9 @@ export const projects: Project[] = [
       image: "/images/landing/preview-musemap.webp",
       url: "musemap.app",
       bar: "rgba(255, 155, 89, 0.24)",
+      barScale: 0.64,
       frame: { x: 14.81, y: 65.69, w: 186.139, h: 114.161 },
+      img: { x: -0.19, y: -7.27, w: 186.1, h: 124.009 },
     },
     card: {
       folder: "/images/landing/folder-musemap.webp",
@@ -141,6 +160,7 @@ export const projects: Project[] = [
       paper: { x: 392.9, y: 51.4 },
       titleLeading: 72,
       ruleGap: 7,
+      desc: { size: 13, leading: 13, tracking: 0.96 },
     },
   },
 ];

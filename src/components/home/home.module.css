@@ -97,61 +97,127 @@
   color: var(--muted);
 }
 
+/* Tablet (Figma 2:7306, 768 frame: 36px gutters, one card column). */
 @media (max-width: 1023px) {
-  .work {
-    padding-bottom: 96px;
-  }
-
-  .grid {
-    grid-template-columns: minmax(0, 1fr);
-    justify-items: center;
-    gap: 72px;
-  }
-
-  .contactLinks {
-    padding-left: 0;
-    width: auto;
-  }
-}
-
-@media (max-width: 767px) {
-  .work {
-    padding-top: 64px;
-    padding-bottom: 72px;
-  }
-
-  .display {
-    padding-top: 32px;
-  }
-
-  .metaRow {
-    padding-top: 40px;
-    font-size: 10px;
-    letter-spacing: 0.8px;
-  }
-
-  .grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 40px;
-    padding-block: 32px;
-    justify-items: center;
+  .work,
+  .contact {
+    --gutter: clamp(16px, 4.7vw, 48px);
   }
 
   .sectionHead {
+    padding-top: 11px;
+    min-height: 38px;
     font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 1.4px;
+  }
+
+  .work {
+    padding-top: 94px;
+    padding-bottom: 26px;
+  }
+
+  .display {
+    padding-top: 34px;
+    font-size: 76.778px;
+    line-height: 0.9;
+  }
+
+  .metaRow {
+    padding-top: 64px;
+    padding-bottom: 16px;
+    font-size: 10px;
+    line-height: 15px;
     letter-spacing: 1px;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 45px;
+    padding-block: 53px 0;
+  }
+
+  .grid > a {
+    max-width: 630px;
+  }
+
+  .contact {
+    align-items: flex-start;
+    padding-top: 38px;
+    padding-bottom: 90px;
+  }
+
+  .contactTitle {
+    max-width: 7.7em;
+    font-size: clamp(48px, 8.8vw, 67.564px);
+    line-height: 1.169;
+    color: var(--ink);
+  }
+
+  .contactLinks {
+    flex: none;
+    gap: 32px;
+    width: auto;
+    margin-top: 33px;
+    padding: 0 34px 0 0;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--ink);
+  }
+}
+
+/* Phone (Figma 30:516, 393 frame). */
+@media (max-width: 599px) {
+  .sectionHead {
+    min-height: 34px;
+    font-size: 10px;
+    line-height: 15px;
+    letter-spacing: 1px;
+  }
+
+  .work {
+    padding-top: 35px;
+    padding-bottom: 0;
+  }
+
+  .display {
+    padding-top: 0;
+    font-size: 50px;
+    line-height: 1.2036;
+    letter-spacing: -0.0468em;
+    color: var(--ink);
+  }
+
+  .metaRow {
+    padding-top: 28px;
+    font-size: 8px;
+    line-height: 12px;
+  }
+
+  .grid {
+    gap: 32px;
+    padding-top: 28px;
   }
 
   .contact {
     flex-direction: column;
-    align-items: flex-start;
-    padding-top: 80px;
-    padding-bottom: 72px;
+    gap: 0;
+    padding-top: 68px;
+    padding-bottom: 54px;
+  }
+
+  .contactTitle {
+    max-width: 6.07em;
+    font-size: clamp(40px, 15vw, 59px);
+    line-height: 0.88;
   }
 
   .contactLinks {
-    gap: 28px;
-    padding-bottom: 0;
-    font-size: 18px;
+    gap: 14px;
+    margin-top: 40px;
+    padding: 0;
+    font-size: 14px;
+    line-height: 21px;
   }
 }

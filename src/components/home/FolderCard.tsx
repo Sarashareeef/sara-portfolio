@@ -21,7 +21,7 @@ export default function FolderCard({ project }: { project: Project }) {
           src={card.folder}
           alt=""
           fill
-          sizes="(max-width: 899px) 92vw, 640px"
+          sizes="(max-width: 1023px) 92vw, 640px"
           className={styles.folder}
         />
 
@@ -44,11 +44,15 @@ export default function FolderCard({ project }: { project: Project }) {
               ...pos(card.column.x, card.column.y),
               "--lead": card.titleLeading,
               "--rule": card.ruleGap,
+              "--ds": card.desc.size,
+              "--dl": card.desc.leading,
+              "--dt": card.desc.tracking,
+              "--tg": card.tagsGap ?? 31,
             } as CSSProperties
           }
         >
           <h3 className={styles.title}>{project.title}</h3>
-          <div className={styles.desc}>
+          <div className={`${styles.desc} ${card.desc.medium ? styles.medium : ""}`}>
             <p className={styles.primary}>{project.primary}</p>
             {project.secondary && <p className={styles.secondary}>{project.secondary}</p>}
           </div>
@@ -56,7 +60,7 @@ export default function FolderCard({ project }: { project: Project }) {
         </div>
 
         {project.footnote && (
-          <span className={styles.footnote} style={pos(card.labels.x + 6, card.open.y + 1)}>
+          <span className={styles.footnote} style={pos(card.labels.x, card.open.y + 1)}>
             {project.footnote}
           </span>
         )}
@@ -76,6 +80,7 @@ export default function FolderCard({ project }: { project: Project }) {
                 "--fy": preview.frame.y,
                 "--fw": preview.frame.w,
                 "--fh": preview.frame.h,
+                "--bs": preview.barScale,
               } as CSSProperties
             }
           >
@@ -87,7 +92,23 @@ export default function FolderCard({ project }: { project: Project }) {
               <span>{preview.url}</span>
             </div>
             <div className={styles.shot}>
-              <Image src={preview.image} alt="" fill sizes="220px" className={styles.shotImg} />
+              {preview.img ? (
+                <div
+                  className={styles.shotBox}
+                  style={
+                    {
+                      "--ix": preview.img.x,
+                      "--iy": preview.img.y,
+                      "--iw": preview.img.w,
+                      "--ih": preview.img.h,
+                    } as CSSProperties
+                  }
+                >
+                  <Image src={preview.image} alt="" fill sizes="220px" className={styles.shotImg} />
+                </div>
+              ) : (
+                <Image src={preview.image} alt="" fill sizes="220px" className={styles.shotImg} />
+              )}
             </div>
           </div>
           <p className={styles.paperCta}>VIEW CASE STUDY →</p>

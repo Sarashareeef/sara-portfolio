@@ -20,7 +20,7 @@ export default function HeaderMenu() {
     <div className={styles.menu}>
       <button
         type="button"
-        className={styles.burger}
+        className={`${styles.burger} ${open ? styles.burgerOpen : ""}`}
         aria-label={open ? "Close navigation" : "Open navigation"}
         aria-expanded={open}
         aria-controls="phone-nav"

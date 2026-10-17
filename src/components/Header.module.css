@@ -31,28 +31,14 @@
 }
 
 .link {
-  position: relative;
   display: inline-block;
   transition: color 0.2s ease;
 }
 
-.link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 21.49px;
-  height: 0.972px;
-  width: 0;
-  background: currentColor;
-  transition: width 0.25s ease;
-}
-
-.link:hover {
+/* Header variants 2–5 (Figma 24:317): the hovered link turns #6b6860, nothing else changes. */
+.link:hover,
+.link:focus-visible {
   color: var(--muted);
-}
-
-.link:hover::after {
-  width: 100%;
 }
 
 /* Phone menu — hidden until the phone breakpoint. */
@@ -98,12 +84,16 @@
     display: block;
   }
 
+  /* 44px tap target around a 22 × 14 icon; the three bars fold into a cross when open. */
   .burger {
     display: flex;
     flex-direction: column;
-    gap: 4.5px;
-    width: 22.5px;
-    padding: 7.5px 0;
+    justify-content: center;
+    gap: 4.75px;
+    width: 44px;
+    height: 44px;
+    margin-right: -11px;
+    padding: 0 11px;
     border: 0;
     background: none;
     cursor: pointer;
@@ -111,8 +101,24 @@
 
   .burger span {
     display: block;
-    height: 0.75px;
+    height: 1.5px;
+    border-radius: 1px;
     background: var(--black);
+    transition:
+      transform 0.25s ease,
+      opacity 0.2s ease;
+  }
+
+  .burgerOpen span:nth-child(1) {
+    transform: translateY(6.25px) rotate(45deg);
+  }
+
+  .burgerOpen span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .burgerOpen span:nth-child(3) {
+    transform: translateY(-6.25px) rotate(-45deg);
   }
 
   .panel {

@@ -16,6 +16,8 @@ type PieceProps = {
   alt?: string;
   /** Image crop inside the piece, in design px (for clipped layers). */
   crop?: { x: number; y: number; w: number; h: number };
+  /** Image fit inside the piece (Figma's tablet/phone collages use contain). */
+  fit?: "cover" | "contain";
   sizes?: string;
   eager?: boolean;
   className?: string;
@@ -37,6 +39,7 @@ export default function Piece({
   src,
   alt = "",
   crop,
+  fit = "cover",
   sizes = "25vw",
   eager,
   className,
@@ -59,7 +62,7 @@ export default function Piece({
           alt={alt}
           fill
           sizes={sizes}
-          className={styles.cover}
+          className={styles[fit]}
           loading={eager ? "eager" : "lazy"}
           fetchPriority={eager ? "high" : undefined}
         />

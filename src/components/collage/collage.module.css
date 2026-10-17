@@ -28,6 +28,10 @@
   object-fit: cover;
 }
 
+.contain {
+  object-fit: contain;
+}
+
 .crop {
   position: absolute;
   left: calc(var(--kx) * var(--u));

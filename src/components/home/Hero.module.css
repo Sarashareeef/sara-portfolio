@@ -53,35 +53,16 @@
   white-space: nowrap;
 }
 
-.mobileIntro {
-  display: none;
+/* Tablet frame: board inset 28px, 8px below the header. */
+@media (max-width: 1023px) {
+  .hero {
+    padding: 8px clamp(12px, 3.66vw, 40px) 0;
+  }
 }
 
-@media (max-width: 639px) {
-  .mobileIntro {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    padding-top: 28px;
-  }
-
-  .mobileTitle {
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: 0.81px;
-  }
-
-  .mobileLead {
-    font-size: 14px;
-    line-height: 21px;
-    letter-spacing: 0.5px;
-  }
-
-  .mobileTags {
-    font-size: 11px;
-    line-height: 18px;
-    letter-spacing: 1px;
-    color: var(--muted);
+/* Phone frame: board inset ~12px. */
+@media (max-width: 599px) {
+  .hero {
+    padding-inline: max(8px, 3vw);
   }
 }

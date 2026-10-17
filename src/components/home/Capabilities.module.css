@@ -15,6 +15,10 @@
   text-transform: uppercase;
 }
 
+.mOnly {
+  display: none;
+}
+
 .block {
   margin-top: 45px;
 }
@@ -27,7 +31,6 @@
 }
 
 .sub {
-  margin-top: 4px;
   font-size: 17px;
   line-height: 23.8px;
   color: var(--muted);
@@ -102,8 +105,13 @@
   margin-top: 14.4px;
   max-width: 598px;
   font-size: 15px;
-  line-height: 24px;
+  line-height: normal;
   color: var(--muted);
+}
+
+/* The fourth card's body is set on a 24px leading (3:3327). */
+.sand .cardBody {
+  line-height: 24px;
 }
 
 .experienceHead {
@@ -111,7 +119,7 @@
 }
 
 .jobs {
-  margin-top: 30px;
+  margin-top: 25.5px;
   display: grid;
   grid-template-columns: 553fr 433fr 330fr;
   gap: 24px;
@@ -154,69 +162,195 @@
 
 @media (min-width: 1024px) {
   .company,
-  .role {
+  .role,
+  .cardTitle {
     white-space: nowrap;
   }
 }
 
+/* Tablet (Figma 2:7499 / 2:7542). */
 @media (max-width: 1023px) {
-  .jobs {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 36px 24px;
-  }
-
-  .cardTitle {
-    font-size: 32px;
-  }
-}
-
-@media (max-width: 767px) {
   .wrap {
-    padding-top: 64px;
+    --gutter: clamp(16px, 4.7vw, 48px);
+    padding-top: 0;
   }
 
-  .cards {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 16px;
+  .dOnly {
+    display: none;
   }
 
-  .card {
-    min-height: 0;
-    padding: 26px 24px;
+  .mOnly {
+    display: inline;
   }
 
-  .cardTitle {
-    font-size: 28px;
+  .inner {
+    border-top-color: var(--ink);
+    padding-top: 11px;
   }
 
-  .cardBody {
-    font-size: 14px;
-    line-height: 22px;
+  /* Same label as desktop, at the tablet section-label size (WORK / ABOUT). */
+  .label {
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 1.4px;
+  }
+
+  .block {
+    margin-top: 21px;
   }
 
   .h2 {
-    font-size: 38px;
+    line-height: 48.4px;
+    color: var(--ink);
   }
 
   .sub {
+    margin-top: 4px;
     font-size: 15px;
-    line-height: 22px;
+    line-height: 22.5px;
+  }
+
+  .cards {
+    margin-top: 34px;
+    gap: 24px;
+  }
+
+  .card {
+    justify-content: flex-start;
+    min-height: 220px;
+    padding: 28px 32px;
+  }
+
+  .badge {
+    padding: 5px 14px;
+    font-size: 14px;
+    line-height: 21px;
+    color: var(--ink);
+  }
+
+  .cardTitle {
+    margin-top: 8px;
+    font-size: 30px;
+    line-height: 37px;
+    color: var(--ink);
+  }
+
+  .cardBody,
+  .sand .cardBody {
+    margin-top: 1px;
+    font-size: 13px;
+    line-height: 18.85px;
+  }
+
+  .experienceHead {
+    margin-top: 66px;
   }
 
   .jobs {
+    margin-top: 34px;
     grid-template-columns: minmax(0, 1fr);
-    gap: 28px;
+    gap: 30px;
+  }
+
+  .job {
+    gap: 0;
+    color: var(--ink);
   }
 
   .company {
-    font-size: 18px;
+    font-size: 17px;
+    line-height: 23.8px;
   }
 
   .role {
-    font-size: 15px;
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 18.2px;
   }
 
   .tags {
-    font-size: 14px;
+    margin-top: 3px;
+    font-size: 12px;
+    line-height: 16.8px;
+  }
+
+  .jobLink {
+    margin-top: 5px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+/* Titles stay on one line where the tablet card is wide enough (Figma). */
+@media (min-width: 760px) and (max-width: 1023px) {
+  .cardTitle {
+    white-space: nowrap;
+  }
+}
+
+/* Phone (Figma 30:615 / 30:658). */
+@media (max-width: 599px) {
+  .label {
+    font-size: 10px;
+    line-height: 15px;
+    letter-spacing: 1px;
+  }
+
+  .block {
+    margin-top: 20px;
+  }
+
+  .h2 {
+    font-size: 40px;
+    line-height: 44px;
+  }
+
+  .sub {
+    font-size: 13px;
+    line-height: 19.5px;
+  }
+
+  .cards {
+    margin-top: 28px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .card {
+    min-height: 210px;
+    padding: 26px 28px;
+  }
+
+  .cardBody,
+  .sand .cardBody {
+    margin-top: 5px;
+    font-size: 12px;
+    line-height: 17.4px;
+  }
+
+  .experienceHead {
+    margin-top: 88px;
+  }
+
+  .jobs {
+    margin-top: 28px;
+  }
+
+  .job {
+    padding-bottom: 24px;
+  }
+
+  .job:not(:last-child) {
+    border-bottom: 0.556px solid rgba(39, 35, 31, 0.18);
+  }
+
+  .company {
+    font-size: 16px;
+    line-height: 22.4px;
+  }
+
+  .role {
+    font-size: 12px;
+    line-height: 16.8px;
   }
 }

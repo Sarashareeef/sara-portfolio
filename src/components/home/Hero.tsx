@@ -66,19 +66,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-
-      {/* Small screens: the note on the board is too small to read, so repeat it below. */}
-      <div className={styles.mobileIntro} aria-hidden="true">
-        <p className={styles.mobileTitle}>
-          HI, I&apos;M SARA SUHA
-          <br />
-          UI/UX &amp; PRODUCT DESIGNER
-        </p>
-        <p className={styles.mobileLead}>
-          Product Designer turning complex problems into clear, intuitive digital experiences.
-        </p>
-        <p className={styles.mobileTags}>UI/UX · PRODUCT · INTERACTION · RESEARCH</p>
-      </div>
     </section>
   );
 }
