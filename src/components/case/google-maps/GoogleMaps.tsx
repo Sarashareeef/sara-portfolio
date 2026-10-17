@@ -1,8 +1,12 @@
 import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 import { Cormorant_Garamond, Cutive_Mono } from "next/font/google";
+import ScrollReveal, { RevealScript } from "@/components/ScrollReveal";
+import Words from "@/components/home/Words";
 import CaseLayout from "../CaseLayout";
+import { HEADING_STEP } from "../caseMotion";
 import { CaseHero, H2, Kicker, NextProject, P, Section } from "../ui";
+import GoogleMapsMotion from "./GoogleMapsMotion";
 import s from "./google-maps.module.css";
 
 /* Fonts only this case study uses (badges, table pills, sticky notes). */
@@ -91,6 +95,9 @@ const insights: [quote: string, accent: string, textWidth: number][] = [
   ["Police presence would help me feel secure.", "#febab4", 332],
   ["I need real-time safety information.", "#b1ceff", 339],
 ];
+
+/** Quotes reveal word by word, quicker than headings so they read straight away (ms per word). */
+const QUOTE_STEP = 35;
 
 const competitors = [
   { name: "Google Maps", letter: "G", color: "#4285f4" },
@@ -342,7 +349,9 @@ function UiBoard() {
 
 export default function GoogleMaps() {
   return (
-    <CaseLayout toc={toc} footer="UX CASE STUDY 2025">
+    <CaseLayout toc={toc} footer="GOOGLE MAPS REDESIGN — UX CASE STUDY — 2025">
+      {/* Before the hero parses, so its entrance starts hidden without a flash. */}
+      <RevealScript />
       {/* The desktop frame wraps "TRUST & / FEASIBILITY" in a 104px label box (14.4 line
           height). Scoped to this page's Trust link, so Mello's contents keep one line. */}
       <style href="gm-toc-trust" precedence="default">
@@ -400,7 +409,7 @@ export default function GoogleMaps() {
 
         {/* 01 — Overview */}
         <Section id="overview" num="01" label="OVERVIEW" className={s.overview}>
-          <H2 className={s.h2Tight}>A different question for night-time navigation.</H2>
+          <H2 className={s.h2Tight}><Words step={HEADING_STEP}>A different question for night-time navigation.</Words></H2>
           <div className={s.overviewText}>
             <p>Google Maps is designed to help people get from one place to another.</p>
             <p className={s.blank} aria-hidden="true" />
@@ -433,7 +442,7 @@ export default function GoogleMaps() {
             <span className={s.softText}>CONTEXT</span>
           </div>
           <H2 size={52.6} className={s.h2Big}>
-            When the fastest route isn&apos;t always the right one.
+            <Words step={HEADING_STEP}>When the fastest route isn&apos;t always the right one.</Words>
           </H2>
           <div className={`${s.contextText} ${s.notPhone}`}>
             <ul>
@@ -492,7 +501,7 @@ export default function GoogleMaps() {
         {/* 03 — Challenge */}
         <Section id="challenge" num="03" label="THE CHALLENGE" className={s.challenge}>
           <H2 size={40} className={s.h2Challenge}>
-            Making safety visible without making navigation overwhelming.
+            <Words step={HEADING_STEP}>Making safety visible without making navigation overwhelming.</Words>
           </H2>
           <P className={s.challengeText}>
             The challenge was to introduce safety-related context into an experience built around quick, familiar route
@@ -538,7 +547,7 @@ export default function GoogleMaps() {
 
         {/* 04 — User needs */}
         <Section id="needs" num="04" label="USER NEEDS" className={s.needsSection}>
-          <H2>What did the user need?</H2>
+          <H2><Words step={HEADING_STEP}>What did the user need?</Words></H2>
           <P className={s.needsIntro}>Different night-time journeys create different information needs.</P>
           <div className={s.needsWrap}>
             <div className={s.needs}>
@@ -573,7 +582,7 @@ export default function GoogleMaps() {
 
         {/* 05 — The system */}
         <Section id="system" num="05" label="THE SYSTEM" className={s.systemSection}>
-          <H2>THE SYSTEM</H2>
+          <H2><Words step={HEADING_STEP}>THE SYSTEM</Words></H2>
           <ol className={s.points}>
             {system.map(([t, d]) => (
               <li key={t}>
@@ -588,7 +597,7 @@ export default function GoogleMaps() {
 
         {/* 06 — Design process */}
         <Section id="process" num="06" label="DESIGN PROCESS" className={s.process}>
-          <H2>Design Process</H2>
+          <H2><Words step={HEADING_STEP}>Design Process</Words></H2>
 
           <ol className={s.timeline}>
             {steps.map(([t, sub, d, target], i) => (
@@ -613,7 +622,9 @@ export default function GoogleMaps() {
 
           {/* 01 — Research */}
           <div id="process-research" className={s.block}>
-            <h3 className={s.blockTitle}>01 - Research</h3>
+            <h3 className={s.blockTitle}>
+              <Words step={HEADING_STEP}>01 - Research</Words>
+            </h3>
             <p className={s.blockLead}>
               I looked at the existing navigation experience, the needs of people travelling after dark, and how other
               navigation products communicate route information. The goal was to understand what information could help
@@ -627,7 +638,9 @@ export default function GoogleMaps() {
               <ul className={s.insights}>
                 {insights.map(([q, c, tw]) => (
                   <li key={q} style={{ "--accent": c, "--tw": tw } as CSSProperties}>
-                    <p>&quot;{q}&quot;</p>
+                    <p>
+                      <Words step={QUOTE_STEP}>{`"${q}"`}</Words>
+                    </p>
                     <span />
                   </li>
                 ))}
@@ -680,7 +693,9 @@ export default function GoogleMaps() {
 
           {/* 02 — Ideation */}
           <div id="process-ideation" className={`${s.block} ${s.ideation}`}>
-            <h3 className={s.blockTitle}>02 - IDEATION</h3>
+            <h3 className={s.blockTitle}>
+              <Words step={HEADING_STEP}>02 - IDEATION</Words>
+            </h3>
             <div className={s.ideationLead}>
               <p>Exploring how safety could become part of navigation.</p>
               <p>
@@ -733,7 +748,9 @@ export default function GoogleMaps() {
                         // eslint-disable-next-line @next/next/no-img-element
                         <img className={s.noteCorner} src={svg(`sticky-note-corner-${n.corner}`)} alt="" width={56} height={56} />
                       )}
-                      <p className={s.noteTitle}>{n.title}</p>
+                      <p className={s.noteTitle}>
+                        <Words step={HEADING_STEP}>{n.title}</Words>
+                      </p>
                       <p className={s.noteBody}>{n.body}</p>
                     </div>
                   </div>
@@ -754,7 +771,9 @@ export default function GoogleMaps() {
 
           {/* 03 — Wireframes */}
           <div id="process-wireframes" className={`${s.block} ${s.centered} ${s.wireBlock}`}>
-            <h3 className={s.blockTitle}>03 - Wireframes</h3>
+            <h3 className={s.blockTitle}>
+              <Words step={HEADING_STEP}>03 - Wireframes</Words>
+            </h3>
             <p className={s.wireLabel}>LOW FIDELITY WIREFRAME</p>
             <div className={s.wireframe}>
               <div className={s.wireCrop}>
@@ -772,7 +791,9 @@ export default function GoogleMaps() {
 
           {/* 04 — UI design */}
           <div id="process-ui-design" className={`${s.block} ${s.centered} ${s.uiBlock}`}>
-            <h3 className={s.blockTitle}>04 - UI Design</h3>
+            <h3 className={s.blockTitle}>
+              <Words step={HEADING_STEP}>04 - UI Design</Words>
+            </h3>
             <UiBoard />
           </div>
         </Section>
@@ -781,7 +802,7 @@ export default function GoogleMaps() {
 
         {/* 07 — What didn't work */}
         <Section id="didnt-work" num="07" label="WHAT DIDN’T WORK" className={s.didnt}>
-          <H2>The first idea wasn&apos;t the final one.</H2>
+          <H2><Words step={HEADING_STEP}>The first idea wasn&apos;t the final one.</Words></H2>
           <p className={s.looseLead}>
             Exploring different directions helped me understand that adding more safety information doesn&apos;t
             automatically make navigation more useful. The challenge was finding the right level of information without
@@ -806,7 +827,7 @@ export default function GoogleMaps() {
 
         {/* 08 — Trust & feasibility */}
         <Section id="trust" num="08" label="TRUST & FEASIBILITY" className={s.trust}>
-          <H2>TRUST &amp; FEASIBILITY</H2>
+          <H2><Words step={HEADING_STEP}>TRUST &amp; FEASIBILITY</Words></H2>
           <div className={s.trustLead}>
             <p>Safety information should provide context, not certainty.</p>
             <p>
@@ -847,7 +868,7 @@ export default function GoogleMaps() {
 
         {/* 09 — Reflection */}
         <Section id="reflection" num="09" label="Reflection" className={s.reflection}>
-          <H2>What I took away from the process.</H2>
+          <H2><Words step={HEADING_STEP}>What I took away from the process.</Words></H2>
           <ol className={`${s.points} ${s.learnings}`}>
             {learnings.map(([t, d], i) => (
               <li key={t} style={{ "--tw": learningWidths[i] } as CSSProperties}>
@@ -859,10 +880,10 @@ export default function GoogleMaps() {
         </Section>
 
         <div className={s.caseStrip}>
+          {/* One label at every width; where it can't fit one line it breaks only
+              between its two halves. */}
           <p>
-            {/* The strip only exists in the tablet and phone frames, each worded differently. */}
-            <span className={s.tOnly}>REDESIGNING GOOGLE MAPS — UX CASE STUDY — 2025</span>
-            <span className={s.pOnly}>GOOGLE MAPS REDESIGN — UX CASE STUDY — 2025/2026</span>
+            <span>GOOGLE MAPS REDESIGN —</span> <span>UX CASE STUDY — 2025</span>
           </p>
           {/* Lenis turns in-page anchors into a smooth scroll (instant with reduced motion). */}
           <a href="#intro">BACK TO TOP ↑</a>
@@ -870,6 +891,10 @@ export default function GoogleMaps() {
 
         <NextProject href="/work/voyaige" title="VoyAIge" blurb="A smarter way to plan, navigate, and experience every trip." />
       </div>
+
+      {/* Order matters: GoogleMapsMotion marks elements, then ScrollReveal observes them. */}
+      <GoogleMapsMotion />
+      <ScrollReveal step={90} />
     </CaseLayout>
   );
 }

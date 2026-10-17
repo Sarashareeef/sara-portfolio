@@ -1,8 +1,12 @@
 import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 import { JetBrains_Mono } from "next/font/google";
+import ScrollReveal, { RevealScript } from "@/components/ScrollReveal";
+import Words from "@/components/home/Words";
 import CaseLayout from "../CaseLayout";
+import { HEADING_STEP } from "../caseMotion";
 import { BrowserFrame, CaseHero, H2, Icon, NextProject, Section } from "../ui";
+import VoyaigeMotion from "./VoyaigeMotion";
 import s from "./voyaige.module.css";
 
 /* Only the challenge cards use JetBrains Mono (Figma 3:1095–3:1136). */
@@ -282,7 +286,9 @@ function FinalBoard() {
 
 export default function Voyaige() {
   return (
-    <CaseLayout toc={toc} footer="UX CASE STUDY 2025">
+    <CaseLayout toc={toc} footer="VOYAIGE — UX CASE STUDY — 2025">
+      {/* Before the hero parses, so its entrance starts hidden without a flash. */}
+      <RevealScript />
       <div className={`${s.root} ${jetbrains.variable}`}>
         <CaseHero
           className={s.hero}
@@ -320,7 +326,7 @@ export default function Voyaige() {
 
         {/* 01 — Overview */}
         <Section id="overview" num="01" label="OVERVIEW" className={s.overview}>
-          <H2 className={s.h2}>What is Voyaige?</H2>
+          <H2 className={s.h2}><Words step={HEADING_STEP}>What is Voyaige?</Words></H2>
           <p className={`${s.lightText} ${s.notTB}`}>
             VoyAIge is a smart,all-in-one travel planner designed to help modern travelers create realistic,
             time-aware itineraries without switching between multiple apps.It generates day-by-day plans based on
@@ -358,7 +364,7 @@ export default function Voyaige() {
 
         {/* 02 — Challenge */}
         <Section id="challenge" num="02" label="THE CHALLENGE" className={s.challenge}>
-          <H2 className={s.h2}>Making travel planning feel less fragmented.</H2>
+          <H2 className={s.h2}><Words step={HEADING_STEP}>Making travel planning feel less fragmented.</Words></H2>
           <p className={s.body}>
             The Current travel apps help users discover places but fail to support them in creating realistic, functional
             itineraries. Travelers are forced to switch between maps, notes, budgeting tools, and group chats resulting in
@@ -409,7 +415,7 @@ export default function Voyaige() {
 
         {/* 03 — What we learned */}
         <Section id="learned" num="03" label="WHAT WE LEARNED" className={s.learned}>
-          <H2 className={`${s.h2} ${s.h2Learned}`}>What did we learn?</H2>
+          <H2 className={`${s.h2} ${s.h2Learned}`}><Words step={HEADING_STEP}>What did we learn?</Words></H2>
           <p className={s.body}>
             The research and synthesis phase revealed recurring patterns in how people discover, organize, and experience
             travel.
@@ -435,7 +441,7 @@ export default function Voyaige() {
 
         {/* 04 — Research */}
         <Section id="research" num="04" label="RESEARCH" className={s.research}>
-          <H2 className={s.h2}>Understanding the travel-planning journey</H2>
+          <H2 className={s.h2}><Words step={HEADING_STEP}>Understanding the travel-planning journey</Words></H2>
           <div className={s.researchIntro}>
             <p className={s.researchKicker}>Looking beyond what people say</p>
             <p className={s.body}>
@@ -443,7 +449,9 @@ export default function Voyaige() {
               plan travel.
             </p>
           </div>
-          <h3 className={s.subhead}>01 — HOW I RESEARCHED</h3>
+          <h3 className={s.subhead}>
+            <Words step={HEADING_STEP}>01 — HOW I RESEARCHED</Words>
+          </h3>
           <div className={s.methods}>
             <Image
               src={web("research-methods")}
@@ -454,7 +462,9 @@ export default function Voyaige() {
               className={s.contain}
             />
           </div>
-          <h3 className={s.subhead}>02 — WHAT STOOD OUT</h3>
+          <h3 className={s.subhead}>
+            <Words step={HEADING_STEP}>02 — WHAT STOOD OUT</Words>
+          </h3>
           <ul className={s.stats}>
             {stats.map(([n, t, d]) => (
               <li key={n}>
@@ -467,7 +477,9 @@ export default function Voyaige() {
           <p className={s.statQuote}>
             The opportunity was clear: reduce the effort of planning without taking away the freedom to explore.
           </p>
-          <h3 className={`${s.subhead} ${s.patternsHead}`}>03 — PATTERNS I FOUND</h3>
+          <h3 className={`${s.subhead} ${s.patternsHead}`}>
+            <Words step={HEADING_STEP}>03 — PATTERNS I FOUND</Words>
+          </h3>
           {/* The file crops the top of this image (its own "03 — Patterns that emerged"
               heading) out of view; the window keeps the image's proportions. */}
           <div className={s.patterns}>
@@ -481,7 +493,9 @@ export default function Voyaige() {
               className={s.patternsImg}
             />
           </div>
-          <h3 className={s.subhead}>04 — FROM RESEARCH → DESIGN</h3>
+          <h3 className={s.subhead}>
+            <Words step={HEADING_STEP}>04 — FROM RESEARCH → DESIGN</Words>
+          </h3>
           <div className={s.pillars}>
             {pillars.map((p, i) => (
               <div key={p.t} className={`${s.pillar} ${s[p.tone] ?? ""}`}>
@@ -526,7 +540,7 @@ export default function Voyaige() {
 
         {/* 05 — Process */}
         <Section id="process" num="05" label="PROCESS" className={s.process}>
-          <H2 className={`${s.h2} ${s.h2Ink}`}>Turning insights into structure</H2>
+          <H2 className={`${s.h2} ${s.h2Ink}`}><Words step={HEADING_STEP}>Turning insights into structure</Words></H2>
           <p className={s.processLead}>
             With the key pain points identified, I <b>moved</b> from understanding the problem to defining how Voyaige
             should actually work.
@@ -563,7 +577,7 @@ export default function Voyaige() {
 
         {/* 06 — UX flow */}
         <Section id="ux-flow" num="06" label="UX FLOW" className={s.flowSection}>
-          <H2 className={s.h2}>VoyAIge user flow</H2>
+          <H2 className={s.h2}><Words step={HEADING_STEP}>VoyAIge user flow</Words></H2>
           <p className={s.body}>
             From discovering a destination to planning with friends, managing expenses, and staying safe — the flow is
             designed to take users from inspiration to an organized, real-world travel experience.
@@ -643,7 +657,10 @@ export default function Voyaige() {
         {/* 07 — Final experience */}
         <Section id="final" num="07" label="FINAL EXPERIENCE" className={s.final}>
           <H2 className={s.h2}>
-            <TabletSwap base="High fidelity screens" tablet="The final experience" />
+            <TabletSwap
+              base={<Words step={HEADING_STEP}>High fidelity screens</Words>}
+              tablet={<Words step={HEADING_STEP}>The final experience</Words>}
+            />
           </H2>
           <p className={s.body}>The final experience translates the research and flows into a cohesive mobile product.</p>
           <FinalBoard />
@@ -653,7 +670,7 @@ export default function Voyaige() {
 
         {/* 08 — What didn't work */}
         <Section id="didnt-work" num="08" label="WHAT DIDN'T WORK" className={s.didnt}>
-          <H2 className={s.h2}>What didn&apos;t work?</H2>
+          <H2 className={s.h2}><Words step={HEADING_STEP}>What didn&apos;t work?</Words></H2>
           <p className={s.body}>
             Not every idea survived the process, some early directions looked promising on paper but created more
             complexity once I considered how travellers would actually use them.
@@ -661,7 +678,9 @@ export default function Voyaige() {
           <div className={s.didntList}>
             {didntWork.map((d) => (
               <div key={d.t}>
-                <h3 className={s.didntTitle}>{d.t}</h3>
+                <h3 className={s.didntTitle}>
+                  <Words step={HEADING_STEP}>{d.t}</Words>
+                </h3>
                 <dl>
                   <div>
                     <dt>The problem</dt>
@@ -681,7 +700,7 @@ export default function Voyaige() {
 
         {/* 09 — Reflection */}
         <Section id="reflection" num="09" label="REFLECTION" className={s.reflection}>
-          <H2 className={s.h2}>What I learned</H2>
+          <H2 className={s.h2}><Words step={HEADING_STEP}>What I learned</Words></H2>
           <ol className={s.reflectList}>
             {reflection.map(([t, d], i) => (
               <li key={t}>
@@ -696,7 +715,10 @@ export default function Voyaige() {
         </Section>
 
         <div className={s.caseStrip}>
-          <p>VOYAIGE — UX CASE STUDY — 2026</p>
+          {/* Where the label can't fit one line it breaks only between its two halves. */}
+          <p>
+            <span>VOYAIGE —</span> <span>UX CASE STUDY — 2025</span>
+          </p>
           {/* Lenis turns in-page anchors into a smooth scroll (instant with reduced motion). */}
           <a href="#intro">BACK TO TOP ↑</a>
         </div>
@@ -707,6 +729,10 @@ export default function Voyaige() {
           blurb="A visual discovery platform for finding galleries, exhibitions, museums and creative spaces around you."
         />
       </div>
+
+      {/* Order matters: VoyaigeMotion marks elements, then ScrollReveal observes them. */}
+      <VoyaigeMotion />
+      <ScrollReveal step={90} />
     </CaseLayout>
   );
 }

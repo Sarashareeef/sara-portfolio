@@ -1618,3 +1618,103 @@ section.experience {
     padding: 22px 22px 22px 10px;
   }
 }
+
+/*
+ * ---- Motion (MuseMapMotion, shared with Mello / Google Maps / VoyAIge via caseMotion.ts) ----
+ * Hidden states apply only while html.js-reveal is set (never without JS or with
+ * reduced motion); entrances fill backwards only, so every element ends on its
+ * original styles and position. Entrances use opacity / translate / scale /
+ * clip-path; the one hover (experience screens) uses translate and filter.
+ */
+
+/* Hero: hidden from first paint until the reveal plays, as on the other case studies. */
+:global(.js-reveal) section.hero > :not([data-reveal="shown"]) {
+  opacity: 0;
+  translate: 0 14px;
+}
+
+@keyframes mmPop {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+}
+
+/* -- Discovery sources: the connector lines draw downwards from the four
+   sources (waiting hidden by opacity, so the observer still sees them; the
+   clip only runs inside the keyframe). -- */
+@keyframes mmDrawDown {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+:global(.js-reveal) .diagram > .converge[data-reveal]:not([data-reveal="shown"]) {
+  translate: none;
+}
+
+.diagram > .converge[data-reveal="shown"] {
+  animation: mmDrawDown 0.6s cubic-bezier(0.65, 0, 0.35, 1) var(--reveal-delay, 0ms) backwards;
+}
+
+/* -- Opportunity steps: each icon pops in once its step has risen. -- */
+.oppSteps > li[data-reveal="shown"] > .blob {
+  animation: mmPop 0.45s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--reveal-delay, 0ms) + 180ms) backwards;
+}
+
+/* -- Experience screens: float up into place (no mask, no clipping). Each
+   screen rises from slightly lower and scales 0.96 to 1 under a soft shadow
+   that fades as it lands; screens in a row follow each other. -- */
+.phones {
+  --mm-float: 24px;
+  --mm-float-dur: 0.95s;
+}
+
+@keyframes mmFloatIn {
+  from {
+    opacity: 0;
+    translate: 0 var(--mm-float);
+    scale: 0.96;
+    filter: drop-shadow(0 22px 28px rgba(59, 43, 28, 0.16));
+  }
+
+  60% {
+    filter: drop-shadow(0 10px 18px rgba(59, 43, 28, 0.1));
+  }
+}
+
+:global(.js-reveal) .phones > .phoneShot[data-reveal]:not([data-reveal="shown"]) {
+  translate: 0 var(--mm-float);
+}
+
+.phones > .phoneShot[data-reveal="shown"] {
+  animation: mmFloatIn var(--mm-float-dur) cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) backwards;
+}
+
+/* Desktop: a 2px lift with a soft shadow on the screens. */
+.phones > .phoneShot {
+  transition:
+    translate 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .phones > .phoneShot:hover {
+    translate: 0 -2px;
+    filter: drop-shadow(0 12px 18px rgba(59, 43, 28, 0.14));
+  }
+}
+
+@media (max-width: 1099px) {
+  .phones {
+    --mm-float: 16px;
+    --mm-float-dur: 0.8s;
+  }
+}
+
+@media (max-width: 599px) {
+  .phones {
+    --mm-float: 10px;
+    --mm-float-dur: 0.6s;
+  }
+}

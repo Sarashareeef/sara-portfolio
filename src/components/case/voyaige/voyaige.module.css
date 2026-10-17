@@ -229,7 +229,6 @@ section.challenge {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: flex-start;
   min-height: 306px;
   padding: 24px;
@@ -287,6 +286,7 @@ section.challenge {
 
 .cardBody {
   position: relative;
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 14.4px;
@@ -304,7 +304,10 @@ section.challenge {
   border-radius: 9.6px;
 }
 
+/* Room for two lines while the cards sit side by side, so the descriptions
+   start level whether or not a title wraps. */
 .cardTitle {
+  min-height: calc(2 * 16.8px);
   font-weight: 700;
   font-size: 13.2px;
   line-height: 16.8px;
@@ -1510,14 +1513,19 @@ section.challenge {
   }
 
   .caseStrip p {
+    min-width: 0;
     font-size: 9.28px;
     line-height: 13.92px;
     letter-spacing: 0.93px;
-    white-space: nowrap;
     color: var(--soft);
   }
 
+  .caseStrip p span {
+    white-space: nowrap;
+  }
+
   .caseStrip a {
+    flex: none;
     padding-bottom: 1px;
     border-bottom: 0.928px solid var(--ink);
     font-size: 11.2px;
@@ -1537,6 +1545,64 @@ section.challenge {
 /* ======================================================================
    Phone (Figma 2:13251, 403)
    ====================================================================== */
+/* Small tablets and large phones (≤767): the tablet's three-up insight cards and
+   pillars get too narrow, so they stack in one centred column (as on phones, at
+   a width that grows with the screen); the user flow can't fit its 704 column,
+   so it keeps that size and scrolls sideways in its own box. */
+@media (max-width: 767px) {
+  .cards {
+    width: min(400px, 100%);
+    padding: 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .cardTitle {
+    min-height: 0;
+  }
+
+  .pillars {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    row-gap: 24px;
+  }
+
+  .pillar {
+    width: min(320px, 100%);
+  }
+
+  .pillarDesc {
+    max-width: none;
+    line-height: 1.6;
+  }
+
+  .scrollHint {
+    display: block;
+    padding-top: 20px;
+    text-align: right;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.93px;
+    color: var(--muted);
+  }
+
+  .flowScroll {
+    margin-inline: -32px;
+    padding: 8px 32px 18px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  .flowScroll:focus-visible {
+    outline: 1px solid var(--black);
+    outline-offset: -2px;
+  }
+
+  .flow {
+    width: 704px;
+  }
+}
+
 @media (max-width: 599px) {
   .notT {
     display: inline;
@@ -1672,11 +1738,7 @@ section.challenge {
   }
 
   .cards {
-    width: 231.2px;
     margin-top: 22px;
-    padding: 0;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 14px;
   }
 
   .card {
@@ -1766,22 +1828,6 @@ section.challenge {
     margin: 11px -24px 0;
   }
 
-  .pillars {
-    grid-template-columns: minmax(0, 1fr);
-    justify-items: center;
-    row-gap: 24px;
-  }
-
-  .pillar {
-    width: 285.6px;
-    max-width: 100%;
-  }
-
-  .pillarDesc {
-    max-width: none;
-    line-height: 1.6;
-  }
-
   .pill {
     padding: 22px 24px;
     border-width: 0.819px;
@@ -1808,33 +1854,14 @@ section.challenge {
     min-height: 265px;
   }
 
+  /* Process tags wrap rather than cut off where the two columns are narrow. */
+  .processTags > span {
+    white-space: normal;
+    text-overflow: clip;
+  }
+
   /* UX flow (2:13696): the frame shrinks the diagram to 333 wide (~3px text);
-     it keeps its tablet size here and scrolls sideways in its own box. */
-  .scrollHint {
-    display: block;
-    padding-top: 20px;
-    text-align: right;
-    font-size: 12px;
-    line-height: 18px;
-    letter-spacing: 0.93px;
-    color: var(--muted);
-  }
-
-  .flowScroll {
-    margin-inline: -32px;
-    padding: 8px 32px 18px;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-  }
-
-  .flowScroll:focus-visible {
-    outline: 1px solid var(--black);
-    outline-offset: -2px;
-  }
-
-  .flow {
-    width: 704px;
-  }
+     it keeps its tablet size and scrolls sideways (see the 767 block). */
 
   /* Final (2:13888). */
   .boardWrap {
@@ -1860,5 +1887,318 @@ section.challenge {
 
   .root > div:last-child > div > p:nth-child(3) {
     max-width: 325px;
+  }
+}
+
+/*
+ * ---- Motion (VoyaigeMotion, shared with Mello / Google Maps via caseMotion.ts) ----
+ * Hero entrance: hidden from first paint (html.js-reveal comes from RevealScript,
+ * never with reduced motion) until the reveal plays, as on the other case studies.
+ */
+:global(.js-reveal) section.hero > :not([data-reveal="shown"]) {
+  opacity: 0;
+  translate: 0 14px;
+}
+
+/* Board captions are centred with translate, so they only fade. */
+@keyframes vgCaptionFade {
+  from {
+    opacity: 0;
+  }
+}
+
+:global(.js-reveal) .board > .caption[data-reveal]:not([data-reveal="shown"]) {
+  translate: -50% 0;
+}
+
+.board > .caption[data-reveal="shown"] {
+  animation-name: vgCaptionFade;
+}
+
+/*
+ * ---- Section interactions (VoyaigeMotion) ----
+ * Hidden states apply only while html.js-reveal is set (never without JS or with
+ * reduced motion); entrances fill backwards only, so every element ends on its
+ * original styles. Entrances use opacity / translate / scale / filter; the hover
+ * lifts use transform or translate, so the two never fight.
+ */
+@keyframes vgRise {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+}
+
+@keyframes vgPop {
+  from {
+    opacity: 0;
+    scale: 0.4;
+  }
+}
+
+/* -- Insight cards: hover lift, accent border, indicator dot glow -- */
+.card {
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.cardHead b {
+  transition:
+    scale 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
+}
+
+.cards > li[data-reveal="shown"] .cardHead b {
+  animation: vgPop 0.45s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--reveal-delay, 0ms) + 260ms) backwards;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: var(--c-bd);
+    box-shadow:
+      0 12px 28px rgba(15, 23, 42, 0.07),
+      0 0 0 1px var(--c-bd);
+  }
+
+  .card:hover .cardHead b {
+    scale: 1.5;
+    box-shadow: 0 0 0 3px var(--c-bd);
+  }
+}
+
+/* -- Metrics: cells stay put (they carry the borders); the number comes into
+   focus while it counts up (VoyaigeMotion), then label and description follow. -- */
+:global(.js-reveal) .stats > li[data-reveal]:not([data-reveal="shown"]) {
+  opacity: 1;
+  translate: none;
+}
+
+.stats > li[data-reveal="shown"] {
+  animation: none;
+}
+
+:global(.js-reveal) .stats > li[data-reveal]:not([data-reveal="shown"]) > * {
+  opacity: 0;
+}
+
+@keyframes vgFocus {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    scale: 0.96;
+  }
+}
+
+/* A steady width while the digits change, so nothing shifts during the count. */
+.statNum {
+  display: inline-block;
+  min-width: 2.4em;
+  font-variant-numeric: tabular-nums;
+}
+
+.stats > li[data-reveal="shown"] > .statNum {
+  animation: vgFocus 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms) backwards;
+}
+
+.stats > li[data-reveal="shown"] > .statLabel {
+  animation: vgRise 0.6s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--reveal-delay, 0ms) + 300ms) backwards;
+}
+
+.stats > li[data-reveal="shown"] > .statDesc {
+  animation: vgRise 0.6s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--reveal-delay, 0ms) + 400ms) backwards;
+}
+
+/* -- Process: each card rises, then its number, title, description, rule and
+   tags follow; the arrow to the next card slides in once the card has landed. -- */
+.processGrid > li[data-reveal="shown"] .processCard > :not(.deco) {
+  animation: vgRise 0.5s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--reveal-delay, 0ms) + 120ms) backwards;
+}
+
+.processGrid > li[data-reveal="shown"] .processTitle {
+  animation-delay: calc(var(--reveal-delay, 0ms) + 180ms);
+}
+
+.processGrid > li[data-reveal="shown"] .processDesc {
+  animation-delay: calc(var(--reveal-delay, 0ms) + 240ms);
+}
+
+.processGrid > li[data-reveal="shown"] .processLine,
+.processGrid > li[data-reveal="shown"] .processTags {
+  animation-delay: calc(var(--reveal-delay, 0ms) + 300ms);
+}
+
+@keyframes vgArrowIn {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+}
+
+.processGrid > li[data-reveal="shown"] > .processArrow {
+  animation: vgArrowIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--reveal-delay, 0ms) + 380ms) backwards;
+}
+
+/* -- User flow: step, then the arrow drawing left to right, then the next step;
+   then the dashed links run down from step 05 to the feature cards, which open
+   row by row. -- */
+@keyframes vgDrawRight {
+  from {
+    opacity: 1;
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+@keyframes vgDrawDown {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+@keyframes vgDrawLeft {
+  from {
+    clip-path: inset(0 0 0 100%);
+  }
+}
+
+/* Waiting arrows are hidden with opacity, not clip-path: a fully clipped element
+   never registers as entering the viewport, so it would never be revealed. */
+:global(.js-reveal) .flowSteps .flowArrow[data-reveal]:not([data-reveal="shown"]) {
+  translate: none;
+}
+
+.flowSteps .flowArrow[data-reveal="shown"] {
+  animation: vgDrawRight 0.45s cubic-bezier(0.65, 0, 0.35, 1) var(--reveal-delay, 0ms) backwards;
+}
+
+.flowSteps .flowStep[data-reveal="shown"] > * {
+  animation: vgRise 0.5s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--reveal-delay, 0ms) + 100ms) backwards;
+}
+
+.flowSteps .flowStep[data-reveal="shown"] > .flowTitle {
+  animation-delay: calc(var(--reveal-delay, 0ms) + 160ms);
+}
+
+.flowSteps .flowStep[data-reveal="shown"] > .flowList {
+  animation-delay: calc(var(--reveal-delay, 0ms) + 220ms);
+}
+
+@keyframes vgLinksIn {
+  from {
+    opacity: 0;
+  }
+}
+
+:global(.js-reveal) .flowLinks[data-reveal]:not([data-reveal="shown"]) {
+  translate: none;
+}
+
+.flowLinks[data-reveal="shown"] {
+  animation-name: vgLinksIn;
+}
+
+.flowLinks[data-reveal="shown"] .flowRise {
+  animation: vgDrawDown 0.35s cubic-bezier(0.65, 0, 0.35, 1) var(--reveal-delay, 0ms) backwards;
+}
+
+.flowLinks[data-reveal="shown"] .flowSpan {
+  animation: vgDrawLeft 0.6s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--reveal-delay, 0ms) + 300ms) backwards;
+}
+
+.flowLinks[data-reveal="shown"] .flowDrop {
+  animation: vgDrawDown 0.35s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--reveal-delay, 0ms) + 820ms) backwards;
+}
+
+.flowGroups > li[data-reveal="shown"] > .groupHead {
+  animation: vgRise 0.5s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--reveal-delay, 0ms) + 120ms) backwards;
+}
+
+.flowGroups > li[data-reveal="shown"] .groupItems > li {
+  animation: vgRise 0.5s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--reveal-delay, 0ms) + 220ms) backwards;
+}
+
+.flowGroups > li[data-reveal="shown"] .groupItems > li:nth-child(2) {
+  animation-delay: calc(var(--reveal-delay, 0ms) + 300ms);
+}
+
+.flowGroups > li[data-reveal="shown"] .groupItems > li:nth-child(3) {
+  animation-delay: calc(var(--reveal-delay, 0ms) + 380ms);
+}
+
+.flowGroups > li[data-reveal="shown"] .groupItems > li:nth-child(n + 4) {
+  animation-delay: calc(var(--reveal-delay, 0ms) + 460ms);
+}
+
+/* -- High-fidelity screens: float up into place (no mask, no clipping). Each
+   screen rises from slightly lower and scales 0.96 to 1 under a soft shadow that
+   fades as it lands; screens in a row follow each other. Arrows only fade.
+   Board items keep their rotation in the inline transform, untouched here. -- */
+.board {
+  --vg-float: 24px;
+  --vg-float-dur: 0.95s;
+}
+
+@keyframes vgFloatIn {
+  from {
+    opacity: 0;
+    translate: 0 var(--vg-float);
+    scale: 0.96;
+    filter: drop-shadow(0 22px 28px rgba(15, 23, 42, 0.16));
+  }
+
+  60% {
+    filter: drop-shadow(0 10px 18px rgba(15, 23, 42, 0.1));
+  }
+}
+
+@keyframes vgFadeIn {
+  from {
+    opacity: 0;
+  }
+}
+
+:global(.js-reveal) .board > .boardItem[data-reveal]:not([data-reveal="shown"]) {
+  translate: 0 var(--vg-float);
+}
+
+.board > .boardItem[data-reveal="shown"] {
+  animation: vgFloatIn var(--vg-float-dur) cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) backwards;
+}
+
+:global(.js-reveal) .board > .boardItem[aria-hidden="true"][data-reveal]:not([data-reveal="shown"]) {
+  translate: none;
+}
+
+.board > .boardItem[aria-hidden="true"][data-reveal="shown"] {
+  animation: vgFadeIn 0.6s ease-out var(--reveal-delay, 0ms) backwards;
+}
+
+/* Desktop: a 2px lift with a soft shadow on the screens (not the arrows). */
+.board > .boardItem:not([aria-hidden="true"]) {
+  transition:
+    translate 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .board > .boardItem:not([aria-hidden="true"]):hover {
+    translate: 0 -2px;
+    filter: drop-shadow(0 12px 18px rgba(15, 23, 42, 0.14));
+  }
+}
+
+@media (max-width: 1099px) {
+  .board {
+    --vg-float: 16px;
+    --vg-float-dur: 0.8s;
+  }
+}
+
+@media (max-width: 599px) {
+  .board {
+    --vg-float: 10px;
+    --vg-float-dur: 0.6s;
   }
 }

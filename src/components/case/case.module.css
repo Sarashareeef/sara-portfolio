@@ -115,9 +115,12 @@
   color: var(--black);
 }
 
-/* Lines up with the contents list (no offset) and stays on one line. */
+/* Lines up with the contents list (no offset). Labels that fit stay on one
+   line (Mello's ends 9px before the divider); longer ones wrap onto balanced
+   lines inside the column instead of running into it. */
 .sidebarFoot {
-  white-space: nowrap;
+  max-width: 156px;
+  text-wrap: balance;
   font-size: 8.8px;
   line-height: 14.08px;
   letter-spacing: 0.3px; /* keeps "MELLO UX CASE STUDY 2025–26" clear of the divider */

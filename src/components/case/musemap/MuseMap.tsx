@@ -1,7 +1,11 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
+import ScrollReveal, { RevealScript } from "@/components/ScrollReveal";
+import Words from "@/components/home/Words";
 import CaseLayout from "../CaseLayout";
+import { HEADING_STEP } from "../caseMotion";
 import { CaseHero, H2, Icon, NextProject, Section } from "../ui";
+import MuseMapMotion from "./MuseMapMotion";
 import s from "./musemap.module.css";
 
 const web = (n: string) => `/images/musemap/web/${n}.webp`;
@@ -397,6 +401,8 @@ function SourcesDiagram() {
 export default function MuseMap() {
   return (
     <CaseLayout toc={toc} footer="UX CASE STUDY 2025">
+      {/* Before the hero parses, so its entrance starts hidden without a flash. */}
+      <RevealScript />
       {/* The desktop frame wraps these three contents labels onto two lines
           (3:2572, 3:2578, 3:2602: 94 / 75 / 114 wide). Scoped to this page's links. */}
       <style href="mm-toc-wrap" precedence="default">
@@ -447,7 +453,7 @@ nav[aria-label="Case study contents"] a[href="#ecosystem"] > span:last-child { w
 
         {/* 01 — The problem */}
         <Section id="problem" num="01" label="THE problem" className={s.problem}>
-          <H2 className={s.h2}>Finding art shouldn&apos;t require knowing where to look.</H2>
+          <H2 className={s.h2}><Words step={HEADING_STEP}>Finding art shouldn&apos;t require knowing where to look.</Words></H2>
           <div className={s.problemText}>
             <p>
               Art exhibitions and galleries are often discovered through scattered sources — social media, search engines,
@@ -474,7 +480,7 @@ nav[aria-label="Case study contents"] a[href="#ecosystem"] > span:last-child { w
 
         {/* 02 — Research */}
         <Section id="research" num="02" label="RESEARCH" className={s.research}>
-          <H2 className={`${s.h2} ${s.h2Research}`}>Understanding how people discover art</H2>
+          <H2 className={`${s.h2} ${s.h2Research}`}><Words step={HEADING_STEP}>Understanding how people discover art</Words></H2>
           <p className={s.researchIntro}>
             <Swap
               d="I explored how people discover galleries, exhibitions and creative spaces, focusing on where they look, what information influences their decisions, and how discovery happens across different platforms."
@@ -509,7 +515,7 @@ nav[aria-label="Case study contents"] a[href="#ecosystem"] > span:last-child { w
         {/* 03 — Design opportunity (the section draws its own top rule, 3:2916) */}
         <hr className={s.rule} />
         <Section id="opportunity" num="03" label="DESIGN OPPORTUNITY" className={s.opportunity}>
-          <H2 className={`${s.h2} ${s.h2Opp}`}>From searching to discovering</H2>
+          <H2 className={`${s.h2} ${s.h2Opp}`}><Words step={HEADING_STEP}>From searching to discovering</Words></H2>
           <div className={s.oppGrid}>
             <p className={s.oppText}>
               People don&apos;t always know what they&apos;re looking for. They want an easier way to discover interesting
@@ -536,7 +542,7 @@ nav[aria-label="Case study contents"] a[href="#ecosystem"] > span:last-child { w
 
         {/* 04 — Key design decisions */}
         <Section id="decisions" num="04" label="KEY DESIGN DECISIONS" className={s.decisions}>
-          <H2 className={s.h2}>Turning the idea into an experience</H2>
+          <H2 className={s.h2}><Words step={HEADING_STEP}>Turning the idea into an experience</Words></H2>
           <p className={s.body}>
             <Swap
               d="Rather than documenting every design step, I’m highlighting the three decisions that shaped MuseMap."
@@ -568,7 +574,7 @@ nav[aria-label="Case study contents"] a[href="#ecosystem"] > span:last-child { w
 
         {/* 05 — UX flow */}
         <Section id="ux-flow" num="05" label="UX FLOW" className={s.flow}>
-          <H2 className={s.h2}>USER FLOW JOURNEY</H2>
+          <H2 className={s.h2}><Words step={HEADING_STEP}>USER FLOW JOURNEY</Words></H2>
           {/* The file zooms the diagram into its 1112 × 581 box (131.64% wide,
               offset −11.02% / −13.47%); same crop here, proportions kept. */}
           <div className={s.flowBox}>
@@ -588,7 +594,7 @@ nav[aria-label="Case study contents"] a[href="#ecosystem"] > span:last-child { w
 
         {/* 06 — The experience */}
         <Section id="experience" num="06" label="THE EXPERIENCE" className={s.experience}>
-          <H2 className={s.h2}>Designing the experience</H2>
+          <H2 className={s.h2}><Words step={HEADING_STEP}>Designing the experience</Words></H2>
           <div className={s.expIntro}>
             <p className={s.expKicker}>From discovery to visit</p>
             <p>
@@ -598,7 +604,9 @@ nav[aria-label="Case study contents"] a[href="#ecosystem"] > span:last-child { w
           </div>
           {experience.map((block) => (
             <div key={block.key} className={`${s.expBlock} ${s[`exp_${block.key}`] ?? ""}`}>
-              <h3 className={s.h3}>{block.t}</h3>
+              <h3 className={s.h3}>
+                <Words step={HEADING_STEP}>{block.t}</Words>
+              </h3>
               <div className={s.phones}>
                 {block.phones.map(([src, alt]) => (
                   <div key={src} className={s.phoneShot}>
@@ -623,7 +631,7 @@ nav[aria-label="Case study contents"] a[href="#ecosystem"] > span:last-child { w
 
         {/* 07 — Design evolution */}
         <Section id="evolution" num="07" label="DESIGN EVOLUTION" className={s.evolution}>
-          <H2 className={s.h2}>Refining the experience around the visit</H2>
+          <H2 className={s.h2}><Words step={HEADING_STEP}>Refining the experience around the visit</Words></H2>
           <p className={s.body}>
             As the product evolved, I focused on making MuseMap useful not only for finding galleries, but also for
             deciding where to go, what to see, and how to plan the visit.
@@ -631,7 +639,9 @@ nav[aria-label="Case study contents"] a[href="#ecosystem"] > span:last-child { w
           <div className={s.evoList}>
             {evolution.map((e) => (
               <div key={e.t}>
-                <h3 className={s.evoTitle}>{e.t}</h3>
+                <h3 className={s.evoTitle}>
+                  <Words step={HEADING_STEP}>{e.t}</Words>
+                </h3>
                 <dl>
                   <div>
                     <dt>The problem</dt>
@@ -645,7 +655,9 @@ nav[aria-label="Case study contents"] a[href="#ecosystem"] > span:last-child { w
               </div>
             ))}
             <div>
-              <h3 className={s.evoTitle}>What I learned</h3>
+              <h3 className={s.evoTitle}>
+                <Words step={HEADING_STEP}>What I learned</Words>
+              </h3>
               <p className={s.evoText}>
                 Not every feature strengthened the core discovery problem. I kept the primary experience focused on
                 discovering, understanding and planning visits, while treating broader features as future opportunities
@@ -659,7 +671,7 @@ nav[aria-label="Case study contents"] a[href="#ecosystem"] > span:last-child { w
 
         {/* 08 — The ecosystem around discovery */}
         <Section id="ecosystem" num="08" label="The ecosystem around discovery" className={s.ecosystem}>
-          <H2 className={s.h2}>The ecosystem around discovery</H2>
+          <H2 className={s.h2}><Words step={HEADING_STEP}>The ecosystem around discovery</Words></H2>
           <p className={`${s.body} ${s.ecoIntro}`}>MuseMap creates value on both sides of the discovery experience.</p>
           <dl className={s.ecoList}>
             {ecosystem.map(([t, d]) => (
@@ -679,7 +691,7 @@ nav[aria-label="Case study contents"] a[href="#ecosystem"] > span:last-child { w
 
         {/* 09 — Reflection (the desktop frame repeats "08"; the sidebar, tablet and phone use 09) */}
         <Section id="reflection" num="09" label="Reflection" className={s.reflection}>
-          <H2 className={s.h2}>What I learned?</H2>
+          <H2 className={s.h2}><Words step={HEADING_STEP}>What I learned?</Words></H2>
           <ol className={s.reflectList}>
             {reflection.map(([t, d], i) => (
               <li key={t}>
@@ -704,6 +716,9 @@ nav[aria-label="Case study contents"] a[href="#ecosystem"] > span:last-child { w
 
         <NextProject href="/work/mello" title="MELLO" blurb="Designing a multimodal mental-health screening experience" />
       </div>
+      {/* Order matters: MuseMapMotion marks elements, then ScrollReveal observes them. */}
+      <MuseMapMotion />
+      <ScrollReveal step={90} />
     </CaseLayout>
   );
 }
