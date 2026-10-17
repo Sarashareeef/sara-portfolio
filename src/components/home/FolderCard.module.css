@@ -22,11 +22,8 @@
   object-fit: cover;
 }
 
-.tagline,
 .labels,
 .column,
-.footnote,
-.open,
 .paper {
   position: absolute;
   left: calc(var(--x) * var(--u));
@@ -39,12 +36,22 @@
   transition: color 0.3s ease;
 }
 
+/*
+ * Category label, shared by all four cards: 24 in from the front tab's left edge
+ * and centred in the band between the tab's top edge and the front pocket
+ * (~58 design px on every folder), so each sits the same way on its own tab.
+ */
 .tagline {
+  position: absolute;
+  left: calc((var(--tx) + 24) * var(--u));
+  top: calc((var(--ty) + 21) * var(--u));
+  font-family: var(--font-mono-stack);
   font-weight: 500;
   font-style: italic;
-  font-size: calc(var(--size) * var(--u));
-  line-height: calc(12 * var(--u));
+  font-size: calc(16 * var(--u));
+  line-height: calc(16 * var(--u));
   letter-spacing: calc(0.8 * var(--u));
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
@@ -54,17 +61,14 @@
   width: calc(421 * var(--u));
 }
 
-.labels,
-.footnote,
-.open {
+.labels {
   font-size: calc(8 * var(--u));
   line-height: calc(12 * var(--u));
   letter-spacing: calc(0.96 * var(--u));
   white-space: nowrap;
 }
 
-.open,
-.footnote {
+.footer {
   font-weight: 600;
 }
 

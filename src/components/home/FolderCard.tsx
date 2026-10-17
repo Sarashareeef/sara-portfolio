@@ -25,14 +25,14 @@ export default function FolderCard({ project }: { project: Project }) {
           className={styles.folder}
         />
 
-        <p
-          className={styles.tagline}
-          style={{ ...pos(card.tagline.x, card.tagline.y), "--size": card.tagline.size } as CSSProperties}
-        >
+        {/* Category label: same inset from every folder's own tab. */}
+        <p className={styles.tagline} style={{ "--tx": card.tab.x, "--ty": card.tab.y } as CSSProperties}>
           {project.tagline}
         </p>
 
-        <div className={styles.labels} style={pos(card.labels.x, card.labels.y)}>
+        {/* Top and bottom label rows share the text column's left edge and width,
+            so PROJECT / the type line up with the title and the year / OPEN FILE line up right. */}
+        <div className={styles.labels} style={pos(card.column.x, card.labels.y)}>
           <span>PROJECT / {project.number}</span>
           <span>{project.year}</span>
         </div>
@@ -59,14 +59,10 @@ export default function FolderCard({ project }: { project: Project }) {
           <p className={styles.tags}>{project.tags}</p>
         </div>
 
-        {project.footnote && (
-          <span className={styles.footnote} style={pos(card.labels.x, card.open.y + 1)}>
-            {project.footnote}
-          </span>
-        )}
-        <span className={styles.open} style={pos(card.open.x, card.open.y)}>
-          OPEN FILE ↗
-        </span>
+        <div className={`${styles.labels} ${styles.footer}`} style={pos(card.column.x, card.open.y)}>
+          <span>{project.footnote}</span>
+          <span>OPEN FILE →</span>
+        </div>
 
         {/* Hover: a page slides out of the folder. */}
         <div className={styles.paper} style={pos(card.paper.x, card.paper.y)} aria-hidden="true">

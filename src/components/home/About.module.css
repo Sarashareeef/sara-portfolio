@@ -38,7 +38,9 @@
   display: flex;
   flex-direction: column;
   gap: calc(24 * var(--U));
-  font-size: max(14px, calc(17 * var(--U)));
+  /* Scales with the composition. A larger floor made the bio wrap onto extra
+     lines near 1024px and run into the café photos (iPad Pro 13 portrait). */
+  font-size: max(12px, calc(17 * var(--U)));
   line-height: 1.8235;
   color: #2f2f2f;
 }
@@ -93,6 +95,37 @@
   font-size: max(11px, calc(15 * var(--U)));
   line-height: 1.8;
   white-space: nowrap;
+}
+
+/*
+ * Polaroid hover. The resting rotation stays as the inline transform; the hover
+ * adds a counter-rotation of half the photo's own angle (--rot from Piece), so
+ * each photo straightens by a different amount. z-index drops only after the
+ * photo has settled back, so it doesn't snap under its neighbours on exit.
+ */
+.photo {
+  transition:
+    translate 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    rotate 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.3s ease,
+    z-index 0s linear 0.3s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .photo:hover {
+    z-index: 5;
+    translate: 0 -5px;
+    rotate: calc(var(--rot) * -0.5deg);
+    filter: drop-shadow(0 10px 14px rgba(45, 31, 20, 0.2)) drop-shadow(0 2px 4px rgba(45, 31, 20, 0.12));
+    transition-delay: 0s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo:hover {
+    translate: none;
+    rotate: none;
+  }
 }
 
 /* ---- Tablet / phone compositions ---- */

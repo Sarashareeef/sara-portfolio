@@ -1,0 +1,259 @@
+/*
+ * Experience: editorial rows. Oversized serif number | hairline | company label,
+ * serif role and focus line on the left; dates and link set right.
+ */
+.experience {
+  margin-top: 32px;
+}
+
+.h2 {
+  font-family: var(--font-serif-stack);
+  font-weight: 400;
+  font-size: 44px;
+  line-height: normal;
+}
+
+.sub {
+  font-size: 17px;
+  line-height: 23.8px;
+  color: var(--muted);
+}
+
+.list {
+  margin-top: 40px;
+  border-bottom: 0.556px solid var(--rule-soft);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 148px minmax(0, 1fr);
+  align-items: center;
+  padding-block: 30px;
+  border-top: 0.556px solid var(--rule-soft);
+}
+
+.num {
+  font-family: var(--font-serif-stack);
+  font-size: 104px;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.body {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 24px 48px;
+  padding-left: 40px;
+  border-left: 0.556px solid var(--rule-soft);
+}
+
+.company {
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.role {
+  margin-top: 6px;
+  font-family: var(--font-serif-stack);
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+/* Focus areas as one quiet line: FINTECH · PRODUCT DESIGN · … */
+/* Items are inline blocks with the separator trailing each one, so a wrap
+   breaks after a "·" and the next line starts with a word. */
+.tags {
+  margin-top: 12px;
+  font-size: 11px;
+  line-height: 18px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.tags li {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.tags li:not(:last-child)::after {
+  content: "·";
+  margin-inline: 10px;
+  color: var(--grey);
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex: none;
+  text-align: right;
+}
+
+.dates {
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: 0.5px;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Underline the words only; the arrow sits clear of it and nudges on hover. */
+.link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--ink);
+  transition: color 0.2s ease;
+}
+
+.linkText {
+  text-decoration: underline;
+  text-decoration-thickness: 0.5px;
+  text-underline-offset: 4px;
+  transition: text-underline-offset 0.2s ease;
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.link:hover,
+.link:focus-visible {
+  color: var(--muted);
+}
+
+.link:hover .linkText,
+.link:focus-visible .linkText {
+  text-underline-offset: 6px;
+}
+
+.link:hover .arrow,
+.link:focus-visible .arrow {
+  transform: translate(2px, -2px);
+}
+
+@media (max-width: 1023px) {
+  .experience {
+    margin-top: 66px;
+  }
+
+  .h2 {
+    line-height: 48.4px;
+    color: var(--ink);
+  }
+
+  .sub {
+    margin-top: 4px;
+    font-size: 15px;
+    line-height: 22.5px;
+  }
+
+  .list {
+    margin-top: 34px;
+  }
+
+  .row {
+    grid-template-columns: 104px minmax(0, 1fr);
+    padding-block: 26px;
+  }
+
+  .num {
+    font-size: 76px;
+  }
+
+  .body {
+    gap: 20px 32px;
+    padding-left: 28px;
+  }
+
+  .role {
+    font-size: 28px;
+  }
+}
+
+/* Phone: compact number column; dates and link drop under the role. */
+@media (max-width: 599px) {
+  .experience {
+    margin-top: 88px;
+  }
+
+  .h2 {
+    font-size: 40px;
+    line-height: 44px;
+  }
+
+  .sub {
+    font-size: 13px;
+    line-height: 19.5px;
+  }
+
+  .list {
+    margin-top: 28px;
+  }
+
+  .row {
+    grid-template-columns: 52px minmax(0, 1fr);
+    align-items: start;
+    padding-block: 22px;
+  }
+
+  .num {
+    font-size: 44px;
+  }
+
+  .body {
+    flex-direction: column;
+    gap: 14px;
+    padding-left: 18px;
+  }
+
+  .company {
+    font-size: 12px;
+    letter-spacing: 1.2px;
+  }
+
+  .role {
+    font-size: 25px;
+  }
+
+  .tags {
+    margin-top: 10px;
+    font-size: 10px;
+    line-height: 17px;
+    letter-spacing: 1px;
+  }
+
+  .tags li:not(:last-child)::after {
+    margin-inline: 7px;
+  }
+
+  .aside {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px 16px;
+    text-align: left;
+  }
+
+  .dates,
+  .link {
+    font-size: 12px;
+  }
+}

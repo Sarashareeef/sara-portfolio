@@ -43,126 +43,115 @@
   gap: 24px 28.8px;
 }
 
+/*
+ * Capability cards. Reveal (opacity + translate) is staggered through
+ * --reveal-delay; hover uses transform/border only, so it is never delayed.
+ */
 .card {
   display: flex;
   flex-direction: column;
   justify-content: center;
   min-height: 228px;
   padding: 30px 36px;
-  border: 0.556px solid;
+  border: 0.556px solid var(--edge);
   border-radius: 21.6px;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  background: var(--fill);
+  transition:
+    opacity 0.3s ease-out var(--reveal-delay, 0ms),
+    translate 0.3s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s ease;
 }
 
-.card:hover {
-  transform: translateY(-3px);
+.card[data-reveal="hidden"] {
+  opacity: 0;
+  translate: 0 14px;
 }
 
 .lilac {
-  background: #f5f3fc;
-  border-color: #e6e1f7;
+  --fill: #f5f3fc;
+  --edge: #e6e1f7;
+  --edge-hover: #d3caf0;
   --badge: #e3dff7;
 }
 
 .rose {
-  background: #fcf4f6;
-  border-color: #f7e4e8;
+  --fill: #fcf4f6;
+  --edge: #f7e4e8;
+  --edge-hover: #eecbd3;
   --badge: #f6e3e6;
 }
 
 .sky {
-  background: #f1f5fc;
-  border-color: #e1eaf7;
+  --fill: #f1f5fc;
+  --edge: #e1eaf7;
+  --edge-hover: #c8d8f0;
   --badge: #dce7f7;
 }
 
 .sand {
-  background: #fcf7f1;
-  border-color: #f7efe1;
+  --fill: #fcf7f1;
+  --edge: #f7efe1;
+  --edge-hover: #ecdbbd;
   --badge: #f7ecd5;
 }
 
+/* Fixed-width pill so 01–04 sit identically. */
 .badge {
   align-self: flex-start;
-  padding: 5.4px 14.4px;
+  min-width: 42px;
+  padding: 5.4px 12px;
   border-radius: 90px;
   background: var(--badge);
   font-family: var(--font-serif-stack);
   font-size: 14.4px;
   line-height: normal;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  text-align: center;
+  color: var(--ink);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .cardTitle {
-  margin-top: 7px;
+  margin-top: 12px;
   font-family: var(--font-serif-stack);
   font-weight: 400;
   font-size: 37.8px;
-  line-height: normal;
+  line-height: 1.15;
   text-transform: uppercase;
+  color: var(--ink);
 }
 
+/* One leading for all four bodies; ~62 characters a line at most. */
 .cardBody {
-  margin-top: 14.4px;
-  max-width: 598px;
+  margin-top: 10px;
+  max-width: 62ch;
   font-size: 15px;
-  line-height: normal;
+  line-height: 1.6;
   color: var(--muted);
 }
 
-/* The fourth card's body is set on a 24px leading (3:3327). */
-.sand .cardBody {
-  line-height: 24px;
+/* Hover only where it exists; on touch the cards simply stay put. */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: var(--edge-hover);
+  }
+
+  .card:hover .badge {
+    transform: translateX(4px);
+  }
 }
 
-.experienceHead {
-  margin-top: 32px;
-}
-
-.jobs {
-  margin-top: 25.5px;
-  display: grid;
-  grid-template-columns: 553fr 433fr 330fr;
-  gap: 24px;
-}
-
-.job {
-  display: flex;
-  flex-direction: column;
-  gap: 11px;
-}
-
-.company {
-  font-size: 20px;
-  line-height: 28px;
-}
-
-.role {
-  font-size: 17px;
-  line-height: 23.8px;
-}
-
-.tags {
-  font-size: 15px;
-  line-height: 21px;
-  color: var(--muted);
-}
-
-.jobLink {
-  display: inline-block;
-  font-size: 16px;
-  line-height: 22.4px;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  transition: color 0.2s ease;
-}
-
-.jobLink:hover {
-  color: var(--muted);
+@media (prefers-reduced-motion: reduce) {
+  .card:hover,
+  .card:hover .badge {
+    transform: none;
+  }
 }
 
 @media (min-width: 1024px) {
-  .company,
-  .role,
   .cardTitle {
     white-space: nowrap;
   }
@@ -222,62 +211,22 @@
   }
 
   .badge {
-    padding: 5px 14px;
+    min-width: 40px;
+    padding: 5px 12px;
     font-size: 14px;
     line-height: 21px;
-    color: var(--ink);
   }
 
   .cardTitle {
-    margin-top: 8px;
+    margin-top: 10px;
     font-size: 30px;
     line-height: 37px;
-    color: var(--ink);
   }
 
-  .cardBody,
-  .sand .cardBody {
-    margin-top: 1px;
-    font-size: 13px;
-    line-height: 18.85px;
-  }
-
-  .experienceHead {
-    margin-top: 66px;
-  }
-
-  .jobs {
-    margin-top: 34px;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 30px;
-  }
-
-  .job {
-    gap: 0;
-    color: var(--ink);
-  }
-
-  .company {
-    font-size: 17px;
-    line-height: 23.8px;
-  }
-
-  .role {
+  .cardBody {
     margin-top: 8px;
     font-size: 13px;
-    line-height: 18.2px;
-  }
-
-  .tags {
-    margin-top: 3px;
-    font-size: 12px;
-    line-height: 16.8px;
-  }
-
-  .jobLink {
-    margin-top: 5px;
-    font-size: 12px;
-    line-height: 18px;
+    line-height: 1.6;
   }
 }
 
@@ -321,36 +270,20 @@
     padding: 26px 28px;
   }
 
-  .cardBody,
-  .sand .cardBody {
-    margin-top: 5px;
-    font-size: 12px;
-    line-height: 17.4px;
+  .cardTitle {
+    font-size: clamp(26px, 7.6vw, 30px);
+    line-height: 1.2;
   }
 
-  .experienceHead {
-    margin-top: 88px;
+  /* 13px rather than 12px for comfortable reading on small screens. */
+  .cardBody {
+    font-size: 13px;
   }
+}
 
-  .jobs {
-    margin-top: 28px;
-  }
-
-  .job {
-    padding-bottom: 24px;
-  }
-
-  .job:not(:last-child) {
-    border-bottom: 0.556px solid rgba(39, 35, 31, 0.18);
-  }
-
-  .company {
-    font-size: 16px;
-    line-height: 22.4px;
-  }
-
-  .role {
-    font-size: 12px;
-    line-height: 16.8px;
+/* Small phones: a little more room for the card text. */
+@media (max-width: 359px) {
+  .card {
+    padding: 22px 20px;
   }
 }

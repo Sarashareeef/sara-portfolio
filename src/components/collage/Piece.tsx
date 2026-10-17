@@ -50,6 +50,7 @@ export default function Piece({
     "--y": cy - h / 2,
     "--w": w,
     "--h": h,
+    "--rot": rot,
     transform: `rotate(${rot}deg)${flipY ? " scaleY(-1)" : ""}`,
     opacity,
   } as CSSProperties;

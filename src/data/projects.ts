@@ -25,7 +25,8 @@ export type Project = {
   card: {
     folder: string;
     height: number;
-    tagline: Pt & { size: number };
+    /** Top-left corner of the front folder's tab, measured from the artwork (design px). */
+    tab: Pt;
     labels: Pt;
     column: Pt;
     open: Pt;
@@ -45,10 +46,10 @@ export const projects: Project[] = [
     number: "01",
     title: "MELLO",
     tagline: "AI × MENTAL HEALTH",
-    year: "2025-26",
-    primary: "AI-powered mental health companion",
-    secondary: "Designing a more human way to understand and navigate mental health.",
-    tags: "UI/UX · AI · Web + Mobile",
+    year: "2025–26",
+    primary: "Mental-health screening, made conversational.",
+    secondary: "Structured assessments flow into AI-guided conversation in one connected journey.",
+    tags: "UI/UX · Conversational AI · Web + Mobile",
     footnote: "FINAL YEAR PROJECT",
     preview: {
       title: "A softer way to navigate mental health.",
@@ -61,7 +62,7 @@ export const projects: Project[] = [
     card: {
       folder: "/images/landing/folder-mello.webp",
       height: 423.036,
-      tagline: { x: 115.84, y: 45.07, size: 16 },
+      tab: { x: 74.65, y: 19.29 },
       labels: { x: 105.84, y: 107.07 },
       column: { x: 103.84, y: 137.07 },
       open: { x: 483.84, y: 366.07 },
@@ -75,10 +76,11 @@ export const projects: Project[] = [
     slug: "google-maps-redesign",
     number: "02",
     title: "GOOGLE MAPS REDESIGN",
-    tagline: "NAVIGATION × NIGHT SAFETY",
+    tagline: "MAPS × NIGHT SAFETY",
     year: "2025",
-    primary: "A self-initiated redesign exploring safer, more readable navigation for driving at night.",
+    primary: "Surfacing safety context alongside familiar directions, for better route choices after dark.",
     tags: "UI/UX · Interaction Design · Research",
+    footnote: "INDEPENDENT CONCEPT",
     preview: {
       title: "Rethinking navigation after dark.",
       image: "/images/landing/preview-gm.webp",
@@ -91,7 +93,7 @@ export const projects: Project[] = [
     card: {
       folder: "/images/landing/folder-gm.webp",
       height: 423.036,
-      tagline: { x: 94, y: 45, size: 14 },
+      tab: { x: 75.73, y: 20.37 },
       labels: { x: 105, y: 110 },
       column: { x: 99, y: 132 },
       open: { x: 478, y: 366 },
@@ -106,11 +108,12 @@ export const projects: Project[] = [
     slug: "voyaige",
     number: "03",
     title: "VOYAIGE",
-    tagline: "TRAVEL × PLANNING",
+    tagline: "AI × TRAVEL",
     year: "2025",
-    primary: "Explored how AI can turn fragmented travel research into an adaptable itinerary.",
-    secondary: "A smart travel planner for realistic, time-aware itineraries.",
-    tags: "UI/UX · Product Design · Research",
+    primary: "Realistic itineraries, planned in one place.",
+    secondary: "Day-by-day plans shaped by interests, commute times and opening hours.",
+    tags: "UI/UX · Product Design · Mobile",
+    footnote: "SOLO PROJECT",
     preview: {
       title: "From “where should I go?” to “here’s your day.”",
       image: "/images/landing/preview-voyaige.webp",
@@ -122,7 +125,7 @@ export const projects: Project[] = [
     card: {
       folder: "/images/landing/folder-voyaige.webp",
       height: 396,
-      tagline: { x: 106, y: 25.79, size: 16 },
+      tab: { x: 77.13, y: 1.35 }, // artwork is cropped 13.52 at the top (396-high card)
       labels: { x: 92, y: 96 },
       column: { x: 94, y: 126 },
       open: { x: 474, y: 354 },
@@ -136,11 +139,11 @@ export const projects: Project[] = [
     slug: "musemap",
     number: "04",
     title: "MUSEMAP",
-    tagline: "CULTURE × DISCOVERY",
+    tagline: "ART × DISCOVERY",
     year: "2025",
-    primary: "Discovering art, one place at a time.",
-    secondary: "A smarter way to discover galleries, exhibitions, and art spaces around you",
-    tags: "UI/UX · Product Design · Research",
+    primary: "Discover the art around you.",
+    secondary: "A visual, map-led way to find galleries, exhibitions and creative spaces.",
+    tags: "UI/UX · Visual Design · Research",
     preview: {
       title: "Discover. Explore. Experience.",
       image: "/images/landing/preview-musemap.webp",
@@ -153,7 +156,7 @@ export const projects: Project[] = [
     card: {
       folder: "/images/landing/folder-musemap.webp",
       height: 423.036,
-      tagline: { x: 89, y: 43, size: 16 },
+      tab: { x: 73.25, y: 17.23 },
       labels: { x: 106, y: 105 },
       column: { x: 104, y: 135 },
       open: { x: 488, y: 363 },
