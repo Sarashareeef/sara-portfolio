@@ -20,9 +20,7 @@
   display: inline;
 }
 
-.mOnly,
-.tOnly,
-.pOnly {
+.mOnly {
   display: none;
 }
 
@@ -1218,8 +1216,7 @@ section.experience {
     display: none;
   }
 
-  .mOnly,
-  .tOnly {
+  .mOnly {
     display: inline;
   }
 
@@ -1465,14 +1462,19 @@ section.experience {
   }
 
   .caseStrip p {
+    min-width: 0;
     font-size: 9.28px;
     line-height: 13.92px;
     letter-spacing: 0.93px;
-    white-space: nowrap;
     color: var(--soft);
   }
 
+  .caseStrip p span {
+    white-space: nowrap;
+  }
+
   .caseStrip a {
+    flex: none;
     padding-bottom: 1px;
     border-bottom: 0.928px solid var(--ink);
     font-size: 11.2px;
@@ -1491,12 +1493,15 @@ section.experience {
     --cs-pad: 22px;
   }
 
-  .tOnly {
-    display: none;
+  /* Section labels: a long one ("The ecosystem around discovery") wraps beside
+     its rule instead of running off narrow phones; the rule keeps a short stub. */
+  .root section > div:first-child > span:nth-child(2) {
+    min-width: 24px;
   }
 
-  .pOnly {
-    display: inline;
+  .root section > div:first-child > span:last-child {
+    min-width: 0;
+    white-space: normal;
   }
 
   /* Hero (2:12669): meta 2 × 2 as ROLE, TIMELINE / PLATFORM, TOOLS. */

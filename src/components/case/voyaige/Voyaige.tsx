@@ -318,7 +318,12 @@ export default function Voyaige() {
             alt="Three Voyaige mobile screens: trip details, the welcome screen and a Dubai itinerary"
           />
           {/* No prototype URL is in the design file yet; same placeholder as Mello's hero link. */}
-          <a className={s.protoLink} href="#">
+          <a
+            className={s.protoLink}
+            href="https://www.figma.com/proto/BlhTFyCbIQ7SqUW3bSYbmQ/Musemap-redesigning-goog-voyAIgele-maps?node-id=2-12018&p=f&viewport=63%2C-75%2C0.13&t=kxFPmAlfNljcNX2B-0&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=13%3A1399"
+            target="_blank"
+            rel="noreferrer"
+          >
             <span className={s.notP}>VIEW PROTOTYPE ↗</span>
             <span className={s.pOnly}>VIEW LIVE PRODUCT ↗</span>
           </a>
