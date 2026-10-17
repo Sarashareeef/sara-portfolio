@@ -55,6 +55,15 @@ html.lenis body {
   overflow: clip;
 }
 
+/* First-visit loader (src/components/loader): while it covers the page, the
+   page's own entrance animations wait, so they play as it fades away. */
+html.loader-on main *,
+html.loader-on main *::before,
+html.loader-on main *::after,
+html.loader-on header * {
+  animation-play-state: paused !important;
+}
+
 body {
   margin: 0;
   background: var(--white);

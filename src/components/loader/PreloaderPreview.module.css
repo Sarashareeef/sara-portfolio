@@ -1,0 +1,198 @@
+/* Development-only preview controls for the loader (/dev/preloader). */
+.scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Isolate parts of the animation. */
+.hide-board [data-part="board"],
+.hide-pin [data-part="pin"],
+.hide-text [data-part="text"],
+.hide-bar [data-part="bar"] {
+  visibility: hidden;
+}
+
+.panel {
+  --label-w: 132px;
+  --time-w: 92px;
+  position: fixed;
+  left: 50%;
+  bottom: 14px;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: min(760px, calc(100vw - 20px));
+  padding: 12px 14px;
+  translate: -50% 0;
+  border-radius: 12px;
+  background: rgba(22, 22, 26, 0.9);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  color: #ececf1;
+  font-family: var(--font-mono-stack);
+  font-size: 11px;
+  line-height: 1.4;
+  backdrop-filter: blur(6px);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel button {
+  padding: 5px 9px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: inherit;
+  font-size: 11px;
+}
+
+.panel button:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.panel .primary {
+  background: #cbc2e6;
+  color: #1f1f24;
+}
+
+.group {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.group button[aria-pressed="true"] {
+  background: #b4c8dc;
+  color: #1f1f24;
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.time {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+
+.muted {
+  color: #9a9aa6;
+}
+
+/* Timeline lanes with a shared playhead. */
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.panel .lane {
+  display: grid;
+  grid-template-columns: var(--label-w) 1fr var(--time-w);
+  align-items: center;
+  padding: 2px 0;
+  border-radius: 4px;
+  background: none;
+  text-align: left;
+}
+
+.laneLabel {
+  padding-left: 4px;
+  color: #c8c8d0;
+}
+
+.laneTime {
+  padding-left: 8px;
+  color: #9a9aa6;
+  font-variant-numeric: tabular-nums;
+}
+
+.track {
+  position: relative;
+  height: 10px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 5px;
+  background: #cbc2e6;
+}
+
+.bar-board {
+  background: #d3a172;
+}
+
+.bar-pin {
+  background: #cfcfd4;
+}
+
+.bar-text {
+  background: #b4c8dc;
+}
+
+.bar-bar {
+  background: #e8d59c;
+}
+
+.bar-rest {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.bar-exit {
+  background: #ecc6cc;
+}
+
+.playhead {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 1.5px;
+  background: #fff;
+  pointer-events: none;
+}
+
+.scrub {
+  width: 100%;
+  accent-color: #cbc2e6;
+}
+
+.reveal {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 1001;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: rgba(22, 22, 26, 0.85);
+  color: #ececf1;
+  font-family: var(--font-mono-stack);
+  font-size: 11px;
+}
+
+@media (max-width: 599px) {
+  .panel {
+    --label-w: 96px;
+    --time-w: 0px;
+  }
+
+  .laneTime {
+    display: none;
+  }
+}

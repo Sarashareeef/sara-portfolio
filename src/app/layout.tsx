@@ -3,6 +3,7 @@ import { Geist_Mono, IBM_Plex_Mono, Instrument_Serif, Inter, Space_Mono } from "
 import SmoothScroll from "@/components/SmoothScroll";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Loader, { LoaderScript } from "@/components/loader/Loader";
 import "./globals.css";
 
 const plexMono = IBM_Plex_Mono({
@@ -25,7 +26,6 @@ const instrumentSerif = Instrument_Serif({
 const spaceMono = Space_Mono({ variable: "--font-space", subsets: ["latin"], weight: ["400", "700"], display: "swap" });
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
-
 export const metadata: Metadata = {
   title: "Sara Suha — UI/UX & Product Designer",
   description:
@@ -37,6 +37,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     // The landing page's reveal script adds a class to <html> before hydration.
     <html lang="en" suppressHydrationWarning className={`${plexMono.variable} ${instrumentSerif.variable} ${spaceMono.variable} ${inter.variable} ${geistMono.variable}`}>
       <body>
+        {/* Before anything paints: decides whether the first-visit loader shows. */}
+        <LoaderScript />
+        <Loader />
         <SmoothScroll />
         <Header />
         <main>{children}</main>
