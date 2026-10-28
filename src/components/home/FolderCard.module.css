@@ -272,28 +272,18 @@
   transform: translateY(0) rotate(1.25deg);
 }
 
-/* Touch devices: the same page slides out as the card scrolls into view
-   (data-open, set by FolderPlayer), a little slower than the hover. */
-.card[data-open] .paper {
-  opacity: 1;
-  transform: translateY(0) rotate(1.25deg);
-  transition:
-    opacity 0.4s ease 0.1s,
-    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+/* Touch devices: the same page follows the scroll out of the folder once the
+   card has been read (FolderPlayer sets --open from 0, tucked in, to 1, the
+   hover pose). Scroll-linked, so no transition. */
+.card[data-scroll] .paper {
+  opacity: var(--open, 0);
+  transform: translateY(calc((1 - var(--open, 0)) * 18 * var(--u))) rotate(calc(1.25deg + (1 - var(--open, 0)) * 3.75deg));
+  transition: none;
 }
 
-.card[data-open] .tagline,
-.card[data-open] .title {
-  color: var(--ink);
-}
-
-/* Reduced motion: the page simply fades in, already in place. */
+/* Reduced motion: the page only fades with the scroll, already in place. */
 @media (prefers-reduced-motion: reduce) {
-  .card[data-open] .paper {
-    transition: opacity 0.3s ease;
-  }
-
-  .card .paper {
+  .card[data-scroll] .paper {
     transform: translateY(0) rotate(1.25deg);
   }
 }

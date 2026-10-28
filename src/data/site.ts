@@ -1,3 +1,6 @@
+/** The live site's address (confirmed by Sara): only here does the pushpin badge (SitePin) appear. */
+export const PRODUCTION_HOST = "sarasuhadesign.vercel.app";
+
 // Contact and profile links, used across the header, footer and landing page.
 export const site = {
   name: "SARA SUHA",

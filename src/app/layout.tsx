@@ -3,6 +3,7 @@ import { Geist_Mono, IBM_Plex_Mono, Instrument_Serif, Inter, Space_Mono } from "
 import SmoothScroll from "@/components/SmoothScroll";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SitePin from "@/components/SitePin";
 import Loader, { LoaderScript } from "@/components/loader/Loader";
 import "./globals.css";
 
@@ -44,6 +45,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         <main>{children}</main>
         <Footer />
+        {/* Live site only: production deployments here, the exact address in the browser (SitePin). */}
+        {process.env.VERCEL_ENV === "production" && <SitePin />}
       </body>
     </html>
   );
