@@ -1,0 +1,406 @@
+/* ---- Sketchbook: the homepage's closing doodle board ----
+   Sketchbook.tsx (section), Doodles.tsx (curated margin doodles) and
+   DoodleBoard.tsx (the board). Monochrome, warm-white paper, fine rules. */
+.sketchbook {
+  --paper: #fbf9f5;
+  --paper-edge: rgba(39, 35, 31, 0.16);
+  padding-top: 20px;
+  padding-bottom: 120px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: 72px;
+  padding-top: 45px;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-family: var(--font-serif-stack);
+  font-weight: 400;
+  font-size: 44px;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.sub {
+  margin-top: 12px;
+  font-size: 17px;
+  line-height: 23.8px;
+  color: var(--muted);
+}
+
+.note {
+  margin-top: 20px;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.4px;
+  color: var(--grey);
+}
+
+/* ---- Curated doodles: a loose cluster in the margin ---- */
+.doodles {
+  display: grid;
+  grid-template-columns: repeat(3, 64px);
+  gap: 22px 34px;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 48px;
+  color: var(--grey);
+}
+
+.doodles svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.flower {
+  rotate: -6deg;
+}
+
+.star {
+  rotate: 8deg;
+  translate: 0 -10px;
+  scale: 0.8;
+}
+
+.smiley {
+  rotate: -4deg;
+  scale: 0.9;
+}
+
+.squiggle {
+  grid-column: span 2;
+  width: 132px;
+  rotate: -3deg;
+}
+
+.heart {
+  rotate: 7deg;
+  scale: 0.72;
+  translate: -6px 4px;
+}
+
+/* ---- The board ---- */
+.board {
+  border: 1px solid var(--paper-edge);
+  border-radius: 14px;
+  background: var(--paper);
+  overflow: hidden;
+}
+
+.paper {
+  position: relative;
+  aspect-ratio: 16 / 10;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* The drawing surface: drawing here never scrolls the page; elsewhere it does. */
+.surface {
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.board[data-tool="eraser"] .surface {
+  cursor: cell;
+}
+
+.hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif-stack);
+  font-style: italic;
+  font-size: 22px;
+  color: rgba(39, 35, 31, 0.32);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.board[data-empty] .hint {
+  opacity: 1;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--paper-edge);
+  background: var(--white);
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.divider {
+  width: 1px;
+  height: 20px;
+  margin-inline: 6px;
+  background: var(--paper-edge);
+}
+
+.status {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 0.3px;
+  color: var(--muted);
+  text-align: right;
+}
+
+.tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink);
+  /* Taps register at once (no double-tap-to-zoom wait). */
+  touch-action: manipulation;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.tool svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tool:hover:not(:disabled) {
+  background: rgba(39, 35, 31, 0.05);
+}
+
+/* Active tool: outlined and underlined, not just tinted. */
+.tool[aria-pressed="true"] {
+  border-color: var(--ink);
+  background: var(--paper);
+}
+
+.tool[aria-pressed="true"] .toolLabel {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.tool:disabled {
+  color: rgba(39, 35, 31, 0.3);
+  cursor: default;
+}
+
+.primary {
+  flex: none;
+  border-color: var(--ink);
+}
+
+.primary:not(:disabled) {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.primary:hover:not(:disabled) {
+  background: #000;
+}
+
+/* Bigger targets wherever the main pointer is a finger. */
+@media (pointer: coarse) {
+  .tool {
+    min-height: 44px;
+    min-width: 44px;
+    justify-content: center;
+  }
+}
+
+/* Tablet: intro above the board, doodles as a strip beside the intro text. */
+@media (max-width: 1023px) {
+  .sketchbook {
+    --gutter: clamp(16px, 4.7vw, 48px);
+    padding-top: 10px;
+    padding-bottom: 90px;
+  }
+
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+    padding-top: 34px;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+
+  .sub {
+    font-size: 15px;
+    line-height: 22.5px;
+  }
+
+  .doodles {
+    grid-template-columns: repeat(5, auto);
+    justify-content: start;
+    gap: 28px;
+    margin-top: 0;
+    padding-top: 28px;
+  }
+
+  .doodles li {
+    width: 48px;
+  }
+
+  .squiggle {
+    grid-column: auto;
+  }
+
+  .doodles li.squiggle {
+    width: 84px;
+  }
+
+  .paper {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* Phone: a portrait board, icon-only tools, a shorter doodle strip. */
+@media (max-width: 599px) {
+  .sketchbook {
+    padding-top: 0;
+    padding-bottom: 64px;
+  }
+
+  .layout {
+    gap: 28px;
+    padding-top: 24px;
+  }
+
+  .title {
+    font-size: 34px;
+  }
+
+  .sub {
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 19.5px;
+  }
+
+  .note {
+    margin-top: 12px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .doodles {
+    grid-template-columns: repeat(4, auto);
+    gap: 20px;
+    padding-top: 20px;
+  }
+
+  .doodles li {
+    width: 38px;
+  }
+
+  .doodles li.squiggle {
+    width: 66px;
+  }
+
+  .doodles .heart {
+    display: none;
+  }
+
+  .paper {
+    aspect-ratio: 4 / 5;
+    max-height: 62svh;
+    width: 100%;
+  }
+
+  /* Messages get their own line under the buttons, only when there is one. */
+  .toolbar {
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .status {
+    order: 1;
+    flex-basis: 100%;
+    padding: 0 4px 2px;
+    text-align: left;
+  }
+
+  .status:empty {
+    display: none;
+  }
+
+  .primary {
+    margin-left: auto;
+  }
+
+  .divider {
+    margin-inline: 2px;
+  }
+
+  .tool {
+    padding: 0 10px;
+  }
+
+  /* Tools become icons; their names stay for assistive tech. */
+  .group .toolLabel {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .status {
+    font-size: 10px;
+    line-height: 13px;
+  }
+}
+
+/* Small phones: Download joins the other tools as an icon. */
+@media (max-width: 359px) {
+  .primary .toolLabel {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+}
