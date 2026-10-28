@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import styles from "./case.module.css";
 
 export type TocItem = { id: string; label: string };
 
-export default function CaseSidebar({ items, footer }: { items: TocItem[]; footer: string }) {
+export default function CaseSidebar({ items, footer }: { items: TocItem[]; footer: ReactNode }) {
   const [active, setActive] = useState(items[0]?.id);
 
   useEffect(() => {

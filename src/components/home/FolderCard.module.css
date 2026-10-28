@@ -272,6 +272,32 @@
   transform: translateY(0) rotate(1.25deg);
 }
 
+/* Touch devices: the same page slides out as the card scrolls into view
+   (data-open, set by FolderPlayer), a little slower than the hover. */
+.card[data-open] .paper {
+  opacity: 1;
+  transform: translateY(0) rotate(1.25deg);
+  transition:
+    opacity 0.4s ease 0.1s,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+}
+
+.card[data-open] .tagline,
+.card[data-open] .title {
+  color: var(--ink);
+}
+
+/* Reduced motion: the page simply fades in, already in place. */
+@media (prefers-reduced-motion: reduce) {
+  .card[data-open] .paper {
+    transition: opacity 0.3s ease;
+  }
+
+  .card .paper {
+    transform: translateY(0) rotate(1.25deg);
+  }
+}
+
 .card:focus-visible .tagline,
 .card:focus-visible .title {
   color: var(--ink);

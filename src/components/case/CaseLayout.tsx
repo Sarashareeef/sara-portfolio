@@ -9,7 +9,7 @@ export default function CaseLayout({
   children,
 }: {
   toc: TocItem[];
-  footer?: string;
+  footer?: ReactNode;
   children: ReactNode;
 }) {
   return (

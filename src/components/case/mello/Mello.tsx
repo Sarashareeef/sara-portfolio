@@ -186,7 +186,16 @@ const learnings = [
 
 export default function Mello() {
   return (
-    <CaseLayout toc={toc} footer="MELLO UX CASE STUDY 2025–26">
+    <CaseLayout
+      toc={toc}
+      footer={
+        <>
+          MELLO UX CASE STUDY
+          <br />
+          2025–2026
+        </>
+      }
+    >
       {/* Before the hero parses, so its entrance starts hidden without a flash. */}
       <RevealScript />
       <CaseHero

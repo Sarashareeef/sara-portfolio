@@ -106,7 +106,8 @@ section.hero {
   max-width: 988px;
   font-size: 64px;
   line-height: 67px;
-  letter-spacing: 5.12px;
+  /* Same tracking as the other case-study headlines. */
+  letter-spacing: -0.01em;
   color: #000;
 }
 
@@ -1288,7 +1289,7 @@ section.challenge {
     max-width: 608px;
     font-size: 38px;
     line-height: 41.26px;
-    letter-spacing: 3.153px;
+    letter-spacing: -0.01em;
   }
 
   .hero h1 + p {
@@ -1652,7 +1653,7 @@ section.challenge {
     max-width: 330px;
     font-size: 36px;
     line-height: 38.88px;
-    letter-spacing: -0.64px;
+    letter-spacing: -0.01em;
     color: var(--ink);
   }
 

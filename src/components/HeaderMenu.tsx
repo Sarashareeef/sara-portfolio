@@ -1,11 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { nav } from "@/data/site";
 import styles from "./Header.module.css";
 
-/** Phone navigation: the hamburger from the phone frames, opening the same links. */
+/**
+ * Phone navigation: the hamburger from the phone frames, opening the same links.
+ * The panel stays mounted so it can animate both ways (Header.module.css): the
+ * bars morph into a cross, the panel unfolds, the links settle in one by one.
+ * While closed it is inert, so it's out of the tab order and hidden from
+ * assistive tech.
+ */
 export default function HeaderMenu() {
   const [open, setOpen] = useState(false);
 
@@ -30,11 +36,11 @@ export default function HeaderMenu() {
         <span />
         <span />
       </button>
-      {open && (
-        <nav id="phone-nav" aria-label="Primary" className={styles.panel}>
+      <nav id="phone-nav" aria-label="Primary" className={styles.panel} data-open={open || undefined} inert={!open}>
+        <div className={styles.panelInner}>
           <ul>
-            {nav.map((item) => (
-              <li key={item.label}>
+            {nav.map((item, i) => (
+              <li key={item.label} style={{ "--i": i } as CSSProperties}>
                 {item.external ? (
                   <a href={item.href} className={styles.link} target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>
                     {item.label}
@@ -47,8 +53,8 @@ export default function HeaderMenu() {
               </li>
             ))}
           </ul>
-        </nav>
-      )}
+        </div>
+      </nav>
     </div>
   );
 }

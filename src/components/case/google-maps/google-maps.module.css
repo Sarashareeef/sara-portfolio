@@ -1247,6 +1247,14 @@ p.reviewBig {
   white-space: nowrap;
 }
 
+/* Like the other case studies, the strip is for the tablet and phone frames
+   only: on desktop the sidebar carries the label. */
+@media (min-width: 1100px) {
+  .caseStrip {
+    display: none;
+  }
+}
+
 /* Phones: smaller type so the two-line label and the link share the row down
    to 320px. */
 @media (max-width: 599px) {

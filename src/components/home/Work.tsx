@@ -1,5 +1,6 @@
 import { projects } from "@/data/projects";
 import FolderCard from "./FolderCard";
+import FolderPlayer from "./FolderPlayer";
 import SectionHead from "./SectionHead";
 import styles from "./home.module.css";
 
@@ -17,6 +18,7 @@ export default function Work() {
           <FolderCard key={p.slug} project={p} />
         ))}
       </div>
+      <FolderPlayer />
     </section>
   );
 }

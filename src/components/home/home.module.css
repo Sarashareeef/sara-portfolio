@@ -132,6 +132,13 @@
   pointer-events: none;
 }
 
+/* The /#contact target: 104px into the section's 180px top padding. */
+.contactAnchor {
+  position: absolute;
+  top: 104px;
+  left: 0;
+}
+
 /* Teaser for the sketchbook below: centred in the section's bottom padding,
    out of the headline/links row so neither moves. Margins, not translate,
    centre it, since the scroll reveal animates translate. */
@@ -342,6 +349,11 @@
     padding-bottom: 136px;
   }
 
+  /* The tablet's top padding is already tight: land at the section's top. */
+  .contactAnchor {
+    top: 0;
+  }
+
   .teaser {
     bottom: 30px;
   }
@@ -411,6 +423,10 @@
   .contact {
     --frame-inset: -8px -8px -6px;
     padding-bottom: 112px;
+  }
+
+  .contactAnchor {
+    top: 20px;
   }
 
   .teaser {

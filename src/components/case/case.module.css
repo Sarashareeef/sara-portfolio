@@ -123,7 +123,7 @@
   text-wrap: balance;
   font-size: 8.8px;
   line-height: 14.08px;
-  letter-spacing: 0.3px; /* keeps "MELLO UX CASE STUDY 2025–26" clear of the divider */
+  letter-spacing: 0.3px; /* keeps the longer labels clear of the divider */
   color: var(--muted);
 }
 

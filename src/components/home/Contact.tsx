@@ -4,7 +4,10 @@ import styles from "./home.module.css";
 
 export default function Contact() {
   return (
-    <section id="contact" className={`container ${styles.contact}`}>
+    <section className={`container ${styles.contact}`}>
+      {/* Where /#contact lands: part-way into the top padding, so the headline,
+          links and teaser all fit on screen below the header. */}
+      <span id="contact" className={styles.contactAnchor} />
       {/* Canvas details: decorative only. */}
       <span className={styles.canvasGrid} aria-hidden="true" />
       <PencilTrail className={styles.trail} />
