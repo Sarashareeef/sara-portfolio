@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import CapabilityScene, { type SceneKind } from "./CapabilityScene";
+import CapabilityScenePlayer from "./CapabilityScenePlayer";
 import Experience from "./Experience";
 import styles from "./Capabilities.module.css";
 
@@ -10,7 +12,7 @@ const Swap = ({ d, m }: { d: ReactNode; m: ReactNode }) => (
   </>
 );
 
-const capabilities = [
+const capabilities: { n: string; title: ReactNode; body: ReactNode; tone: string; scene: SceneKind }[] = [
   {
     n: "01",
     title: "PRODUCT DESIGN",
@@ -21,6 +23,7 @@ const capabilities = [
       />
     ),
     tone: "lilac",
+    scene: "product",
   },
   {
     n: "02",
@@ -32,12 +35,14 @@ const capabilities = [
       />
     ),
     tone: "rose",
+    scene: "interaction",
   },
   {
     n: "03",
     title: "RESEARCH",
     body: "Use user insights, interviews, and usability testing to uncover needs, challenge assumptions, and validate design decisions.",
     tone: "sky",
+    scene: "research",
   },
   {
     n: "04",
@@ -49,6 +54,7 @@ const capabilities = [
       />
     ),
     tone: "sand",
+    scene: "systems",
   },
 ];
 
@@ -72,13 +78,15 @@ export default function Capabilities() {
 
         <ul className={styles.cards}>
           {capabilities.map((cap) => (
-            <li key={cap.n} className={`${styles.card} ${styles[cap.tone]}`} data-reveal="">
+            <li key={cap.n} className={`${styles.card} ${styles[cap.tone]}`} data-reveal="" data-scene="">
               <span className={styles.badge}>{cap.n}</span>
               <h3 className={styles.cardTitle}>{cap.title}</h3>
               <p className={styles.cardBody}>{cap.body}</p>
+              <CapabilityScene kind={cap.scene} />
             </li>
           ))}
         </ul>
+        <CapabilityScenePlayer />
 
         <Experience />
       </div>

@@ -46,6 +46,10 @@
 /* Capability cards. Scroll reveal comes from the shared data-reveal system
    (globals.css); hover here uses transform/border only. */
 .card {
+  /* Positioned, clipped size container for its hover scene (CapabilityScene). */
+  position: relative;
+  overflow: clip;
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
   justify-content: center;
