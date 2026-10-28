@@ -20,8 +20,10 @@ declare global {
  * inline script records them on <html> before the app has even started
  * (data-loader-stage, data-loader-count, --loader-progress), so the line, the
  * crosshair and the status label are truthful from the first frame, with no
- * re-rendering. The app adds its own milestone once it is running. The moment
- * all four are in, the sheet leaves: no minimum time, no waiting on animation.
+ * re-rendering. The app adds its own milestone once it is running. Steps that
+ * have happened are revealed no faster than one per STEP_MS (see there), so even
+ * a fast load reads as a sequence. Once the fourth is shown the sheet leaves,
+ * but never before MIN_MS on screen.
  *
  * Shown once per tab session, on the first full page load only (client
  * navigation never re-renders the root layout). Safety net: the inline script
@@ -51,12 +53,26 @@ const LABELS: [Stage, string][] = [
   ["ready", "Ready"],
 ];
 
+/**
+ * The least time the sheet stays up (ms from when it first appears), so it can
+ * be seen. If the page is ready sooner it holds on READY 04/04 until then;
+ * slower loads aren't delayed. Keep under the 8s safety net.
+ */
+export const MIN_MS = 3000;
+/**
+ * Steps are revealed at most one per STEP_MS, so a fast load still reads
+ * 01 → 02 → 03 → 04. Each time, the next one shown is the earliest in
+ * MILESTONES order that has really happened, so the labels read in their
+ * natural order. A step is never shown before it has happened; only the pace
+ * and order of showing them are set here.
+ */
+export const STEP_MS = 600;
 /** The sheet's exit (ms): secondary details fade, then the wipe (matches the CSS). */
 export const EXIT_MS = 760;
 /** With reduced motion: a short fade only. */
 export const EXIT_STATIC_MS = 220;
 
-export const loaderBootstrap = `(function(){try{var d=document.documentElement,p=location.pathname,k="ss-loader-seen";if(p.indexOf("/dev/")===0||p.indexOf("/preloader-preview")===0)return;if(!/[?&]preloader(=|&|$)/.test(location.search)&&sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");d.classList.add("loader-on");var st=matchMedia("(prefers-reduced-motion: reduce)").matches;if(st)d.classList.add("loader-static");var m={},n=0,out=0;function stage(){return !m.dom?"init":!m.app?"interface":!(m.fonts&&m.load)?"assets":"ready"}function sync(){d.setAttribute("data-loader-stage",stage());d.setAttribute("data-loader-count",n);d.style.setProperty("--loader-progress",n/4)}function exit(){if(out)return;out=1;d.classList.add("loader-out");d.classList.remove("loader-on");setTimeout(function(){d.classList.remove("loader-out","loader-static");d.removeAttribute("data-loader-stage");d.removeAttribute("data-loader-count");d.style.removeProperty("--loader-progress");window.dispatchEvent(new Event("ss-loader-done"))},st?${EXIT_STATIC_MS}:${EXIT_MS})}function mark(x){if(m[x]||out)return;m[x]=1;n++;sync();if(n===4)exit()}window.__ssLoader={mark:mark};sync();document.addEventListener("DOMContentLoaded",function(){mark("dom")});if(document.fonts){document.fonts.ready.then(function(){mark("fonts")},function(){mark("fonts")})}else{mark("fonts")}window.addEventListener("load",function(){mark("load")});setTimeout(exit,8000)}catch(e){}})();`;
+export const loaderBootstrap = `(function(){try{var d=document.documentElement,p=location.pathname,k="ss-loader-seen";if(p.indexOf("/dev/")===0||p.indexOf("/preloader-preview")===0)return;if(!/[?&]preloader(=|&|$)/.test(location.search)&&sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1");d.classList.add("loader-on");var st=matchMedia("(prefers-reduced-motion: reduce)").matches;if(st)d.classList.add("loader-static");var m={},sh={},L=["dom","app","fonts","load"],n=0,out=0,pace=0,t0=Date.now(),last=t0;function stage(){return !sh.dom?"init":!sh.app?"interface":!(sh.fonts&&sh.load)?"assets":"ready"}function next(){for(var i=0;i<4;i++)if(m[L[i]]&&!sh[L[i]])return L[i]}function sync(){d.setAttribute("data-loader-stage",stage());d.setAttribute("data-loader-count",n);d.style.setProperty("--loader-progress",n/4)}function step(){pace=0;var x=next();if(out||!x)return;var w=last+${STEP_MS}-Date.now();if(w>0){pace=setTimeout(step,w);return}sh[x]=1;n++;last=Date.now();sync();if(n===4)setTimeout(exit,Math.max(0,${MIN_MS}-(last-t0)));else if(next())pace=setTimeout(step,${STEP_MS})}function exit(){if(out)return;out=1;d.classList.add("loader-out");d.classList.remove("loader-on");setTimeout(function(){d.classList.remove("loader-out","loader-static");d.removeAttribute("data-loader-stage");d.removeAttribute("data-loader-count");d.style.removeProperty("--loader-progress");window.dispatchEvent(new Event("ss-loader-done"))},st?${EXIT_STATIC_MS}:${EXIT_MS})}function mark(x){if(m[x]||out)return;m[x]=1;if(!pace)step()}window.__ssLoader={mark:mark};sync();document.addEventListener("DOMContentLoaded",function(){mark("dom")});if(document.fonts){document.fonts.ready.then(function(){mark("fonts")},function(){mark("fonts")})}else{mark("fonts")}window.addEventListener("load",function(){mark("load")});setTimeout(exit,8000)}catch(e){}})();`;
 
 /** Inline script; plain text on the client so React doesn't warn about rendering a script. */
 export function LoaderScript() {

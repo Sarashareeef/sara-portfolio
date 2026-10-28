@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
-import { EXIT_MS, EXIT_STATIC_MS, LoaderScene, MILESTONES, stageFor, type Milestone } from "./Loader";
+import { EXIT_MS, EXIT_STATIC_MS, LoaderScene, MILESTONES, MIN_MS, STEP_MS, stageFor, type Milestone } from "./Loader";
 import s from "./PreloaderPreview.module.css";
 
 /*
@@ -35,7 +35,11 @@ export default function PreloaderPreview() {
   const [loadMs, setLoadMs] = useState(2000);
   const [behind, setBehind] = useState<Behind>("hero");
   const [phase, setPhase] = useState<Phase>("waiting");
-  const [done, setDone] = useState<Partial<Record<Milestone, boolean>>>({});
+  // Milestones in the order they (simulatedly) happened, and those shown so far (paced, as on the site).
+  const [order, setOrder] = useState<Milestone[]>([]);
+  const [shownList, setShownList] = useState<Milestone[]>([]);
+  const startedAt = useRef(0);
+  const lastStep = useRef(0);
   const [elapsed, setElapsed] = useState(0);
   const [heroLoaded, setHeroLoaded] = useState(false);
   const [width, setWidth] = useState<number | null>(null);
@@ -46,13 +50,17 @@ export default function PreloaderPreview() {
   const [fullMotion, setFullMotion] = useState(false);
   const still = reduced && !fullMotion;
 
-  const count = MILESTONES.filter((m) => done[m]).length;
-  const stage = stageFor(done);
+  const happened = Object.fromEntries(order.map((m) => [m, true])) as Partial<Record<Milestone, boolean>>;
+  const count = shownList.length;
+  const stage = stageFor(Object.fromEntries(shownList.map((m) => [m, true])));
+  // As on the site: the next step shown is the earliest (in MILESTONES order) that has happened.
+  const nextToShow = MILESTONES.find((m) => happened[m] && !shownList.includes(m));
 
   /** Start again from a blank sheet (with the hero behind, once it has loaded). */
   const replay = useCallback(
     (nextBehind: Behind = behind) => {
-      setDone({});
+      setOrder([]);
+      setShownList([]);
       setElapsed(0);
       setRun((r) => r + 1);
       setPhase(nextBehind === "hero" && !heroLoaded ? "waiting" : "loading");
@@ -69,34 +77,52 @@ export default function PreloaderPreview() {
   };
 
   // As on the site, the hero's entrance plays as the sheet lifts: restart its reveals.
-  const replayHeroEntrance = () => {
+  const replayHeroEntrance = useCallback(() => {
     const doc = frame.current?.contentDocument;
     doc?.querySelectorAll<HTMLElement>('main > section:first-child [data-reveal="shown"]').forEach((el) => {
       el.dataset.reveal = "";
       void el.offsetWidth;
       el.dataset.reveal = "shown";
     });
-  };
+  }, []);
 
-  // The simulated load: milestones land at AT × load time, slowed with everything else.
+  // The simulated load: milestones happen at AT × load time, slowed with everything else.
   useEffect(() => {
     if (phase !== "loading") return;
     const f = 1 / speed;
     const t0 = performance.now();
-    const timers = MILESTONES.map((m) => window.setTimeout(() => setDone((d) => ({ ...d, [m]: true })), AT[m] * loadMs * f));
-    // As in production: the exit starts the moment the last milestone is in.
-    timers.push(
-      window.setTimeout(() => {
-        setPhase("exiting");
-        if (behind === "hero") replayHeroEntrance();
-      }, loadMs * f + 16),
+    startedAt.current = t0;
+    lastStep.current = t0;
+    const timers = MILESTONES.map((m) =>
+      window.setTimeout(() => setOrder((o) => (o.includes(m) ? o : [...o, m])), AT[m] * loadMs * f),
     );
     const clock = window.setInterval(() => setElapsed((performance.now() - t0) * speed), 50);
     return () => {
       timers.forEach((t) => window.clearTimeout(t));
       window.clearInterval(clock);
     };
-  }, [phase, run, speed, loadMs, behind]);
+  }, [phase, run, speed, loadMs]);
+
+  // As on the site: reveal what has happened one step per STEP_MS at most; once all
+  // four are shown, leave, but not before MIN_MS on screen.
+  useEffect(() => {
+    if (phase !== "loading") return;
+    const f = 1 / speed;
+    if (nextToShow) {
+      const t = window.setTimeout(() => {
+        lastStep.current = performance.now();
+        setShownList((l) => (l.includes(nextToShow) ? l : [...l, nextToShow]));
+      }, Math.max(0, lastStep.current + STEP_MS * f - performance.now()));
+      return () => window.clearTimeout(t);
+    }
+    if (shownList.length === MILESTONES.length) {
+      const t = window.setTimeout(() => {
+        setPhase("exiting");
+        if (behind === "hero") replayHeroEntrance();
+      }, Math.max(0, startedAt.current + MIN_MS * f - performance.now()));
+      return () => window.clearTimeout(t);
+    }
+  }, [phase, nextToShow, shownList.length, speed, behind, replayHeroEntrance]);
 
   // The exit runs its course, then the sheet is gone.
   useEffect(() => {
@@ -204,19 +230,22 @@ export default function PreloaderPreview() {
 
           <ol className={s.milestones}>
             {MILESTONES.map((m) => (
-              <li key={m} data-done={done[m] || undefined}>
-                <span>{done[m] ? "✓" : "·"}</span> {NAMES[m]} <span className={s.muted}>@ {((AT[m] * loadMs) / 1000).toFixed(2)}s</span>
+              <li key={m} data-done={happened[m] || undefined}>
+                <span>{happened[m] ? "✓" : "·"}</span> {NAMES[m]} <span className={s.muted}>@ {((AT[m] * loadMs) / 1000).toFixed(2)}s</span>
+                {shownList.includes(m) && <span className={s.muted}> · shown</span>}
               </li>
             ))}
           </ol>
 
           <p className={s.readout}>
             {phase === "waiting" ? "Loading the homepage behind…" : phase === "done" ? "Finished. Replay (R) to watch again." : `${stage.toUpperCase()} · ${count}/4 · ${(elapsed / 1000).toFixed(2)}s`}
+            {phase === "loading" && count === 4 && " · holding (minimum time on screen)"}
             {phase === "exiting" && " · exit"}
           </p>
           <p className={s.muted}>
             Speed slows every animation and the simulated timeline together. On the site each step is a real browser
-            event and the sheet leaves the moment the fourth lands. R replays · H hides this panel.
+            event; the sheet leaves once the fourth lands, after at least {MIN_MS / 1000}s on screen. R replays · H hides
+            this panel.
           </p>
         </section>
       ) : (
