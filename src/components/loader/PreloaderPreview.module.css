@@ -1,52 +1,57 @@
-/* Development-only preview controls for the loader (/dev/preloader). */
-.scene {
-  position: absolute;
+/* Development-only preview of the loader (/preloader-preview). */
+
+/* The real homepage, behind the sheet. */
+.hero {
+  position: fixed;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #fff;
+  /* Above the preview page's own header, beneath the sheet. */
+  z-index: 999;
 }
 
-/* Isolate parts of the animation. */
-.hide-board [data-part="board"],
-.hide-pin [data-part="pin"],
-.hide-text [data-part="text"],
-.hide-bar [data-part="bar"] {
-  visibility: hidden;
+/* Stands in for the site's fixed overlay; its width matches the framed page's
+   (without its scrollbar), so the frame lands on the board. */
+.scene {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  /* As high as the site's overlay, so the layout's own header stays beneath. */
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* While the homepage behind is still loading. */
+.cover {
+  background: #fff;
 }
 
 .panel {
-  --label-w: 132px;
-  --time-w: 92px;
   position: fixed;
-  left: 50%;
+  right: 14px;
   bottom: 14px;
   z-index: 1001;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: min(760px, calc(100vw - 20px));
+  width: min(460px, calc(100vw - 28px));
   padding: 12px 14px;
-  translate: -50% 0;
   border-radius: 12px;
-  background: rgba(22, 22, 26, 0.9);
+  background: rgba(22, 22, 26, 0.92);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
   color: #ececf1;
   font-family: var(--font-mono-stack);
   font-size: 11px;
-  line-height: 1.4;
-  backdrop-filter: blur(6px);
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
+  line-height: 1.45;
 }
 
 .panel button {
-  padding: 5px 9px;
+  min-height: 30px;
+  padding: 5px 10px;
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.08);
   color: inherit;
@@ -57,9 +62,21 @@
   background: rgba(255, 255, 255, 0.16);
 }
 
-.panel .primary {
+.panel button[aria-pressed="true"] {
   background: #cbc2e6;
   color: #1f1f24;
+}
+
+.panel .primary {
+  background: #ececf1;
+  color: #1f1f24;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
 }
 
 .group {
@@ -70,115 +87,68 @@
   background: rgba(255, 255, 255, 0.05);
 }
 
-.group button[aria-pressed="true"] {
-  background: #b4c8dc;
-  color: #1f1f24;
-}
-
-.check {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
-}
-
-.time {
-  margin-left: auto;
-  font-variant-numeric: tabular-nums;
-}
-
-.muted {
-  color: #9a9aa6;
-}
-
-/* Timeline lanes with a shared playhead. */
-.timeline {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.panel .lane {
-  display: grid;
-  grid-template-columns: var(--label-w) 1fr var(--time-w);
-  align-items: center;
-  padding: 2px 0;
+.badge {
+  align-self: flex-start;
+  padding: 2px 7px;
   border-radius: 4px;
-  background: none;
-  text-align: left;
-}
-
-.laneLabel {
-  padding-left: 4px;
-  color: #c8c8d0;
-}
-
-.laneTime {
-  padding-left: 8px;
-  color: #9a9aa6;
-  font-variant-numeric: tabular-nums;
-}
-
-.track {
-  position: relative;
-  height: 10px;
-  border-radius: 5px;
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.bar {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  border-radius: 5px;
-  background: #cbc2e6;
-}
-
-.bar-board {
-  background: #d3a172;
-}
-
-.bar-pin {
-  background: #cfcfd4;
-}
-
-.bar-text {
-  background: #b4c8dc;
-}
-
-.bar-bar {
   background: #e8d59c;
+  color: #1f1f24;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
-.bar-rest {
-  background: rgba(255, 255, 255, 0.25);
+.notice {
+  color: #e8d59c;
 }
 
-.bar-exit {
-  background: #ecc6cc;
+.notice button {
+  margin-left: 4px;
+  text-decoration: underline;
 }
 
-.playhead {
-  position: absolute;
-  top: -3px;
-  bottom: -3px;
-  width: 1.5px;
-  background: #fff;
-  pointer-events: none;
+.slider {
+  display: grid;
+  gap: 4px;
 }
 
-.scrub {
+.slider input {
   width: 100%;
   accent-color: #cbc2e6;
 }
 
+.milestones {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px 12px;
+  color: #9a9aa3;
+}
+
+.milestones [data-done] {
+  color: #ececf1;
+}
+
+.readout {
+  font-variant-numeric: tabular-nums;
+  color: #e8d59c;
+}
+
+.muted {
+  color: #9a9aa3;
+}
+
+/* Shown while the panel is hidden. */
 .reveal {
   position: fixed;
   right: 14px;
   bottom: 14px;
   z-index: 1001;
-  padding: 6px 10px;
+  display: flex;
+  gap: 6px;
+}
+
+.reveal button {
+  padding: 8px 12px;
   border-radius: 6px;
   background: rgba(22, 22, 26, 0.85);
   color: #ececf1;
@@ -186,13 +156,15 @@
   font-size: 11px;
 }
 
+/* Phones: a full-width panel. */
 @media (max-width: 599px) {
   .panel {
-    --label-w: 96px;
-    --time-w: 0px;
+    right: 8px;
+    bottom: 8px;
+    width: calc(100vw - 16px);
   }
 
-  .laneTime {
-    display: none;
+  .milestones {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

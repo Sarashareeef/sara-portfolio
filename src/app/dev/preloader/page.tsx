@@ -1,17 +1,10 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import PreloaderPreview from "@/components/loader/PreloaderPreview";
-
-export const metadata: Metadata = {
-  title: "Preloader preview (development)",
-  robots: { index: false, follow: false },
-};
+import { notFound, redirect } from "next/navigation";
 
 /**
- * Development-only: the first-visit loader on its own, with playback controls.
- * Production builds serve a 404 here, so none of this reaches the live site.
+ * Development-only: the loader preview moved to /preloader-preview.
+ * Production builds serve a 404 here. Remove with the preview.
  */
-export default function PreloaderPreviewPage() {
+export default function PreloaderPreviewRedirect() {
   if (process.env.NODE_ENV === "production") notFound();
-  return <PreloaderPreview />;
+  redirect("/preloader-preview");
 }
