@@ -67,7 +67,7 @@ export default function FolderCard({ project }: { project: Project }) {
         </div>
 
         {/* Hover: a page slides out of the folder. */}
-        <div className={styles.paper} style={pos(card.paper.x, card.paper.y)} aria-hidden="true">
+        <div className={styles.paper} style={pos(card.paper.x, card.paper.y)} aria-hidden="true" data-paper="">
           <p className={styles.paperLabel}>IN THE FILE</p>
           <p className={styles.paperTitle}>{preview.title}</p>
           <div

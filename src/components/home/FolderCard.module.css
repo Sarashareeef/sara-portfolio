@@ -273,19 +273,13 @@
 }
 
 /* Touch devices: the same page follows the scroll out of the folder once the
-   card has been read (FolderPlayer sets --open from 0, tucked in, to 1, the
-   hover pose). Scroll-linked, so no transition. */
+   card has been read. FolderPlayer eases it and writes its opacity and
+   transform directly (reduced motion: it only fades, in place), so no
+   transition here. Its own layer: moving and fading it composites, instead of
+   repainting the page and its shadow on every frame of the scroll. */
 .card[data-scroll] .paper {
-  opacity: var(--open, 0);
-  transform: translateY(calc((1 - var(--open, 0)) * 18 * var(--u))) rotate(calc(1.25deg + (1 - var(--open, 0)) * 3.75deg));
   transition: none;
-}
-
-/* Reduced motion: the page only fades with the scroll, already in place. */
-@media (prefers-reduced-motion: reduce) {
-  .card[data-scroll] .paper {
-    transform: translateY(0) rotate(1.25deg);
-  }
+  will-change: transform, opacity;
 }
 
 .card:focus-visible .tagline,
