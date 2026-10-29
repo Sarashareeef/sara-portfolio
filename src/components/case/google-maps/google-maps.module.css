@@ -1214,7 +1214,7 @@ p.reviewBig {
 /* ---- Closing strip: label left, BACK TO TOP right, always on one row and
    vertically centred, at every width. Same side padding as the sections. Where
    the label can't fit one line it breaks only between its two halves
-   ("GOOGLE MAPS REDESIGN —" / "UX CASE STUDY — 2025"), and the link stays
+   ("GOOGLE MAPS REDESIGN —" / "UX CASE STUDY"), and the link stays
    centred beside both lines. */
 .caseStrip {
   display: flex;

@@ -11,7 +11,7 @@ export default function Work() {
       <h2 className={styles.display} data-reveal="">case studies</h2>
       <div className={styles.metaRow} data-reveal="">
         <p>SARA&apos;S PROJECT FILES</p>
-        <p>SELECTED WORK / 2025—2026</p>
+        <p>SELECTED WORK</p>
       </div>
       <div className={styles.grid}>
         {projects.map((p) => (

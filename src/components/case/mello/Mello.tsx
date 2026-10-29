@@ -608,7 +608,10 @@ export default function Mello() {
       </Section>
 
       <div className={s.caseStrip}>
-        <p>MELLO — UX CASE STUDY — 2025/2026</p>
+        {/* Where the label can't fit one line it breaks only between its two halves. */}
+        <p>
+          <span>MELLO —</span> <span>UX CASE STUDY — 2025/2026</span>
+        </p>
         {/* Lenis turns in-page anchors into a smooth scroll (instant with reduced motion). */}
         <a href="#intro">BACK TO TOP ↑</a>
       </div>

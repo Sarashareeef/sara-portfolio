@@ -804,19 +804,21 @@ h2.impactTitle {
     border-top: 0.928px solid var(--grey);
   }
 
-  .caseStrip p,
-  .caseStrip a {
-    white-space: nowrap;
-  }
-
+  /* Same strip type as the other case studies (voyaige/musemap .caseStrip). */
   .caseStrip p {
+    min-width: 0;
     font-size: 9.28px;
     line-height: 13.92px;
     letter-spacing: 0.93px;
     color: var(--muted);
   }
 
+  .caseStrip p span {
+    white-space: nowrap;
+  }
+
   .caseStrip a {
+    flex: none;
     padding-bottom: 1px;
     border-bottom: 0.928px solid var(--black);
     font-size: 11.2px;
@@ -947,14 +949,6 @@ h2.impactTitle {
 
   .caseStrip {
     padding: 24px 22px 18px 32px;
-  }
-
-  .caseStrip p {
-    font-size: 7px;
-  }
-
-  .caseStrip a {
-    font-size: 8px;
   }
 }
 

@@ -36,7 +36,7 @@ export default function FolderCard({ project }: { project: Project }) {
             so PROJECT / the type line up with the title and the year / OPEN FILE line up right. */}
         <div className={styles.labels} style={pos(card.column.x, card.labels.y)}>
           <span>PROJECT / {project.number}</span>
-          <span>{project.year}</span>
+          {project.year && <span>{project.year}</span>}
         </div>
 
         <div

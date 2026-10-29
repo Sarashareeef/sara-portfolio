@@ -1,16 +1,31 @@
 "use client";
 
-import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
 import styles from "./Sketchbook.module.css";
 
 type Tool = "pencil" | "eraser";
-/** A stroke in board space: flat [x0, y0, x1, y1, …]. */
-type Stroke = { tool: Tool; width: number; points: number[] };
+/** A stroke in board space: flat [x0, y0, x1, y1, …], in its own colour. */
+type Stroke = { tool: Tool; width: number; color: string; points: number[] };
 type Action = { kind: "stroke"; stroke: Stroke } | { kind: "clear" };
 type Api = { undo: () => void; clear: () => void; download: () => void };
 
 const INK = "#27231f";
 const PAPER = "#fbf9f5";
+/** Pencil colours, around the wheel: the original ink, warm, pastel and cool shades. */
+const COLORS = [
+  { name: "Ink", value: INK },
+  { name: "Terracotta", value: "#c4573a" },
+  { name: "Marigold", value: "#e09a2b" },
+  { name: "Butter", value: "#eccb5f" },
+  { name: "Sage", value: "#8db894" },
+  { name: "Forest", value: "#2f7a4f" },
+  { name: "Sky", value: "#79b6df" },
+  { name: "Cobalt", value: "#2f5fd0" },
+  { name: "Lavender", value: "#a991d6" },
+  { name: "Plum", value: "#6d3b8c" },
+  { name: "Rose", value: "#e0708f" },
+  { name: "Blush", value: "#efa9bb" },
+] as const;
 const WIDTHS: Record<Tool, number> = { pencil: 2.4, eraser: 22 };
 const FILENAME = "my-doodle.png";
 
@@ -21,9 +36,9 @@ const visibleStrokes = (history: Action[]) => {
 };
 
 /** One stroke as a smooth path: quadratic curves through the midpoints. */
-function paint(ctx: CanvasRenderingContext2D, { tool, width, points: p }: Stroke) {
+function paint(ctx: CanvasRenderingContext2D, { tool, width, color, points: p }: Stroke) {
   ctx.globalCompositeOperation = tool === "eraser" ? "destination-out" : "source-over";
-  ctx.strokeStyle = ctx.fillStyle = INK;
+  ctx.strokeStyle = ctx.fillStyle = color;
   ctx.lineWidth = width;
   ctx.lineCap = ctx.lineJoin = "round";
   ctx.beginPath();
@@ -52,8 +67,10 @@ export default function DoodleBoard() {
   const baseRef = useRef<HTMLCanvasElement>(null);
   const liveRef = useRef<HTMLCanvasElement>(null);
   const toolRef = useRef<Tool>("pencil");
+  const colorRef = useRef<string>(INK);
   const apiRef = useRef<Api | null>(null);
   const [tool, setTool] = useState<Tool>("pencil");
+  const [color, setColor] = useState<string>(INK);
   const [canUndo, setCanUndo] = useState(false);
   const [empty, setEmpty] = useState(true);
   const [status, setStatus] = useState("");
@@ -158,7 +175,7 @@ export default function DoodleBoard() {
         view = { ...view, s: 1, ox: 0, oy: 0 };
       }
       const t = toolRef.current;
-      current = { tool: t, width: WIDTHS[t], points: toBoard(e) };
+      current = { tool: t, width: WIDTHS[t], color: colorRef.current, points: toBoard(e) };
       if (t === "eraser") {
         applyView(bctx);
         paint(bctx, current);
@@ -260,6 +277,24 @@ export default function DoodleBoard() {
     setTool(t);
   };
 
+  // Picking a colour picks it up with the pencil (even from the eraser).
+  const pickColor = (value: string) => {
+    colorRef.current = value;
+    setColor(value);
+    choose("pencil");
+  };
+
+  // Palette is one radio group: arrows move (and select) along it, Home/End jump.
+  const onPaletteKey = (e: KeyboardEvent<HTMLDivElement>) => {
+    const i = COLORS.findIndex((c) => c.value === color);
+    const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+    const next = step !== undefined ? (i + step + COLORS.length) % COLORS.length : e.key === "Home" ? 0 : e.key === "End" ? COLORS.length - 1 : -1;
+    if (next < 0) return;
+    e.preventDefault();
+    pickColor(COLORS[next].value);
+    e.currentTarget.querySelectorAll<HTMLButtonElement>("button")[next]?.focus();
+  };
+
   // Ctrl/Cmd+Z undoes, but only while focus is inside the board.
   const onKeyDown = (e: KeyboardEvent) => {
     if ((e.ctrlKey || e.metaKey) && !e.shiftKey && e.key.toLowerCase() === "z") {
@@ -281,6 +316,31 @@ export default function DoodleBoard() {
         <p className={styles.hint} aria-hidden="true">
           Draw anything here
         </p>
+      </div>
+
+      <div className={styles.palette}>
+        <span className={styles.paletteLabel} id="doodle-colour">
+          Colour
+        </span>
+        <div className={styles.swatches} role="radiogroup" aria-labelledby="doodle-colour" onKeyDown={onPaletteKey}>
+          {COLORS.map((c) => {
+            const on = c.value === color;
+            return (
+              <button
+                key={c.value}
+                type="button"
+                role="radio"
+                aria-checked={on}
+                aria-label={c.name}
+                title={c.name}
+                tabIndex={on ? 0 : -1}
+                className={styles.swatch}
+                style={{ "--swatch": c.value } as CSSProperties}
+                onClick={() => pickColor(c.value)}
+              />
+            );
+          })}
+        </div>
       </div>
 
       <div className={styles.toolbar} role="toolbar" aria-label="Drawing tools">

@@ -5,7 +5,7 @@ import styles from "./case.module.css";
 
 export default function CaseLayout({
   toc,
-  footer = "UX CASE STUDY 2025–2026",
+  footer = "UX CASE STUDY",
   children,
 }: {
   toc: TocItem[];

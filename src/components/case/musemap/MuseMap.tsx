@@ -400,7 +400,7 @@ function SourcesDiagram() {
 
 export default function MuseMap() {
   return (
-    <CaseLayout toc={toc} footer="MUSEMAP — UX CASE STUDY — 2025">
+    <CaseLayout toc={toc} footer="MUSEMAP — UX CASE STUDY">
       {/* Before the hero parses, so its entrance starts hidden without a flash. */}
       <RevealScript />
       {/* The desktop frame wraps these three contents labels onto two lines
@@ -447,7 +447,7 @@ nav[aria-label="Case study contents"] a[href="#ecosystem"] > span:last-child { w
           </div>
           <a
             className={s.protoLink}
-            href="https://www.figma.com/proto/BlhTFyCbIQ7SqUW3bSYbmQ/Musemap-redesigning-goog-voyAIgele-maps?node-id=2-2&p=f&viewport=-89%2C121%2C0.08&t=kxFPmAlfNljcNX2B-0&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=2%3A3727"
+            href="https://www.figma.com/proto/NS0aVhODN3ukThEJF2yVjI/voyAIge-musemap?node-id=1-2&t=ez739wd3PZdH8CkO-1"
             target="_blank"
             rel="noreferrer"
           >
@@ -712,7 +712,7 @@ nav[aria-label="Case study contents"] a[href="#ecosystem"] > span:last-child { w
         <div className={s.caseStrip}>
           {/* Where the label can't fit one line it breaks only between its two halves. */}
           <p>
-            <span>MUSEMAP —</span> <span>UX CASE STUDY — 2025</span>
+            <span>MUSEMAP —</span> <span>UX CASE STUDY</span>
           </p>
           {/* Lenis turns in-page anchors into a smooth scroll (instant with reduced motion). */}
           <a href="#intro">BACK TO TOP ↑</a>

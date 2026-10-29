@@ -6,7 +6,8 @@ export type Project = {
   number: string;
   title: string;
   tagline: string;
-  year: string;
+  /** Shown on the project's folder card; only Mello's file carries a year. */
+  year?: string;
   primary: string;
   secondary?: string;
   tags: string;
@@ -77,7 +78,6 @@ export const projects: Project[] = [
     number: "02",
     title: "GOOGLE MAPS REDESIGN",
     tagline: "MAPS × NIGHT SAFETY",
-    year: "2025",
     primary: "Surfacing safety context alongside familiar directions, for better route choices after dark.",
     tags: "UI/UX · Interaction Design · Research",
     footnote: "INDEPENDENT CONCEPT",
@@ -109,7 +109,6 @@ export const projects: Project[] = [
     number: "03",
     title: "VOYAIGE",
     tagline: "AI × TRAVEL",
-    year: "2025",
     primary: "Realistic itineraries, planned in one place.",
     secondary: "Day-by-day plans shaped by interests, commute times and opening hours.",
     tags: "UI/UX · Product Design · Mobile",
@@ -140,7 +139,6 @@ export const projects: Project[] = [
     number: "04",
     title: "MUSEMAP",
     tagline: "ART × DISCOVERY",
-    year: "2025",
     primary: "Discover the art around you.",
     secondary: "A visual, map-led way to find galleries, exhibitions and creative spaces.",
     tags: "UI/UX · Visual Design · Research",

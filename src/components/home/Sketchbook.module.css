@@ -129,8 +129,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-serif-stack);
-  font-style: italic;
+  font-family: var(--font-mono-stack);
   font-size: 22px;
   color: rgba(39, 35, 31, 0.32);
   pointer-events: none;
@@ -140,6 +139,74 @@
 
 .board[data-empty] .hint {
   opacity: 1;
+}
+
+/* ---- Pencil colours: a quiet row of swatches between the paper and the tools ---- */
+.palette {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--paper-edge);
+  background: var(--white);
+}
+
+.paletteLabel {
+  flex: none;
+  padding-left: 12px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+/* Each swatch is a 32px target around a 20px dot; the chosen one gets an ink ring. */
+.swatch {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  touch-action: manipulation;
+}
+
+.swatch::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--swatch);
+  box-shadow: inset 0 0 0 1px rgba(39, 35, 31, 0.14);
+  transition: transform 0.15s ease;
+}
+
+.swatch::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1.5px solid transparent;
+  border-radius: 50%;
+  transition: border-color 0.15s ease;
+}
+
+.swatch:hover::before {
+  transform: scale(1.12);
+}
+
+.swatch[aria-checked="true"]::after {
+  border-color: var(--ink);
+}
+
+.swatch:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
 }
 
 .toolbar {
@@ -245,6 +312,20 @@
     min-width: 44px;
     justify-content: center;
   }
+
+  .swatch {
+    width: 40px;
+    height: 40px;
+  }
+
+  .swatch::before {
+    width: 24px;
+    height: 24px;
+  }
+
+  .swatch::after {
+    inset: 4px;
+  }
 }
 
 /* Tablet: intro above the board, doodles as a strip beside the intro text. */
@@ -345,6 +426,28 @@
     aspect-ratio: 4 / 5;
     max-height: 62svh;
     width: 100%;
+  }
+
+  /* Colours: two even rows of six under the paper; the label stays for screen readers. */
+  .palette {
+    padding: 6px 8px;
+  }
+
+  .paletteLabel {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    justify-items: center;
+    width: 100%;
+    gap: 0;
   }
 
   /* Messages get their own line under the buttons, only when there is one. */

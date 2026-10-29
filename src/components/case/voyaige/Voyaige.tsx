@@ -286,7 +286,7 @@ function FinalBoard() {
 
 export default function Voyaige() {
   return (
-    <CaseLayout toc={toc} footer="VOYAIGE — UX CASE STUDY — 2025">
+    <CaseLayout toc={toc} footer="VOYAIGE — UX CASE STUDY">
       {/* Before the hero parses, so its entrance starts hidden without a flash. */}
       <RevealScript />
       <div className={`${s.root} ${jetbrains.variable}`}>
@@ -317,15 +317,13 @@ export default function Voyaige() {
             h={562}
             alt="Three Voyaige mobile screens: trip details, the welcome screen and a Dubai itinerary"
           />
-          {/* No prototype URL is in the design file yet; same placeholder as Mello's hero link. */}
           <a
             className={s.protoLink}
-            href="https://www.figma.com/proto/BlhTFyCbIQ7SqUW3bSYbmQ/Musemap-redesigning-goog-voyAIgele-maps?node-id=2-12018&p=f&viewport=63%2C-75%2C0.13&t=kxFPmAlfNljcNX2B-0&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=13%3A1399"
+            href="https://www.figma.com/proto/NS0aVhODN3ukThEJF2yVjI/voyAIge-musemap?node-id=0-1&t=ez739wd3PZdH8CkO-1"
             target="_blank"
             rel="noreferrer"
           >
-            <span className={s.notP}>VIEW PROTOTYPE ↗</span>
-            <span className={s.pOnly}>VIEW LIVE PRODUCT ↗</span>
+            VIEW PROTOTYPE ↗
           </a>
         </CaseHero>
 
@@ -722,7 +720,7 @@ export default function Voyaige() {
         <div className={s.caseStrip}>
           {/* Where the label can't fit one line it breaks only between its two halves. */}
           <p>
-            <span>VOYAIGE —</span> <span>UX CASE STUDY — 2025</span>
+            <span>VOYAIGE —</span> <span>UX CASE STUDY</span>
           </p>
           {/* Lenis turns in-page anchors into a smooth scroll (instant with reduced motion). */}
           <a href="#intro">BACK TO TOP ↑</a>

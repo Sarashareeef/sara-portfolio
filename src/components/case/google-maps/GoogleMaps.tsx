@@ -349,7 +349,7 @@ function UiBoard() {
 
 export default function GoogleMaps() {
   return (
-    <CaseLayout toc={toc} footer="GOOGLE MAPS REDESIGN — UX CASE STUDY — 2025">
+    <CaseLayout toc={toc} footer="GOOGLE MAPS REDESIGN — UX CASE STUDY">
       {/* Before the hero parses, so its entrance starts hidden without a flash. */}
       <RevealScript />
       {/* The desktop frame wraps "TRUST & / FEASIBILITY" in a 104px label box (14.4 line
@@ -883,7 +883,7 @@ export default function GoogleMaps() {
           {/* One label at every width; where it can't fit one line it breaks only
               between its two halves. */}
           <p>
-            <span>GOOGLE MAPS REDESIGN —</span> <span>UX CASE STUDY — 2025</span>
+            <span>GOOGLE MAPS REDESIGN —</span> <span>UX CASE STUDY</span>
           </p>
           {/* Lenis turns in-page anchors into a smooth scroll (instant with reduced motion). */}
           <a href="#intro">BACK TO TOP ↑</a>
